@@ -1,5 +1,20 @@
 angular.module('ui.bootstrap.demo', ['ui.bootstrap']);
-angular.module('ui.bootstrap.demo').controller('DemoCtrl', function ($scope, $log) {
+angular.module('ui.bootstrap.demo').controller('DemoCtrl', function ($scope, $log, BDService) {
+
+    $scope.service = BDService;
+
+
+    $scope.service.post('helloWorld', {
+      hello:'hello'
+      
+    }).then(function(response){
+
+      $response = angular.fromJson(response.data);
+      $response = $response.data;
+      $scope.nombres = $response.nombre;
+      console.log($response.nombre);
+  });
+
 
     $scope.user = "Hola mundo";
 
@@ -21,8 +36,6 @@ angular.module('ui.bootstrap.demo').controller('DemoCtrl', function ($scope, $lo
       },
 
     };
-
-    console.log($scope.list);
 
     $scope.mostrar = true;
 
