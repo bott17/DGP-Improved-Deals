@@ -45,7 +45,6 @@ $allowedActions = array(
 	'helloworld'
 );
 
-
 $response = array('status' => 0, 'error_code' => 0, 'description' => 'Success', 'data' => array());
 $continue = True;
 $REQUEST = $_POST;
@@ -84,7 +83,6 @@ if($continue){
 			}
 
 		break;
-
 	}
 }
 

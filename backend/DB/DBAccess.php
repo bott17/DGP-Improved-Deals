@@ -46,9 +46,6 @@ class DBAccess {
 
 	}
 
-
-
-
 }
 
 ?>
