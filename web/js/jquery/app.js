@@ -51,8 +51,8 @@
         bathrooms : '2',
         area : '3430 Sq Ft',
         position : {
-            lat : 40.696047,
-            lng : -73.997159
+            lat : 37.1691906,
+            lng : -3.5895311			
         },
         markerIcon : "marker-green.png"
     }, {
