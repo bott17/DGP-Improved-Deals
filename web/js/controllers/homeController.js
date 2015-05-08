@@ -5,8 +5,8 @@ angular.module('aloha').controller('homeController', function ($scope, $log) {
     $scope.dt = new Date();
   };
   $scope.today();
-  $scope.dtstart = new Date();
-  $scope.dtend = new Date();
+  $scope.dtstart;
+  $scope.dtend;
 
   $scope.clear = function () {
     $scope.dt = null;
@@ -22,11 +22,19 @@ angular.module('aloha').controller('homeController', function ($scope, $log) {
   };
   $scope.toggleMin();
 
-  $scope.open = function($event) {
+  $scope.open = function($event,obj) {
     $event.preventDefault();
     $event.stopPropagation();
 
-    $scope.opened = true;
+    if(obj == 'dp1'){
+    	$scope.openeddt1 = true;
+    }else if(obj == 'dp2'){
+    	$scope.openeddt2 = true;
+    }
+
+    
+    console.log(obj);
   };
+
 
 });
