@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="aloha">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,14 +21,14 @@
          <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
          <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/src/js/bootstrap-datetimepicker.js"></script>
-         
+         <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha512.js"></script>
 
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="notransition no-hidden">
+    <body ng-controller="homeController" class="notransition no-hidden">
 
         <!-- Hero -->
 
@@ -92,33 +92,22 @@
                             <li><input type="radio" name="bathno"><a href="#">4</a></li>
                         </ul>
                     </div>
-                    <div class="form-group hidden-xs adv" style="color: #333;">
-                        <div class='input-group date' id='datetimepicker6'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                            <input type='text' class="form-control" /> 
+                    <div class="form-group " style="color: #333;">
+                        <div class='input-group' >
+                            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dtstart" is-open="openeddt1"  max-date="dtend" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event,'dp1')"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
                         </div>
-                        <div class='input-group date' id='datetimepicker7'>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                            <input type='text' class="form-control" />
+                        <div class='input-group'>
+                            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dtend" is-open="openeddt2" min-date="dtstart" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event,'dp2')"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
                         </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#datetimepicker6').datetimepicker();
-                                $('#datetimepicker7').datetimepicker();
-                                $("#datetimepicker6").on("dp.change", function (e) {
-                                    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-                                });
-                                $("#datetimepicker7").on("dp.change", function (e) {
-                                    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-                                });
-                            });
-                        </script>
+
+
                     </div>
-                
                     <div class="form-group">
                         <a href="explore.html" class="btn btn-green">Buscar</a>
                     </div>
@@ -573,5 +562,10 @@
         <script src="js/jquery/infobox.js"></script>
         <script src="js/jquery/jquery.visible.js"></script>
         <script src="js/jquery/home.js" type="text/javascript"></script> 
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js" type="text/javascript"></script>
+        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script> 
+        <script src="js/app/app.js"></script>
+        <script src="js/controllers/homeController.js"></script>
     </body>
 </html>
