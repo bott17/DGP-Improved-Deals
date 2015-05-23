@@ -49,7 +49,6 @@ if (!('webkitSpeechRecognition' in window)) {
   };
 
   recognition.onend = function() {
-  		console.log("asdasasda");
     	recognizing = false;
 	   	if (ignore_onend) {
 	      return;
@@ -59,7 +58,7 @@ if (!('webkitSpeechRecognition' in window)) {
 	      //showInfo('images/imgspark/info_start');
 	      return;
 	    }
-	    if (window.getSelection) {çconsole.log("cuatro");
+	    if (window.getSelection) {
 	      window.getSelection().removeAllRanges();
 	      var range = document.createRange();
 	      range.selectNode(document.getElementById('titulo'));
@@ -113,11 +112,6 @@ Spark.prototype.escuchar = function() {
   start_timestamp = new Date().getTime();
 };
 
-Spark.prototype.recibido = function(){
-	recognition.stop();
-	console.log("parando..");
-};
-
 
 Spark.prototype.sayHello = function (){
 	console.log("hello world :D");
@@ -128,3 +122,25 @@ var first_char = /\S/;
 function capitalize(s) {
   return s.replace(first_char, function(m) { return m.toUpperCase(); });
 }
+
+
+Spark.prototype.hablar = function(text, callback){
+	// say a message
+    var u = new SpeechSynthesisUtterance();
+    u.text = text;
+    u.lang = 'es-Es';
+ 
+    u.onend = function () {
+        if (callback) {
+            callback();
+        }
+    };
+ 
+    u.onerror = function (e) {
+        if (callback) {
+            callback(e);
+        }
+    };
+ 
+    speechSynthesis.speak(u);
+};
