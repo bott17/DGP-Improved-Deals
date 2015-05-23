@@ -26,16 +26,16 @@ if (!('webkitSpeechRecognition' in window)) {
 
   recognition.onstart = function() {
     recognizing = true;
-    start_img.src = 'img/mic-animate.gif';
+    start_img.src = 'images/imgspark/mic-animate.gif';
   };
 
   recognition.onerror = function(event) {
     if (event.error == 'no-speech') {
-      start_img.src = 'img/mic.gif';
+      start_img.src = 'images/imgspark/mic.gif';
       ignore_onend = true;
     }
     if (event.error == 'audio-capture') {
-      start_img.src = 'img/mic.gif';
+      start_img.src = 'images/imgspark/mic.gif';
       ignore_onend = true;
     }
     if (event.error == 'not-allowed') {
@@ -49,34 +49,28 @@ if (!('webkitSpeechRecognition' in window)) {
   };
 
   recognition.onend = function() {
+  	/*
     recognizing = false;
     if (ignore_onend) {
       return;
     }
-    start_img.src = 'img/mic.gif';
+    start_img.src = 'images/imgspark/mic.gif';
     if (!final_transcript) {
-      showInfo('img/info_start');
+      //showInfo('images/imgspark/info_start');
       return;
     }
-    if (window.getSelection) {
+    if (window.getSelection) {çconsole.log("cuatro");
       window.getSelection().removeAllRanges();
       var range = document.createRange();
       range.selectNode(document.getElementById('titulo'));
       window.getSelection().addRange(range);
     }
+    */
+   	recognizing = false;
+    checkFinAsistente();
   };
 
   recognition.onresult = function(event) {
-    /*
-    var interim_transcript = '';
-    for (var i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        final_transcript += event.results[i][0].transcript;
-      } else {
-        interim_transcript += event.results[i][0].transcript;
-      }
-    }
-    */
    var interim_transcript = '';
     for (var i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
@@ -86,10 +80,14 @@ if (!('webkitSpeechRecognition' in window)) {
       }
     }
    final_transcript = capitalize(final_transcript);
-    console.log(final_transcript);
+   console.log(final_transcript);
+   console.log(interim_transcript);
     
+    resultadosTemporalesSpark(interim_transcript);
     resultadosSpark(final_transcript);
     final_transcript="";
+    interim_transcript="";
+    
   };
 }
 
@@ -100,6 +98,7 @@ function linebreak(s) {
 }
 
 Spark.prototype.escuchar = function(event) {
+	console.log("escuchando");
 
   if (recognizing) {
     recognition.stop();
@@ -109,7 +108,7 @@ Spark.prototype.escuchar = function(event) {
   recognition.lang = 'es';
   recognition.start();
   ignore_onend = false;
-  start_img.src = 'img/mic-slash.gif';
+  start_img.src = 'images/imgspark/mic-slash.gif';
   start_timestamp = event.timeStamp;
   
 };
