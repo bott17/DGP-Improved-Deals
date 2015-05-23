@@ -1,4 +1,4 @@
-angular.module('Aloha').service('HomeService', function($http, $window) {
+angular.module('aloha').service('HomeService', function($http, $window) {
 	
 	this.urlObj = {
 		helloWorld: {

@@ -1,1 +1,1 @@
-angular.module('aloha', ['ui.bootstrap']);
+angular.module('aloha', ['ui.bootstrap','ngAria']);

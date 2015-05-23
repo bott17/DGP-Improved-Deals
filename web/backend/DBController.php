@@ -3,56 +3,28 @@
 error_reporting(E_WARNING | E_ERROR | E_PARSE);
 error_reporting(E_ALL);
 include ('utils/utils.php');
-
-/**
- * Función que hace la request
- * @param $url: es la url a la que se hace la petición
- * @param $response: variable con la estructura de la respuesta.
- */
-function Request($url, &$response){
-	$remoteResponse = Utils::MakeRequest($url);
-	
-	$continue = True;
-	//print_r($url);
-	if(empty($remoteResponse)){
-		$continue = False;
-		$response['status'] = 1;
-		$response['error_code'] = 4;
-		$response['description'] = 'Remote request failed';
-	}
-	
-	utf8_encode($remoteResponse);
-
-	if($continue){
-		$jsonResponse = json_decode($remoteResponse, True);
-
-		if(empty($jsonResponse)){
-			$continue = False;
-			$response['status'] = 1;
-			$response['error_code'] = 5;
-			$response['description'] = 'Remote request decode failed';
-		}
-	}
-	
-	if($continue){
-		$response['data'] = $jsonResponse['data'];
-	}
-
-	return $response;
-}
+include ('DB/DBAccess.php');
 
 $allowedActions = array(
-	'helloworld'
+	'helloworld',
+	'registeruser'
 );
 
 $response = array('status' => 0, 'error_code' => 0, 'description' => 'Success', 'data' => array());
 $continue = True;
-$REQUEST = $_POST;
+$REQUEST = $_GET;
 $ACTION = '';
-//Si la accion está o no
-if(isset($REQUEST['action']))
-{
-	$ACTION = $REQUEST['action'];		
+//Si el parametro action está o no
+if(!isset($REQUEST['action'])){
+	$continue = False;
+	$response['status'] = 1;
+	$response['error_code'] = 1;
+	$response['description'] = 'Invalid parameter(1): action is not set';		
+}
+
+if($continue){
+	
+	$ACTION = $REQUEST['action'];
 }
 
 //Si la acción es permitida o no
@@ -63,12 +35,18 @@ if(!in_array($ACTION, $allowedActions)){
 		$response['description'] = 'Invalid action';
 }
 
+$db = DBAccess::getInstance();
+
 if($continue){
 	
 	switch(strtolower($ACTION)){
 
 		case 'helloworld':
-
+			
+			$params = array(
+				'hello'
+			);
+			
 			if(!in_array("hello", $REQUEST)){
 				$continue = False;
 				$response['status'] = 1;
@@ -77,9 +55,32 @@ if($continue){
 			}
 
 			if($continue){
-				$url = sprintf('http://localhost/DGP-Improved-Deals/backend/hello'); 
+				//TODO A EXAMPLE FUNCTION HELLO WORLD IN DBACCESS 
 
-				$response = Request($url, $response);
+			}
+
+		break;
+		
+		case 'registeruser':
+			
+			$params = array(
+				'user',
+				'pass'
+			);
+			
+			if(!isset($REQUEST['user']) || !isset($REQUEST['pass'])){
+				$continue = False;
+				$response['status'] = 1;
+				$response['error_code'] = 3;
+				$response['description'] = 'Invalid params(2): Invalid User or password';
+			}
+
+			if($continue){
+				
+				$filters['user'] = $REQUEST['user'];
+				$filters['pass'] = $REQUEST['pass'];
+			
+				$response = $db->registerUser($filters);
 			}
 
 		break;
