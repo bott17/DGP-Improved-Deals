@@ -28,21 +28,33 @@ class DBAccess {
 		}
 	}
 
-	public function test(){
+	public function registerUser($filter = array()){
+		$response = array();
 
-		$array = array();
+		$user = isset($filter['user'])?$filter['user']:-1;
+		$password = isset($filter['pass'])?$filter['pass']:-1;
+		$filtersql = "";
 		
-		$sql = sprintf("SELECT `nombre` FROM `test`");
+		
+		if($user != -1 && $password != -1 ){
+			$filtersql .= sprintf(" AND user= '%s' AND password= '%s'",
+				$this->dbObject->real_escape_string($user),
+				$this->dbObject->real_escape_string($password));
+		}
+		
+		$sql = sprintf("SELECT `nombre` FROM `test` WHERE 1 %s",
+			   $filtersql);
+		
+		
 		
 		$result = $this->dbObject->query($sql);
 
 		if($result){
 			while($row = $result->fetch_assoc()){
-				$array['nombre'][] = $row['nombre'];
+				$response['nombre'][] = $row['nombre'];
 			}
 		}
-	
-		return $array;
+		return $response;
 
 	}
 

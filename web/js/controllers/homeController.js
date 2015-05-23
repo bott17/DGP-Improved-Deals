@@ -1,5 +1,7 @@
 
-angular.module('aloha').controller('homeController', function ($scope, $log) {
+angular.module('aloha').controller('homeController', function ($scope, $log, HomeService) {
+
+  $scope.service = HomeService;
 
   $scope.today = function() {
     $scope.dt = new Date();

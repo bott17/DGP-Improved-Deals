@@ -49,13 +49,73 @@
                         <div class="mobAvatarName">John Smith</div>
                     </div>
                     <ul>
+
                         <li><a href="profile.html"><span class="icon-user"></span>Profile</a></li>
                         <li class="divider"></li>
                         <li><a href="#"><span class="icon-power"></span>Logout</a></li>
                     </ul>
                 </div>
             </div>
-            
+            <div class="headerNotifyWraper">
+                <a href="#" class="headerNotify dropdown-toggle" data-toggle="dropdown">
+                    <span class="notifyIcon icon-bell"></span>
+                    <span class="counter">5</span>
+                </a>
+                <div class="dropdown-menu pull-right notifyMenu" role="menu">
+                    <div class="notifyHeader">
+                        <span>Notifications</span>
+                        <a href="#" class="notifySettings icon-settings"></a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <ul class="notifyList">
+                        <li>
+                            <a href="#">
+                                <img class="avatar pull-left" src="images/avatar-1.png" alt="avatar">
+                                <div class="pulse border-grey"></div>
+                                <div class="notify pull-left">
+                                    <div class="notifyName">Sed ut perspiciatis unde</div>
+                                    <div class="notifyTime">5 minutes ago</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="notifyRound notifyRound-red fa fa-envelope-o"></div>
+                                <div class="pulse border-red"></div>
+                                <div class="notify pull-left">
+                                    <div class="notifyName">Lorem Ipsum is simply dummy text</div>
+                                    <div class="notifyTime">20 minutes ago</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="notifyRound notifyRound-yellow fa fa-heart-o"></div>
+                                <div class="pulse border-yellow"></div>
+                                <div class="notify pull-left">
+                                    <div class="notifyName">It is a long established fact</div>
+                                    <div class="notifyTime">2 hours ago</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="notifyRound notifyRound-magenta fa fa-paper-plane-o"></div>
+                                <div class="pulse border-magenta"></div>
+                                <div class="notify pull-left">
+                                    <div class="notifyName">There are many variations</div>
+                                    <div class="notifyTime">1 day ago</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="#" class="notifyAll">See All</a>
+                </div>
+            </div>
             <a href="#" class="mapHandler"><span class="icon-map"></span></a>
             <div class="clearfix"></div>
         </div>
@@ -70,6 +130,44 @@
                     <div class="clearfix"></div>
                 </div>
                 <ul>
+                    <li><a href="explore.html"><span class="navIcon icon-compass"></span><span class="navLabel">Explore</span></a></li>
+                    <li><a href="single.html"><span class="navIcon icon-home"></span><span class="navLabel">Single</span></a></li>
+                    <li><a href="add.html"><span class="navIcon icon-plus"></span><span class="navLabel">New</span></a></li>
+                    <li class="hasSub">
+                        <a href="#"><span class="navIcon icon-drop"></span><span class="navLabel">Colors</span><span class="fa fa-angle-left arrowRight"></span><span class="badge bg-yellow">5</span></a>
+                        <ul class="colors">
+                            <li><a href="#">Red <span class="fa fa-circle-o c-red icon-right"></span></a></li>
+                            <li><a href="#">Green <span class="fa fa-circle-o c-green icon-right"></span></a></li>
+                            <li><a href="#">Blue <span class="fa fa-circle-o c-blue icon-right"></span></a></li>
+                            <li><a href="#">Yellow <span class="fa fa-circle-o c-yellow icon-right"></span></a></li>
+                            <li><a href="#">Magenta <span class="fa fa-circle-o c-magenta icon-right"></span></a></li>
+                        </ul>
+                    </li>
+                    <li class="hasSub">
+                        <a href="#"><span class="navIcon icon-layers"></span><span class="navLabel">Elements</span><span class="fa fa-angle-left arrowRight"></span></a>
+                        <ul>
+                            <li><a href="buttons.html">Buttons</a></li>
+                            <li><a href="icons.html">Icons <span class="badge pull-right bg-yellow">841</span></a></li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="widgets.html">Widgets</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="lists.html">Lists</a></li>
+                            <li><a href="tables.html">Tables</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="hasSub">
+                        <a href="#"><span class="navIcon icon-link"></span><span class="navLabel">Pages</span><span class="fa fa-angle-left arrowRight"></span></a>
+                        <ul>
+                            <li><a href="signin.html">Sign In</a></li>
+                            <li><a href="signup.html">Sign Up</a></li>
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="index.html">Homepage Slideshow</a></li>
+                            <li><a href="index-map.html">Homepage Map</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="blog-post.html">Blog Post</a></li>
+                        </ul>
+                    </li>
                     <li><a href="explore.html"><span class="navIcon icon-compass"></span><span class="navLabel">
 					</span></a></li>
                     <li><a href="add.html"><span class="navIcon icon-plus"></span><span class="navLabel">Nuevo</span></a></li>
@@ -84,6 +182,7 @@
                     <div class="clearfix"></div>
                 </a>
                 <ul class="dropdown-menu" role="menu">
+
                     <li><a href="profile.html"><span class="icon-user"></span>Profile</a></li>
                     <li class="divider"></li>
                     <li><a href="#"><span class="icon-power"></span>Logout</a></li>
@@ -163,6 +262,7 @@
                                     </ul>
                                     <div class="clearfix"></div>
                                     <ul class="features">
+
                                         <li><span class="fa fa-moon-o"></span><div>2 Habitaciones</div></li>
                                         <li><span class="icon-drop"></span><div>2 Baños</div></li>
                                         <li><span class="icon-frame"></span><div>100 metros cuadrados</div></li>
@@ -175,7 +275,9 @@
                                      <div class="clearfix"></div>
                                     <img class="avatar agentAvatarImg" src="images/avatar-2.png" alt="avatar">
                                     <div class="agentName">Jane Smith</div>
+
                                     <a data-toggle="modal" href="#contactAgent" class="btn btn-lg btn-round btn-green contactBtn">Contactar</a>
+
                                 </div>
                             </div>
                         </div>
@@ -183,6 +285,44 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="description">
+                    <h3>Description</h3>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                </div>
+                <div class="share">
+                    <h3>Share on Social Networks</h3>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                            <a href="#" class="btn btn-sm btn-round btn-o btn-facebook"><span class="fa fa-facebook"></span> Facebook</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                            <a href="#" class="btn btn-sm btn-round btn-o btn-twitter"><span class="fa fa-twitter"></span> Twitter</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                            <a href="#" class="btn btn-sm btn-round btn-o btn-google"><span class="fa fa-google-plus"></span> Google+</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                            <a href="#" class="btn btn-sm btn-round btn-o btn-pinterest"><span class="fa fa-pinterest"></span> Pinterest</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="amenities">
+                    <h3>Amenities</h3>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-car"></span> Garage</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-tint"></span> Outdoor Pool</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-leaf"></span> Garden</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-shield"></span> Security System</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-wifi"></span> Internet</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-phone"></span> Telephone</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-asterisk"></span> Air Conditioning</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-sun-o"></span> Heating</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-fire"></span> Fireplace</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-arrows-v"></span> Balcony</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-desktop"></span> TV Cable</div>
+                    </div>
+                </div>
+                <div class="similar">
+                    <h3>Similar Properties</h3>
                     <h3>Descripcion</h3>
                     <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
                 </div>
@@ -203,6 +343,7 @@
                 </div>
                 <div class="similar">
                     <h3>Propiedades similares</h3>
+
                     <!-- carousel for medium & large devices -->
                     <div id="carouselSimilar-1" class="carousel slide visible-lg carousel-col">
                         <ol class="carousel-indicators">
@@ -795,6 +936,7 @@
                 </div>
                 <form class="commentsForm">
                     <div class="input-group">
+
                         <input type="text" class="form-control" placeholder="Escribe un comentario...">
                         <span class="input-group-btn"><a class="btn btn-green">Enviar</a></span>
                     </div>
@@ -809,18 +951,21 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
                         <h4 class="modal-title" id="contactLabel">Contactar</h4>
                     </div>
                     <div class="modal-body">
                         <form class="contactForm">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cfItem">
+
                                     <input type="text" placeholder="Nombre" class="form-control">
                                  </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cfItem">
                                     <input type="text" placeholder="Email" class="form-control">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cfItem">
+
                                     <input type="text" placeholder="Asunto" class="form-control">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cfItem">
