@@ -32,7 +32,7 @@
             <a href="#" class="navHandler"><span class="fa fa-bars"></span></a>
             <div class="search">
                 <span class="searchIcon icon-magnifier"></span>
-                <input type="text" placeholder="Search for houses, apartments...">
+                <input type="text" placeholder="Buscar...">
             </div>
             <div class="headerUserWraper">
                 <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
@@ -49,9 +49,8 @@
                         <div class="mobAvatarName">John Smith</div>
                     </div>
                     <ul>
-                        <li><a href="#"><span class="icon-settings"></span>Settings</a></li>
+
                         <li><a href="profile.html"><span class="icon-user"></span>Profile</a></li>
-                        <li><a href="#"><span class="icon-bell"></span>Notifications <span class="badge pull-right bg-red">5</span></a></li>
                         <li class="divider"></li>
                         <li><a href="#"><span class="icon-power"></span>Logout</a></li>
                     </ul>
@@ -169,20 +168,22 @@
                             <li><a href="blog-post.html">Blog Post</a></li>
                         </ul>
                     </li>
+                    <li><a href="explore.html"><span class="navIcon icon-compass"></span><span class="navLabel">
+					</span></a></li>
+                    <li><a href="add.html"><span class="navIcon icon-plus"></span><span class="navLabel">Nuevo</span></a></li>
                 </ul>
             </nav>
             <div class="leftUserWraper dropup">
                 <a href="#" class="avatarAction dropdown-toggle" data-toggle="dropdown">
-                    <img class="avatar" src="images/avatar-1.png" alt="avatar"><span class="counter">5</span>
+                    <img class="avatar" src="images/avatar-1.png" alt="avatar">
                     <div class="userBottom pull-left">
                         <span class="bottomUserName">John Smith</span> <span class="fa fa-angle-up pull-right arrowUp"></span>
                     </div>
                     <div class="clearfix"></div>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><span class="icon-settings"></span>Settings</a></li>
+
                     <li><a href="profile.html"><span class="icon-user"></span>Profile</a></li>
-                    <li><a href="#"><span class="icon-bell"></span>Notifications <span class="badge pull-right bg-red">5</span></a></li>
                     <li class="divider"></li>
                     <li><a href="#"><span class="icon-power"></span>Logout</a></li>
                 </ul>
@@ -261,9 +262,10 @@
                                     </ul>
                                     <div class="clearfix"></div>
                                     <ul class="features">
-                                        <li><span class="fa fa-moon-o"></span><div>2 Bedrooms</div></li>
-                                        <li><span class="icon-drop"></span><div>2 Bathrooms</div></li>
-                                        <li><span class="icon-frame"></span><div>2750 Sq Ft</div></li>
+
+                                        <li><span class="fa fa-moon-o"></span><div>2 Habitaciones</div></li>
+                                        <li><span class="icon-drop"></span><div>2 Baños</div></li>
+                                        <li><span class="icon-frame"></span><div>100 metros cuadrados</div></li>
                                     </ul>
                                     <div class="clearfix"></div>
                                 </div>
@@ -273,7 +275,9 @@
                                      <div class="clearfix"></div>
                                     <img class="avatar agentAvatarImg" src="images/avatar-2.png" alt="avatar">
                                     <div class="agentName">Jane Smith</div>
-                                    <a data-toggle="modal" href="#contactAgent" class="btn btn-lg btn-round btn-green contactBtn">Contact Agent</a>
+
+                                    <a data-toggle="modal" href="#contactAgent" class="btn btn-lg btn-round btn-green contactBtn">Contactar</a>
+
                                 </div>
                             </div>
                         </div>
@@ -319,6 +323,27 @@
                 </div>
                 <div class="similar">
                     <h3>Similar Properties</h3>
+                    <h3>Descripcion</h3>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                </div>
+                <div class="amenities">
+                    <h3>Comodidades</h3>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-car"></span> Garage</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-tint"></span> Piscina descubierta</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-leaf"></span> Jardín</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-shield"></span> Sistema de seguridad</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-wifi"></span> Internet</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-phone"></span> Teléfono</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-asterisk"></span> Aire acondicionado</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-sun-o"></span> Calefacción</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-arrows-v"></span> Balcón</div>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-desktop"></span> TV por Cable</div>
+                    </div>
+                </div>
+                <div class="similar">
+                    <h3>Propiedades similares</h3>
+
                     <!-- carousel for medium & large devices -->
                     <div id="carouselSimilar-1" class="carousel slide visible-lg carousel-col">
                         <ol class="carousel-indicators">
@@ -819,7 +844,7 @@
                     </div>
                 </div>
                 <div class="comments">
-                    <h3><span>4</span> Comments</h3>
+                    <h3><span>4</span> Comentarios</h3>
                     <div class="comment">
                         <div class="commentAvatar">
                             <img class="avatar" src="images/avatar-3.png" alt="avatar">
@@ -911,8 +936,9 @@
                 </div>
                 <form class="commentsForm">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Write a comment...">
-                        <span class="input-group-btn"><a class="btn btn-green">Post</a></span>
+
+                        <input type="text" class="form-control" placeholder="Escribe un comentario...">
+                        <span class="input-group-btn"><a class="btn btn-green">Enviar</a></span>
                     </div>
                 </form>
                 <div class="clearfix"></div>
@@ -925,29 +951,32 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="contactLabel">Contact Agent</h4>
+
+                        <h4 class="modal-title" id="contactLabel">Contactar</h4>
                     </div>
                     <div class="modal-body">
                         <form class="contactForm">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cfItem">
-                                    <input type="text" placeholder="Name" class="form-control">
+
+                                    <input type="text" placeholder="Nombre" class="form-control">
                                  </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cfItem">
                                     <input type="text" placeholder="Email" class="form-control">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cfItem">
-                                    <input type="text" placeholder="Subject" class="form-control">
+
+                                    <input type="text" placeholder="Asunto" class="form-control">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cfItem">
-                                    <textarea placeholder="Message" rows="3" class="form-control"></textarea>
+                                    <textarea placeholder="Mensaje" rows="3" class="form-control"></textarea>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" data-dismiss="modal" class="btn btn-round btn-o btn-gray">Close</a>
-                        <a href="#" class="btn btn-round btn-green">Send message</a>
+                        <a href="#" data-dismiss="modal" class="btn btn-round btn-o btn-gray">Cerrar</a>
+                        <a href="#" class="btn btn-round btn-green">Enviar Mensaje</a>
                     </div>
                 </div>
             </div>

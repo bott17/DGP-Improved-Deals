@@ -5603,7 +5603,7 @@ button.close {
 .modal-title {
   margin: 0;
   line-height: 1.42857143;
-  font-size: 20px;
+  font-size: 16px;
 }
 .modal-body {
   position: relative;
@@ -5646,7 +5646,7 @@ button.close {
   .modal-sm {
     width: 300px;
   }
-  .modal-sm2 {
+  .modal-sm2{
     width: 1000px;
   }
 }
