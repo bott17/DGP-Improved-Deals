@@ -47,6 +47,11 @@
 		var pregunta5;
 		var opcionesValidas5;
 		
+		var respuestaFinal1;
+		var respuestaFinal2;
+		var respuestaFinal3;
+		var respyestaFinal4;
+		
 		
 		
 		function iniciarAsistenteFase1(){
@@ -59,34 +64,46 @@
 				numPregunta++;
 			}
 			else{
-				window.alert("no te entendi");
+				mySpark.hablar("No te entendi, repite por favor");
 			}
 			console.log("lanzar pregunta  " + numPregunta);
 			
 			// No quedan mas preguntas
-			if(numPregunta >= 6){
+			if(numPregunta >= 5){
 				finalizarPreguntas();
 				return;
 			}else{
 				switch(numPregunta) {
 				    case 1:
 				        rellenarPregunta(pregunta1);
+				        mySpark.hablar(pregunta1);
 				        break;
 				    case 2:
 				        rellenarPregunta(pregunta2);
+				        mySpark.hablar(pregunta2);
 				        break;
 				    case 3:
-				        rellenarPregunta(pregunta4);
+				        rellenarPregunta(pregunta3);
+				        mySpark.hablar(pregunta3);
 				        break;
 				    case 4:
-				        rellenarPregunta(pregunta5);
+				        rellenarPregunta(pregunta4);
+				        mySpark.hablar(pregunta4);
 				        break;
 				    //default:
 			       
 				}
-				mySpark.hablar(pregunta1);
+				
 			}
 			escuchar();
+		}
+		
+		function finalizarPreguntas(){
+			mySpark.hablar("Veamos tu eleccion...");
+			mySpark.hablar("Prefieres la zona:" +  respuestaFinal1);
+			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
+			mySpark.hablar("Reserva desde " + respuestaFinal3);
+			mySpark.hablar("hasta " + respyestaFinal4);
 		}
 		
 		function rellenarPregunta(pregunta){
@@ -96,27 +113,32 @@
 		function almacenarDatos(resultado){
 			
 			console.log("cambiar datos");
+			mySpark.hablar("Has elegido la opcion: " + resultado);
 			
 			switch(numPregunta) {
 			    case 1:
 			        document.getElementById("userOption1").style.visibility= "visible";
 			        document.getElementById("zona").innerHTML = resultado;
 			        zonaFinal = resultado;
+			        respuestaFinal1 = resultado;
 			        break;
 			    case 2:
 			        document.getElementById("userOption2").style.visibility= "visible";
 			        document.getElementById("numhabitaciones").innerHTML = resultado;
 			        zonaFinal = resultado;
+			        respuestaFinal2 = resultado;
 			        break;
 			    case 3:
 			        document.getElementById("userOption4").style.visibility= "visible";
 			        document.getElementById("fechaini").innerHTML = resultado;
 			        zonaFinal = resultado;
+			        respuestaFinal3 = "19 de Mayo del 2015";
 			        break;
 			    case 4:
 			        document.getElementById("userOption5").style.visibility= "visible";
 			        document.getElementById("fechafin").innerHTML = resultado;
 			        zonaFinal = resultado;
+			        respyestaFinal4 = "20 de Mayo del 2015";
 			        break;
 			    //default:
 			}
@@ -132,7 +154,7 @@
 			
 			pregunta1 = '¿En que zona buscas el hotel?';
 			opcionesValidas1 = new Array('Centro', 'Zaidin', 'Cahana', 'Estación de autobuses', 'Albaicin');
-			pregunta2 = '¿Cuantas habitaciones quieres que tenga la habitación?';
+			pregunta2 = '¿Cuantas habitaciones quieres reservar?';
 			opcionesValidas2 = new Array('1','2','3','Cuatro');
 			pregunta3= 'Dime la fecha de entrada';
 			pregunta4= 'Dime la fecha de salida';
@@ -194,15 +216,6 @@
 					}, 1000);
 			}
 			
-			//lanzarPregunta();
-			return;
-			
-		}
-		
-		function resultadosTemporalesSpark(palabrasTemporales){
-			document.getElementById("respuesta").color = "gray";
-			document.getElementById("respuesta").value += palabrasTemporales;
-			return;
 		}	
 	</script>
 	
