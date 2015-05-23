@@ -38,23 +38,61 @@
 		
 		var zonaFinal;
 		
-		function lanzarPregunta(resultado){
-			
-			console.log("lanzar pregunta  " + numPregunta);
-			
-			if(numPregunta == 1){
-				cambiarDatos(resultado);
-			}
-			
-			else if(numPregunta >= 6){
-				//finalizarPreguntas();
-			}
-			
-			
-			
+		var pregunta1;
+		var opcionesValidas1;
+		var pregunta2;
+		var opcionesValidas2;
+		var pregunta3;
+		var opcionesValidas3;
+		var pregunta4;
+		var opcionesValidas4;
+		var pregunta5;
+		var opcionesValidas5;
+		
+		
+		
+		function iniciarAsistenteFase1(){
+			lanzarPregunta();
 		}
 		
-		function cambiarDatos(resultado){
+		function lanzarPregunta(){
+			
+			numPregunta++;
+			console.log("lanzar pregunta  " + numPregunta);
+			
+			// No quedan mas preguntas
+			if(numPregunta >= 6){
+				finalizarPreguntas();
+				return;
+			}else{
+				switch(numPregunta) {
+				    case 1:
+				        rellenarPregunta(pregunta1);
+				        break;
+				    case 2:
+				        rellenarPregunta(pregunta2);
+				        break;
+				    case 3:
+				        rellenarPregunta(pregunta3);
+				        break;
+				    case 4:
+				        rellenarPregunta(pregunta4);
+				        break;
+				    case 5:
+				        rellenarPregunta(pregunta5);
+				        break;
+				    //default:
+			       
+				}
+			}
+			escuchar();
+		}
+		
+		function rellenarPregunta(pregunta){
+			document.getElementById("pregunta").innerHTML = pregunta;
+		}
+		
+		function almacenarDatos(resultado){
 			
 			console.log("cambiar datos");
 			
@@ -68,61 +106,54 @@
 			       
 			}
 			
-			numPregunta++;
-			
 		}
 		
 		
 		function startSpark(){
 			
 			mySpark =  new Spark();
-			numPregunta = 1;
+			
+			numPregunta = 0;
+			
+			pregunta1 = '¿En que zona buscas el hotel?';
+			opcionesValidas1 = new Array('Centro', 'Zaidin', 'Cahana', 'Estacion de autobuses', 'Albaicin');
+			
+			pregunta2 = '¿Cuantas habitaciones quieres que tenga la habitación?';
 		}
 		
-		function escuchar(event){
-			mySpark.escuchar(event);
-			
-			
-		}
-		
-		function checkFinAsistente(){
-			document.getElementById("start_img").click();
-			//mySpark.escuchar(event);
-			
+		function escuchar(){
+			mySpark.escuchar();
 		}
 		
 		// Spark utiliza esta funcion para devolver los resultados
 		function resultadosSpark(palabras){
 			
-			console.log("Resultado spark: " + palabras);
-			
-			/*
-			sparkEscucha.innerHTML = palabras;
-			// Busqueda de las palbras de spark 
-			if(palabras.indexOf("Hola") != -1){
-				sparkResponde.innerHTML = "hola Alvaro";
-			}
-			if(palabras.indexOf("Spark") != -1){
-				sparkResponde.innerHTML += " Gracias";
-			}
-			else{
-				sparkResponde.innerHTML = "";
-			}
-			*/
-			
-			if(palabras.indexOf("Hola") != -1){
-				document.getElementById("respuesta").color = "black";
-				document.getElementById("respuesta").value = palabras;
-				lanzarPregunta(palabras);
+			if (palabras.length >0){
+				mySpark.recibido();
+				console.log("Resultado spark: " + palabras);
+				
+				document.getElementById("respuesta").value = "";
+				
+				
+				if(palabras.indexOf("Hola") != -1){
+					document.getElementById("respuesta").color = "black";
+					document.getElementById("respuesta").value = palabras;
+					
+					setTimeout(function(){
+						lanzarPregunta(palabras);
+					}, 1000);
+				}
 			}
 			
-			
+			//lanzarPregunta();
+			return;
 			
 		}
 		
 		function resultadosTemporalesSpark(palabrasTemporales){
 			document.getElementById("respuesta").color = "gray";
 			document.getElementById("respuesta").value += palabrasTemporales;
+			return;
 		}	
 	</script>
 	
@@ -145,7 +176,7 @@
                 <a href="index.html" class="home-navHandler visible-xs"><span class="fa fa-bars"></span></a>
                 <div class="home-nav">
                     <ul>
-						<li><a href="#" data-toggle="modal" data-target="#sparkInicio" onclick="escuchar(event)">Integración</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#sparkInicio" onclick="iniciarAsistenteFase1()">Integración</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
                         <li><a href="explore.html" class="btn btn-green">Lista de alojamientos</a></li>
@@ -565,7 +596,7 @@
                         </div>
 							<div class="form-group">
                                 <div class="btn-group-justified">
-                                    <a class="btn btn-lg btn-yellow"><span id="pregunta"></span>Pregunta del Asistente en ejecución</a>
+                                    <a class="btn btn-lg btn-yellow"><span id="pregunta">Pregunta del Asistente en ejecución</span></a>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -576,7 +607,7 @@
 									<table align="center">
 										<tbody>
 											<tr>
-												<td><img id="start_img" src="images/imgspark/micro.gif" onclick="escuchar(event)"></img></td>
+												<td><img id="start_img" src="images/imgspark/micro.gif" onclick="escuchar()"></img></td>
 											</tr>
 										</tbody>
 									</table>

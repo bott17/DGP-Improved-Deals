@@ -21,8 +21,8 @@ if (!('webkitSpeechRecognition' in window)) {
   upgrade();
 } else {
   var recognition = new webkitSpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = true;
+  recognition.continuous = false;
+  recognition.interimResults = false;
 
   recognition.onstart = function() {
     recognizing = true;
@@ -49,25 +49,23 @@ if (!('webkitSpeechRecognition' in window)) {
   };
 
   recognition.onend = function() {
-  	/*
-    recognizing = false;
-    if (ignore_onend) {
-      return;
-    }
-    start_img.src = 'images/imgspark/mic.gif';
-    if (!final_transcript) {
-      //showInfo('images/imgspark/info_start');
-      return;
-    }
-    if (window.getSelection) {çconsole.log("cuatro");
-      window.getSelection().removeAllRanges();
-      var range = document.createRange();
-      range.selectNode(document.getElementById('titulo'));
-      window.getSelection().addRange(range);
-    }
-    */
-   	recognizing = false;
-    checkFinAsistente();
+  		console.log("asdasasda");
+    	recognizing = false;
+	   	if (ignore_onend) {
+	      return;
+	    }
+	    start_img.src = 'images/imgspark/mic.gif';
+	    if (!final_transcript) {
+	      //showInfo('images/imgspark/info_start');
+	      return;
+	    }
+	    if (window.getSelection) {çconsole.log("cuatro");
+	      window.getSelection().removeAllRanges();
+	      var range = document.createRange();
+	      range.selectNode(document.getElementById('titulo'));
+	      window.getSelection().addRange(range);
+	    }
+    // }
   };
 
   recognition.onresult = function(event) {
@@ -81,12 +79,12 @@ if (!('webkitSpeechRecognition' in window)) {
     }
    final_transcript = capitalize(final_transcript);
    console.log(final_transcript);
-   console.log(interim_transcript);
+   //console.log(interim_transcript);
     
-    resultadosTemporalesSpark(interim_transcript);
+    //resultadosTemporalesSpark(interim_transcript);
     resultadosSpark(final_transcript);
     final_transcript="";
-    interim_transcript="";
+    //interim_transcript="";
     
   };
 }
@@ -97,20 +95,27 @@ function linebreak(s) {
   return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
 }
 
-Spark.prototype.escuchar = function(event) {
+Spark.prototype.escuchar = function() {
 	console.log("escuchando");
 
   if (recognizing) {
+  	console.log("parando");
     recognition.stop();
     return;
   }
+  console.log("siguiendo");
   final_transcript = '';
   recognition.lang = 'es';
   recognition.start();
   ignore_onend = false;
   start_img.src = 'images/imgspark/mic-slash.gif';
-  start_timestamp = event.timeStamp;
-  
+  +new Date;
+  start_timestamp = new Date().getTime();
+};
+
+Spark.prototype.recibido = function(){
+	recognition.stop();
+	console.log("parando..");
 };
 
 
