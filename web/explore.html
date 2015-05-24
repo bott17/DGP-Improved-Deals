@@ -77,7 +77,6 @@
 				 		document.getElementById("seguridad").checked= true;
 				 	}
 				 	if(result.final_transcript.indexOf("piscina")!= -1 || result.final_transcript.indexOf("Piscina")!= -1 ){
-				 		console.log("activando piscina");
 				 		document.getElementById("piscina").checked= true;
 				 	}
 				 	if(result.final_transcript.indexOf("internet")!= -1 || result.final_transcript.indexOf("Internet")!= -1  || 
@@ -138,7 +137,7 @@
 			
 			mySparkExplorer.pregunta("¿Deseas descartar esta oferta, contratarla o cancelar el proceso?", function (err, result){
 				
-				console.log(result.final_transcript);
+				//console.log(result.final_transcript);
 				if (err) {
 					mySparkExplorer.hablar("Ninguna respuesta");
 					recuperarOpcionUsuario();
@@ -166,7 +165,7 @@
 			leerDatosHotel(todosHoteles[indexHotel]);
 			
 			mySparkExplorer.pregunta("¿Procedo con la compra?", function(err, result){
-				console.log(result.final_transcript);
+				//console.log(result.final_transcript);
 				if (err) {
 					mySparkExplorer.hablar("Ninguna respuesta, necesito confirmación para continuar");
 					contratar();

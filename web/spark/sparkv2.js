@@ -68,7 +68,7 @@ Sparkv2.prototype.pregunta = function (text, callback) {
   
   
         recognition.onstart = function() {
-		    console.log("start");
+		    //console.log("start");
 		    tempSpark.cambiarImgagenRecurso('images/imgspark/mic-animate.gif');
 		};
 		 
@@ -93,7 +93,6 @@ Sparkv2.prototype.pregunta = function (text, callback) {
             }
         };
  
- 		console.log("temp");
         // start listening
         recognition.start();
     });
