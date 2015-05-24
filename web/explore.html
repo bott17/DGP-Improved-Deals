@@ -16,28 +16,33 @@
 
         
         
-        <script src="spark/spark.js" type="text/javascript"></script>
+        <script src="spark/sparkv2.js" type="text/javascript"></script>
         <script type="text/javascript">
         	
         var mySparkExplorer;
         var todosHoteles;
         var indexHotel;
+        
+        var opcionUser1;
+        var opcionUser2;
+        var opcionUser3;
+        var opcionUser4;
+        
+        /**************** Variable controladora fin asistente ***************/
+       var finAsistenteExplore;
         	
         function startSpark(){
 			
-		mySparkExplorer =  new Spark();
-		indexHotel = 0;
+		mySparkExplorer =  new Sparkv2("start_img");
+		indexHotel = -1;
+		finAsistenteExplore = false;
 		}
 		
 		function Hotel(_direccion_, _titulo_, _precio_, _srcImg_){
-			//document.getElementById("popupDireccion").innerHTML = direccion;
-			//document.getElementById("popupTitulo").innerHTML = titulo;
-			//document.getElementById("popupSrcImg").src = srcimg;
-			//document.getElementById("popupPrecio").innerHTML = precio;
-			direccion = _direccion_;
-			titulo = _titulo_;
-			precio= _precio_;
-			srcImg = _srcImg_;
+			this.direccion = _direccion_;
+			this.titulo = _titulo_;
+			this.precio= _precio_;
+			this.srcImg = _srcImg_;
 			
 		}
 		
@@ -45,37 +50,252 @@
 			
 			startSpark();
 			
-			//rellernarOpciones();
-			todosHoteles = recuperarTodosHoteles(true);
-			recuperarHotel();
+			todosHoteles = new Array();
+			
+		}
+		
+		function iniciarAsistenteFase2(){
+			
+			recuperarOpciones();
+			recuperarTodosHoteles(true);
+				
+			seleccionarSubFiltros(ciclarHotel);
+			
+		}
+		
+		function rellenarPregunta(_pregunta_){
+			document.getElementById("pregunta").innerHTML = _pregunta_;
+		}
+		
+		function rellenarRespuesta(palabras){
+			document.getElementById("respuesta").innerHTML = palabras;
+		}
+
+		function seleccionarSubFiltros(callback){
+			
+			mySparkExplorer.hablar("Refina tu busqueda indicandome algunas comodidades extras. Dime si te interesan algunas de ellas");
+			
+			rellenarPregunta("¿Que comodidades te gustaría tener?");
+			mySparkExplorer.pregunta("De entre las siguientes comodidades, ¿cuales te gustaría tener en tu reserva? \n " +
+				"Seguridad extra, aire acondicionado, piscina, internet + Wifi, calefacción, televisión, jardín o telefono", function (err, result){
+					
+				//console.log(result.final_transcript);
+				if (err) {
+					mySparkExplorer.hablar("No tendre encuenta ninguna comodidad nueva para la busquedad");
+					rellenarPregunta("No tendre encuenta ninguna comodidad nueva para la busquedad");
+					document.getElementById("popupImgPensando").style.display= "none";
+					document.getElementById("popupDetallesHotel").style.display= "inherit";
+					callback();
+				 } else {
+				 	if(result.final_transcript.indexOf("aire")!= -1 || result.final_transcript.indexOf("Aire")!= -1 ){
+				 		document.getElementById("aire").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("seguridad")!= -1 || result.final_transcript.indexOf("Seguridad")!= -1 ){
+				 		document.getElementById("seguridad").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("piscina")!= -1 || result.final_transcript.indexOf("Piscina")!= -1 ){
+				 		document.getElementById("piscina").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("internet")!= -1 || result.final_transcript.indexOf("Internet")!= -1  || 
+				 		result.final_transcript.indexOf("wifi")!= -1 || result.final_transcript.indexOf("Wifi")!= -1 ){
+				 		document.getElementById("internet").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("calefacción")!= -1 || result.final_transcript.indexOf("Calefacción")!= -1 ){
+				 		document.getElementById("calefaccion").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("tv")!= -1 || result.final_transcript.indexOf("Tv")!= -1 || 
+				 		result.final_transcript.indexOf("Televisión")!= -1 || result.final_transcript.indexOf("televisión")!= -1){
+				 		document.getElementById("tv").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("jardín")!= -1 || result.final_transcript.indexOf("Jardín")!= -1 ){
+				 		document.getElementById("jardin").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("teléfono")!= -1 || result.final_transcript.indexOf("Teléfono")!= -1 ){
+				 		document.getElementById("telefono").checked= true;
+				 	}
+				 	if(result.final_transcript.indexOf("repetir")!= -1 || result.final_transcript.indexOf("Repetir")!= -1 ){
+				 		seleccionarSubFiltros(callback);
+				 	}
+				 	else{
+				 		document.getElementById("popupImgPensando").style.display= "none";
+						document.getElementById("popupDetallesHotel").style.display= "inherit";
+				 		callback();
+				 	}
+				 }
+			});
+}
+		
+		function recuperarOpciones(){
+			
+			// TODO FAKE
+			opcionUser1 = "Centro";
+			opcionUser2 = "2";
+			opcionUser3 = "19 de Mayo de 2015";
+			opcionUser4 = "21 de Mayo de 2015";
+			
+			document.getElementById("popUpOpcion1").innerHTML = opcionUser1;
+			document.getElementById("popUpOpcion2").innerHTML = opcionUser2;
+			document.getElementById("popUpOpcion3").innerHTML = opcionUser3;
+			document.getElementById("popUpOpcion4").innerHTML = opcionUser4;
+			
+			
 		}
 		
 		function recuperarHotel(){
 			
 			var hotel = todosHoteles[indexHotel];
 			
-			//leerDatosHotel(hotel);
-			//rellenarDatosHotel(hotel);
+			rellenarDatosHotel(hotel);
+			leerDatosHotel(hotel);
 			
-			escuchar();
+		}
+		
+		function recuperarOpcionUsuario(){
 			
-			indexHotel++;
+			rellenarPregunta("Mostrando ofertas");
+			mySparkExplorer.pregunta("¿Deseas descartar esta oferta, contratarla o cancelar el proceso?", function (err, result){
+				
+				//console.log(result.final_transcript);
+				if (err) {
+					rellenarPregunta("Sin respuesta");
+					mySparkExplorer.hablar("Ninguna respuesta");
+					recuperarOpcionUsuario();
+				 } else {
+					if(result.final_transcript.indexOf("Descartar")!= -1 || result.final_transcript.indexOf("descartar")!= -1){
+						mySparkExplorer.hablar("Descartando el hotel");
+						rellenarPregunta("Descartando...");
+						
+						ciclarHotel();
+					}
+					else if(result.final_transcript.indexOf("Contratar")!= -1 || result.final_transcript.indexOf("Contratarla")!= -1 || 
+					result.final_transcript.indexOf("contratar")!= -1 || result.final_transcript.indexOf("contratarla")!= -1 ){
+						mySparkExplorer.hablar("Procedamos con la contratación de la reserva");
+						rellenarPregunta("Veamos la contratacion");
+						contratar();
+					}
+					else if(result.final_transcript.indexOf("cancelar") != -1 || result.final_transcript.indexOf("Cancelar") != -1){
+						mySparkExplorer.hablar("Cancelando la operación");
+						rellenarPregunta("Operacion Cancelada");
+						cerrarAsistente();
+					}
+				}
+			});
+		}
+		
+		function contratar(){
+			mySparkExplorer.hablar("Necesito tu confirmación de compra para el hotel:");
+			rellenarPregunta("Se requiere confirmacion");
+			leerDatosHotel(todosHoteles[indexHotel]);
+			
+			mySparkExplorer.pregunta("¿Procedo con la compra?", function(err, result){
+				//console.log(result.final_transcript);
+				if (err) {
+					mySparkExplorer.hablar("Ninguna respuesta, necesito tu confirmación para continuar");
+					contratar();
+				 } else {
+				 	if(result.final_transcript.indexOf("Aceptar")!= -1 || result.final_transcript.indexOf("aceptar")!= -1 || result.final_transcript.indexOf("ok")!= -1 ||
+				 	result.final_transcript.indexOf("Ok")!= -1 || result.final_transcript.indexOf("comprar")!= -1 || result.final_transcript.indexOf("Comprar")!= -1){
+				 		mySparkExplorer.hablar("Entendido, tu reserva se ha realizado. Gracias por visitarnos. :)", cerrarAsistente);
+				 		rellenarPregunta("Reserva realizada");
+				 		//cerrarAsistente();
+				 		
+				 	}
+				 	else if(result.final_transcript.indexOf("Cancelar")!= -1 || result.final_transcript.indexOf("cancelar")!= -1 || result.final_transcript.indexOf("no")!= -1 ||
+				 	result.final_transcript.indexOf("No")!= -1 || result.final_transcript.indexOf("descartar")!= -1 || result.final_transcript.indexOf("Descartar")!= -1){
+				 		mySparkExplorer.hablar("La reserva se ha cancelado", function (){indexHotel = -1; ciclarHotel();});
+				 	}
+				 	else{
+				 		mySparkExplorer.hablar("No entiendo que deseas hacer, necesito confirmación para continuar");
+						contratar();
+				 	}
+				 }
+			});
+		}
+		
+		function leerDatosHotel(hotel){
+			
+			mySparkExplorer.hablar("Contemplemos el siguiente hotel");
+			
+			mySparkExplorer.hablar("Situado en " + hotel.direccion);
+			mySparkExplorer.hablar("El dueño lo describe como: " + hotel.titulo);
+			mySparkExplorer.hablar("Con un precio por noche de " + hotel.precio);
+			
+			if(hotel.srcImg != null){
+				mySparkExplorer.hablar("El hostelero proporciona una imagen de la habitación");
+			}
+			else{
+				mySparkExplorer.hablar("El hostelero no proporciona ninguna imagen de la habitación");
+			}
 		}
 		
 		function recuperarTodosHoteles(){
 			
 			// TODO FAKE
-			var tempHoteles = new Array();
-			var tempHotel = new Hotel('direccion hotel 1', 'Hotel con vistas al mar', '1000 pavos', 'images/prop/2-1.png');
-			tempHoteles.push(tempHotel);
-			hotel = new Hotel('direccion hotel 2', 'Hotel con vistas a la montaña', '100 €', 'images/prop/4-1.png');
-			tempHoteles.push(tempHotel);
+			var tempHotel = new Hotel('Avenida de la constitución, número 25', 'Maravilloso hotel con vistas a la vega granadina', '85 €', 'images/prop/2-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Zona centrica de Granada, junto parada de autobús', 'Antíguo caserón, totalmente reformado', '150 €', 'images/prop/4-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Pedro Antonio de Alarcón, número 33', 'Residencial centrico, con maravilloso patio interior', '77 €', null);
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Barrio de la Chana, frente parque Almunia', 'Noches baratas', '180 €', 'images/prop/1-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Recogidas, número 21', 'Lujosas habitaciones al mejor precio. Ofertas para grupos grandes', '100 €', 'images/prop/6-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Motril, frente al mar', 'Disfruta de nuestra playa privada todo el año', '50 €', 'images/prop/2-1.png');
+			todosHoteles.push(tempHotel);
 			
-			return tempHoteles;
+		}
+		
+		function ciclarHotel(){
+			indexHotel++;
+			
+			if(indexHotel < todosHoteles.length){
+				recuperarHotel();
+				recuperarOpcionUsuario();
+			}
+			else{
+				mySparkExplorer.hablar("No quedan más ofertas que consultar");
+				mySparkExplorer.pregunta("¿Deseas repetir las ofertas o cancelar el proceso?", function (err, result){
+				
+					//console.log(result.final_transcript);
+					if (err) {
+						mySparkExplorer.hablar("Ninguna respuesta");
+					} 
+					else {
+						if(result.final_transcript.indexOf("Repetir")!= -1 || result.final_transcript.indexOf("Sí")!= -1 || result.final_transcript.indexOf("Si")!= -1 ||
+							result.final_transcript.indexOf("repetir")!= -1 ){
+							
+							mySparkExplorer.hablar("Volviendo a mostrar tas las ofertas");
+							indexHotel = -1;
+							ciclarHotel();
+						}
+						else if(result.final_transcript.indexOf("Cancelar")!= -1){
+							mySparkExplorer.hablar("Has cancelado la selección");
+							cerrarAsistente();
+						}
+					}
+				
+				});
+				
+			}
+			
+		}
+		
+		function rellenarDatosHotel(hotel){
+			
+			document.getElementById("popupDireccion").innerHTML = hotel.direccion;
+			document.getElementById("popupTitulo").innerHTML = hotel.titulo;
+			document.getElementById("popupSrcImg").src = hotel.srcImg;
+			document.getElementById("popupPrecio").innerHTML = hotel.precio;
+			
+		}
+		
+		function cerrarAsistente(){
+			finAsistenteExplore = true;
 		}
 		
 		function escuchar(){
-			mySparkExplorer.escuchar();
+			//mySparkExplorer.escuchar();
 		}
 		
 		function resultadosSpark(palabras){
@@ -87,7 +307,8 @@
         </script>
 		
     </head>
-    <body class="notransition ng-cloak" ng-controller="exploreController">	
+
+    <body class="notransition ng-cloak" ng-controller="exploreController" onload="iniciarAsistenteFase1()">	
 		
 		<!-- Header -->
 		
@@ -102,7 +323,7 @@
             <div class="search">
                 <span class="searchIcon icon-magnifier"></span>
                 <input type="text" placeholder="Buscar hoteles...">			
-					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase1()">Integracion Alvaro</a>			
+					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase2()">Integracion Alvaro</a>			
 		    </div>
             <div class="headerUserWraper" ng-show="identifiedUser">
                 <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
@@ -709,26 +930,49 @@
 									<div class="row">
 										<div><h2 style="padding-left:20px; width:100%"><span id="pregunta">Pregunta de Spark</span></h2></div>
 									</div>
+									<!--
 									<div class="row">
 										<div><h2 style="padding-left:20px; width:100%"><span id="respuesta">Respuesta del usuario</span></h2></div>
 									</div>
+									-->
 									<div class="row">
 										<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width:30%; background:white; float:left; padding-left:20px; margin-top:20px">
-											<h3>Opciones elegidas</h3>
-											<h3><span id="opcion1">Opcion 1</span></h3></br>
-											<h3><span id="opcion1">Opcion 2</span></h3></br>
-											<h3><span id="opcion1">Opcion 3</span></h3></br>
-											<h3><span id="opcion1">Opcion 4</span></h3></br>
-											<h3><span id="opcion1">Opcion 5</span></h3>
+											
+											<div class="row">
+											<h4><span>Zona elegída</span></h4>
+											</div>
+											<div class="row">
+											<h3><span id="popUpOpcion1">Opcion 1</span></h3>
+											</div>
+											<div class="row">
+											<h4><span >Habitaciones</span></h4>
+											</div>
+											<div class="row">
+											<h3><span id="popUpOpcion2">Opcion 2</span></h3>
+											</div>
+											<div class="row">
+											<h4><span >Fecha de entrada</span></h4>
+											</div>
+											<div class="row">
+											<h3><span id="popUpOpcion3">Opcion 3</span></h3>
+											</div>
+											<div class="row">
+											<h4><span >Fecha de salida</span></h4>
+											</div>
+											<div class="row">
+											<h3><span id="popUpOpcion4">Opcion 4</span></h3>
+											</div>
 										</div>
 										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="width:35%; background:white; float:left; margin-top:20px">
-											<div class="row">
+											<div id="popupImgPensando" class="row">
+												<a ><img src="images/pensando.gif" /></a>
+											</div>
+											<div id="popupDetallesHotel" class="row"  style="display: none;">
 												<a href="single.html" class="card">
 					                                <div class="figure">
 					                                    <img id="popupSrcImg" src="images/prop/1-1.png" alt="image">
 					                                    
 					                                    <div class="figView"><span class="icon-eye"></span></div>
-					                                    <div class="figType">Piso</div>
 					                                </div>
 					                                <h2><span id="popupTitulo"> Residence in New York</span></h2>
 					                                <div class="cardAddress"><span class="icon-pointer"></span><span id="popupDireccion">39 Remsen St, Brooklyn, NY 11201, USA</span></div>
@@ -768,11 +1012,11 @@
 											<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 												<div class="form-group" style="padding-left:20px">
 													<label>Comodidades</label>
-													<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id="garaje"><h5> Garaje</h5></span></label></div>
-													<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="seguridad"><h5> Sistema de seguridad</h5></span></label></div>
-													<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id ="aire"><h5> Aire acondicionado</h5></span></label></div>
-													<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="balcon"><h5> Balcon</h5></span ></label></div>
-													<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="piscina"><h5> Piscina descubierta</h5></span ></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" id="garaje"><span class="fa fa-check" ><h5> Garaje</h5></span></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="seguridad"><span class="fa fa-check" ><h5> Sistema de seguridad</h5></span></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="aire"><span class="fa fa-check" ><h5> Aire acondicionado</h5></span></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="balcon"><span class="fa fa-check" ><h5> Balcon</h5></span ></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="piscina"><span class="fa fa-check" ><h5> Piscina descubierta</h5></span ></label></div>
 												</div>
 											</div>    
 										</div>
@@ -780,11 +1024,11 @@
 												<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 													<div class="form-group">
 														<label>&nbsp;</label>
-														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="internet"><h5> Internet</h5></span ></label></div>
-														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="calefaccion"><h5> Calefacción</h5></span ></label></div>
-														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="tv"><h5> TV por Cable</h5></span ></label></div>
-														<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id ="jardin"><h5> Jardín</h5></span></label></div>
-														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="telefono"><h5> Teléfono</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="internet"><span class="fa fa-check" ><h5> Internet</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="calefaccion"><span class="fa fa-check" ><h5> Calefacción</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="tv"><span class="fa fa-check" ><h5> TV por Cable</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="jardin"><span class="fa fa-check" ><h5> Jardín</h5></span></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox" id ="telefono"><span class="fa fa-check" ><h5> Teléfono</h5></span ></label></div>
 													</div>
 												</div>
 										</div>
