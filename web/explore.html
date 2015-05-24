@@ -25,11 +25,15 @@
         var opcionUser2;
         var opcionUser3;
         var opcionUser4;
+        
+        /**************** Variable controladora fin asistente ***************/
+       var finAsistenteExplore;
         	
         function startSpark(){
 			
 		mySparkExplorer =  new Sparkv2("start_img");
 		indexHotel = -1;
+		finAsistenteExplore = false;
 		}
 		
 		function Hotel(_direccion_, _titulo_, _precio_, _srcImg_){
@@ -56,16 +60,27 @@
 			seleccionarSubFiltros(ciclarHotel);
 			
 		}
+		
+		function rellenarPregunta(_pregunta_){
+			document.getElementById("pregunta").innerHTML = _pregunta_;
+		}
+		
+		function rellenarRespuesta(palabras){
+			document.getElementById("respuesta").innerHTML = palabras;
+		}
 
-	function seleccionarSubFiltros(callback){
+		function seleccionarSubFiltros(callback){
 			
 			mySparkExplorer.hablar("Refina tu busqueda indicandome algunas comodidades extras. Dime si te interesan algunas de ellas");
+			
+			rellenarPregunta("¿Que comodidades te gustaría tener?");
 			mySparkExplorer.pregunta("De entre las siguientes comodidades, ¿cuales te gustaría tener en tu reserva? \n " +
 				"Seguridad extra, aire acondicionado, piscina, internet + Wifi, calefacción, televisión, jardín o telefono", function (err, result){
 					
 				//console.log(result.final_transcript);
 				if (err) {
 					mySparkExplorer.hablar("No tendre encuenta ninguna comodidad nueva para la busquedad");
+					rellenarPregunta("No tendre encuenta ninguna comodidad nueva para la busquedad");
 					document.getElementById("popupImgPensando").style.display= "none";
 					document.getElementById("popupDetallesHotel").style.display= "inherit";
 					callback();
@@ -135,25 +150,30 @@
 		
 		function recuperarOpcionUsuario(){
 			
+			rellenarPregunta("Mostrando ofertas");
 			mySparkExplorer.pregunta("¿Deseas descartar esta oferta, contratarla o cancelar el proceso?", function (err, result){
 				
 				//console.log(result.final_transcript);
 				if (err) {
+					rellenarPregunta("Sin respuesta");
 					mySparkExplorer.hablar("Ninguna respuesta");
 					recuperarOpcionUsuario();
 				 } else {
 					if(result.final_transcript.indexOf("Descartar")!= -1 || result.final_transcript.indexOf("descartar")!= -1){
-						mySparkExplorer.hablar("Has elegido descartar");
+						mySparkExplorer.hablar("Descartando el hotel");
+						rellenarPregunta("Descartando...");
 						
 						ciclarHotel();
 					}
-					else if(result.final_transcript.indexOf("Contratar")!= -1 || result.final_transcript.indexOf("Contratarla")!=0 || 
+					else if(result.final_transcript.indexOf("Contratar")!= -1 || result.final_transcript.indexOf("Contratarla")!= -1 || 
 					result.final_transcript.indexOf("contratar")!= -1 || result.final_transcript.indexOf("contratarla")!= -1 ){
-						mySparkExplorer.hablar("Has elegido contratar");
+						mySparkExplorer.hablar("Procedamos con la contratación de la reserva");
+						rellenarPregunta("Veamos la contratacion");
 						contratar();
 					}
-					else if(result.final_transcript.indexOf("cancelar") != -1 || result.final_transcript.indexOf("Cancelar")){
-						mySparkExplorer.hablar("Has elegido cancelar");
+					else if(result.final_transcript.indexOf("cancelar") != -1 || result.final_transcript.indexOf("Cancelar") != -1){
+						mySparkExplorer.hablar("Cancelando la operación");
+						rellenarPregunta("Operacion Cancelada");
 						cerrarAsistente();
 					}
 				}
@@ -161,24 +181,26 @@
 		}
 		
 		function contratar(){
-			mySparkExplorer.hablar("Necesito confirmación de compra para el hotel:");
+			mySparkExplorer.hablar("Necesito tu confirmación de compra para el hotel:");
+			rellenarPregunta("Se requiere confirmacion");
 			leerDatosHotel(todosHoteles[indexHotel]);
 			
 			mySparkExplorer.pregunta("¿Procedo con la compra?", function(err, result){
 				//console.log(result.final_transcript);
 				if (err) {
-					mySparkExplorer.hablar("Ninguna respuesta, necesito confirmación para continuar");
+					mySparkExplorer.hablar("Ninguna respuesta, necesito tu confirmación para continuar");
 					contratar();
 				 } else {
 				 	if(result.final_transcript.indexOf("Aceptar")!= -1 || result.final_transcript.indexOf("aceptar")!= -1 || result.final_transcript.indexOf("ok")!= -1 ||
 				 	result.final_transcript.indexOf("Ok")!= -1 || result.final_transcript.indexOf("comprar")!= -1 || result.final_transcript.indexOf("Comprar")!= -1){
-				 		mySparkExplorer.hablar("Entendido, tu reserva se ha realizado. Gracias por visitarnos. :)");
-				 		cerrarAsistente();
+				 		mySparkExplorer.hablar("Entendido, tu reserva se ha realizado. Gracias por visitarnos. :)", cerrarAsistente);
+				 		rellenarPregunta("Reserva realizada");
+				 		//cerrarAsistente();
 				 		
 				 	}
 				 	else if(result.final_transcript.indexOf("Cancelar")!= -1 || result.final_transcript.indexOf("cancelar")!= -1 || result.final_transcript.indexOf("no")!= -1 ||
 				 	result.final_transcript.indexOf("No")!= -1 || result.final_transcript.indexOf("descartar")!= -1 || result.final_transcript.indexOf("Descartar")!= -1){
-				 		cerrarAsistente();
+				 		mySparkExplorer.hablar("La reserva se ha cancelado", function (){indexHotel = -1; ciclarHotel();});
 				 	}
 				 	else{
 				 		mySparkExplorer.hablar("No entiendo que deseas hacer, necesito confirmación para continuar");
@@ -194,7 +216,7 @@
 			
 			mySparkExplorer.hablar("Situado en " + hotel.direccion);
 			mySparkExplorer.hablar("El dueño lo describe como: " + hotel.titulo);
-			mySparkExplorer.hablar("El precio por noche es de " + hotel.precio);
+			mySparkExplorer.hablar("Con un precio por noche de " + hotel.precio);
 			
 			if(hotel.srcImg != null){
 				mySparkExplorer.hablar("El hostelero proporciona una imagen de la habitación");
@@ -207,9 +229,17 @@
 		function recuperarTodosHoteles(){
 			
 			// TODO FAKE
-			var tempHotel = new Hotel('direccion hotel 1', 'Hotel con vistas al mar', '1000 pavos', 'images/prop/2-1.png');
+			var tempHotel = new Hotel('Avenida de la constitución, número 25', 'Maravilloso hotel con vistas a la vega granadina', '85 €', 'images/prop/2-1.png');
 			todosHoteles.push(tempHotel);
-			tempHotel = new Hotel('direccion hotel 2', 'Hotel con vistas a la montaña', '100 €', 'images/prop/4-1.png');
+			tempHotel = new Hotel('Zona centrica de Granada, junto parada de autobús', 'Antíguo caserón, totalmente reformado', '150 €', 'images/prop/4-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Pedro Antonio de Alarcón, número 33', 'Residencial centrico, con maravilloso patio interior', '77 €', null);
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Barrio de la Chana, frente parque Almunia', 'Noches baratas', '180 €', 'images/prop/1-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Recogidas, número 21', 'Lujosas habitaciones al mejor precio. Ofertas para grupos grandes', '100 €', 'images/prop/6-1.png');
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('Motril, frente al mar', 'Disfruta de nuestra playa privada todo el año', '50 €', 'images/prop/2-1.png');
 			todosHoteles.push(tempHotel);
 			
 		}
@@ -238,7 +268,7 @@
 							ciclarHotel();
 						}
 						else if(result.final_transcript.indexOf("Cancelar")!= -1){
-							mySparkExplorer.hablar("Has elegido cancelar");
+							mySparkExplorer.hablar("Has cancelado la selección");
 							cerrarAsistente();
 						}
 					}
@@ -259,7 +289,7 @@
 		}
 		
 		function cerrarAsistente(){
-			
+			finAsistenteExplore = true;
 		}
 		
 		function escuchar(){
@@ -771,9 +801,11 @@
 									<div class="row">
 										<div><h2 style="padding-left:20px; width:100%"><span id="pregunta">Pregunta de Spark</span></h2></div>
 									</div>
+									<!--
 									<div class="row">
 										<div><h2 style="padding-left:20px; width:100%"><span id="respuesta">Respuesta del usuario</span></h2></div>
 									</div>
+									-->
 									<div class="row">
 										<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width:30%; background:white; float:left; padding-left:20px; margin-top:20px">
 											
@@ -812,7 +844,6 @@
 					                                    <img id="popupSrcImg" src="images/prop/1-1.png" alt="image">
 					                                    
 					                                    <div class="figView"><span class="icon-eye"></span></div>
-					                                    <div class="figType">Piso</div>
 					                                </div>
 					                                <h2><span id="popupTitulo"> Residence in New York</span></h2>
 					                                <div class="cardAddress"><span class="icon-pointer"></span><span id="popupDireccion">39 Remsen St, Brooklyn, NY 11201, USA</span></div>
