@@ -5607,7 +5607,7 @@ button.close {
 }
 .modal-body {
   position: relative;
-  padding: 15px;
+  padding: 70px;
 }
 .modal-footer {
   padding: 15px;
@@ -5646,7 +5646,7 @@ button.close {
   .modal-sm {
     width: 300px;
   }
-  .modal-sm2 {
+    .modal-sm2 {
     width: 1000px;
   }
 }
@@ -5655,6 +5655,7 @@ button.close {
     width: 900px;
   }
 }
+
 .tooltip {
   position: absolute;
   z-index: 1070;

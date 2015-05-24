@@ -16,6 +16,7 @@
         <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
         <script src="//cdn.jsdelivr.net/alertifyjs/1.4.1/alertify.min.js"></script>
         <link href="css/app.css" rel="stylesheet">
+
         <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.4.1/css/alertify.min.css"/>
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
@@ -30,9 +31,199 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        
+        <script src="spark/spark.js" type="text/javascript"></script>
+        <script type="text/javascript">
+		
+		var mySpark;
+		var numPregunta;
+		
+		var zonaFinal;
+		
+		var pregunta1;
+		var opcionesValidas1;
+		var pregunta2;
+		var opcionesValidas2;
+		var pregunta4;
+		var opcionesValidas4;
+		var pregunta5;
+		var opcionesValidas5;
+		
+		var respuestaFinal1;
+		var respuestaFinal2;
+		var respuestaFinal3;
+		var respyestaFinal4;
+		
+		
+		
+		function iniciarAsistenteFase1(){
+			lanzarPregunta(true);
+		}
+		
+		function lanzarPregunta(noRepetir){
+			
+			if(noRepetir){
+				numPregunta++;
+			}
+			else{
+				mySpark.hablar("No te entendi, repite por favor");
+			}
+			console.log("lanzar pregunta  " + numPregunta);
+			
+			// No quedan mas preguntas
+			if(numPregunta >= 5){
+				finalizarPreguntas();
+				return;
+			}else{
+				switch(numPregunta) {
+				    case 1:
+				        rellenarPregunta(pregunta1);
+				        mySpark.hablar(pregunta1);
+				        break;
+				    case 2:
+				        rellenarPregunta(pregunta2);
+				        mySpark.hablar(pregunta2);
+				        break;
+				    case 3:
+				        rellenarPregunta(pregunta3);
+				        mySpark.hablar(pregunta3);
+				        break;
+				    case 4:
+				        rellenarPregunta(pregunta4);
+				        mySpark.hablar(pregunta4);
+				        break;
+				    //default:
+			       
+				}
+				
+			}
+			escuchar();
+		}
+		
+		function finalizarPreguntas(){
+			mySpark.hablar("Veamos tu eleccion...");
+			mySpark.hablar("Prefieres la zona:" +  respuestaFinal1);
+			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
+			mySpark.hablar("Reserva desde " + respuestaFinal3);
+			mySpark.hablar("hasta " + respyestaFinal4);
+		}
+		
+		function rellenarPregunta(pregunta){
+			document.getElementById("pregunta").innerHTML = pregunta;
+		}
+		
+		function almacenarDatos(resultado){
+			
+			console.log("cambiar datos");
+			mySpark.hablar("Has elegido la opcion: " + resultado);
+			
+			switch(numPregunta) {
+			    case 1:
+			        document.getElementById("userOption1").style.visibility= "visible";
+			        document.getElementById("zona").innerHTML = resultado;
+			        zonaFinal = resultado;
+			        respuestaFinal1 = resultado;
+			        break;
+			    case 2:
+			        document.getElementById("userOption2").style.visibility= "visible";
+			        document.getElementById("numhabitaciones").innerHTML = resultado;
+			        zonaFinal = resultado;
+			        respuestaFinal2 = resultado;
+			        break;
+			    case 3:
+			        document.getElementById("userOption4").style.visibility= "visible";
+			        document.getElementById("fechaini").innerHTML = resultado;
+			        zonaFinal = resultado;
+			        respuestaFinal3 = "19 de Mayo del 2015";
+			        break;
+			    case 4:
+			        document.getElementById("userOption5").style.visibility= "visible";
+			        document.getElementById("fechafin").innerHTML = resultado;
+			        zonaFinal = resultado;
+			        respyestaFinal4 = "20 de Mayo del 2015";
+			        break;
+			    //default:
+			}
+			
+		}
+		
+		
+		function startSpark(){
+			
+			mySpark =  new Spark();
+			
+			numPregunta = 0;
+			
+			pregunta1 = '¿En que zona buscas el hotel?';
+			opcionesValidas1 = new Array('Centro', 'Zaidin', 'Cahana', 'Estación de autobuses', 'Albaicin');
+			pregunta2 = '¿Cuantas habitaciones quieres reservar?';
+			opcionesValidas2 = new Array('1','2','3','Cuatro');
+			pregunta3= 'Dime la fecha de entrada';
+			pregunta4= 'Dime la fecha de salida';
+		}
+		
+		function escuchar(){
+			mySpark.escuchar();
+		}
+		
+		// Spark utiliza esta funcion para devolver los resultados
+		function resultadosSpark(palabras){
+			
+			if (palabras.length >0){
+				
+				var respuestaCorrecta = false;
+				
+				console.log("Resultado spark: " + palabras);
+				document.getElementById("respuesta").value = "";
+				
+				switch(numPregunta) {
+				    case 1:
+				    	
+				    	if(palabras.indexOf(opcionesValidas1[0]) != -1 || palabras.indexOf(opcionesValidas1[1]) != -1 || palabras.indexOf(opcionesValidas1[2]) != -1  ||
+				    	palabras.indexOf(opcionesValidas1[3]) != -1  || palabras.indexOf(opcionesValidas1[4]) != -1){
+							document.getElementById("respuesta").value = palabras;
+							respuestaCorrecta = true;
+						}
+				    
+				        break;
+				    case 2:
+				    	
+				    	if(palabras.indexOf(opcionesValidas2[0]) != -1 || palabras.indexOf(opcionesValidas2[1]) != -1 || palabras.indexOf(opcionesValidas2[2]) != -1  ||
+				    	palabras.indexOf(opcionesValidas2[3]) != -1 ){
+							document.getElementById("respuesta").value = palabras;
+							respuestaCorrecta = true;
+						}
+				    	
+				        break;
+				    case 3:
+				    		respuestaCorrecta = true;
+				        break;
+				    case 4:
+				    		respuestaCorrecta = true;
+				        break;
+			       
+				}
+				
+				
+					setTimeout(function(){
+						if(respuestaCorrecta){
+							console.log("correcta");
+							almacenarDatos(palabras);
+							lanzarPregunta(true);
+						}
+						else{
+							console.log("falsa");
+							lanzarPregunta(false);
+						}
+					}, 1000);
+			}
+			
+		}	
+	</script>
+	
     </head>
-    <body ng-controller="homeController" class="notransition no-hidden">
-
+    <body ng-controller="homeController" class="notransition no-hidden" onload="startSpark()">
+    	
         <!-- Hero -->
 
         <div id="hero-container">
@@ -49,7 +240,7 @@
                 <a href="index.html" class="home-navHandler visible-xs"><span class="fa fa-bars"></span></a>
                 <div class="home-nav">
                     <ul>
-						<li><a href="#" data-toggle="modal" data-target="#signup2">Integracion Alvaro</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#sparkInicio" onclick="iniciarAsistenteFase1()">Integración</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
                     </ul>
@@ -356,53 +547,6 @@
             </div>
         </div>
 
-		<div class="modal fade" id="signup2" role="dialog" aria-labelledby="signinLabel" aria-hidden="true" >
-            <div class="modal-dialog modal-sm2" >
-                <div class="modal-content" style="height:450px; background:white">
-                    <div class="modal-header">
-
-                    </div>
-					<div><h2 style="padding-left:20px;">Asistente de reconocimiento de voz en ejecucion</h2></div>
-					<div style="width:20%; height:200px; background:white; float:left; padding-left:20px;"><h3>Opciones elegidas</h3></div>
-					<div class="modal-body" style="width:35%; background:white; float:left;">
-                        <img src="images/prop/1-1.png" width="300px"; style="padding-left:0px">
-                    </div>
-					<div class="row" style="width:23%; background:white; float:left;">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                            <div class="form-group" style="padding-left:20px">
-                                <label>Comodidades</label>
-                                <div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check"></span> Garaje</label></div>
-                                <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Sistema de seguridad</label></div>
-                                <div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check"></span> Aire acondicionado</label></div>
-                                <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Balcon</label></div>
-								<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Piscina descubierta</label></div>
-                                
-                            </div>
-						</div>    
-					</div>
-					<div class="row" style="width:22%; background:white; float:left;">
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label>&nbsp;</label>
-                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Internet</label></div>
-                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Calefacción</label></div>
-                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> TV por cable</label></div>
-									<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Jardín</label></div>
-                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Teléfono</label></div>
-								</div>
-                            </div>
-                            <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                <div class="form-group">
-                                    <label>&nbsp;</label>
-                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Jardín</label></div>
-                                    <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Teléfono</label></div>
-                                </div>
-                            </div>-->
-                    </div>    
-				</div>
-            </div>
-        </div>
-		
         <div class="modal fade" id="signin" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -508,7 +652,64 @@
             </div>
         </div>
 
-        
+        <div class="modal fade" id="sparkInicio" role="dialog" aria-labelledby="signupLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm2">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signupLabel"> Asistente de reconocimiento de voz en ejecución </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                             <table align="center">
+										<tbody>
+											<tr>
+												<td><label><font size=5><span id="preferencias">Preferencias</span></label></td>
+											</tr>
+										</tbody>
+									</table>                          
+							<div class="row">
+                            <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <div id="userOption1" style="visibility: hidden"><FONT SIZE=4>ZONA: <span id="zona">ZONA UNO</span></div>
+									<div id="userOption2" style="visibility: hidden"><FONT SIZE=4>NUMERO HABITACIONES: <span id="numhabitaciones">NUMERO HABITACIONES UNO</span></div>
+									<div id="userOption3" style="visibility: hidden"><FONT SIZE=4>BAÑOS: <span id="baños"></span>BAÑOS UNO</div>
+									<div id="userOption4" style="visibility: hidden"><FONT SIZE=4>FECHA INICIO: <span id="fechaini"></span></div>
+									<div id="userOption5" style="visibility: hidden"><FONT SIZE=4>FECHA FIN: <span id="fechafin"></span></div>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+							<div class="form-group">
+                                <div class="btn-group-justified">
+                                    <a class="btn btn-lg btn-yellow"><span id="pregunta">Pregunta del Asistente en ejecución</span></a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="respuesta" placeholder="Respuesta del usuario" class="form-control">
+                            </div>
+							<div class="row">
+								<div class="col-lg-12 col-md-12">
+									<table align="center">
+										<tbody>
+											<tr>
+												<td><img id="start_img" src="images/imgspark/micro.gif" onclick="escuchar()"></img></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							
+                            <div class="form-group">
+                                <div class="btn-group-justified">
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
        
         <script src="js/jquery/jquery-ui-touch-punch.js"></script>
         <script src="js/jquery/jquery.placeholder.js"></script>
