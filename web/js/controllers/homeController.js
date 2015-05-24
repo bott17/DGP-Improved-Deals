@@ -1,6 +1,8 @@
 
 angular.module('aloha').controller('homeController', function ($scope, $log, HomeService,$location,$window) {
 
+
+  console.log($window);
   $scope.service = HomeService;
   $scope.objUser = {
     
@@ -114,8 +116,13 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
    */
   $scope.search = function(){
     
+
+    
     if($scope.dtstart != null && $scope.dtend != null){
         	
+          $window.prueba = true;
+          console.log("prueba: ",$window.prueba);
+          
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
           
@@ -125,22 +132,29 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
           
         	console.log("LOCATION: ",$location.$$absUrl);
           //$location.path('explore.html', false);
-          $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
+         // $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
           
           console.log($window.location.href);
          
     }
+    
+    
   }
 
-  $scope.$watch('$window.finAsistente', function() {
-       
-       if($window.finAsistente)
-          
-       
-       
+
+  $scope.$watch(function(){
+       return $window.finAsistente;
+    }, function(value) {
+      
+       console.log("Se acciono el watch");
+       if($window.finAsistente){
+          console.log("Prueba ha cambiado");
+         console.log("Asistente finalizado");
+        alertify.success("Asistente finalizado, buscando...");
+        $window.finAsistente = false;
+       }
        
    });
-  
 
 
 
