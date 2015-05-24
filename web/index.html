@@ -167,7 +167,11 @@
 			mySpark.hablar("Prefieres la zona:" +  respuestaFinal1);
 			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
 			mySpark.hablar("Reserva desde " + respuestaFinal3);
-			mySpark.hablar("hasta " + respuestaFinal4, function () {finAsistente = true;});
+			mySpark.hablar("hasta " + respuestaFinal4, function () {
+				
+				document.getElementById("sparkInicio").style.visibility= "none";
+				finAsistente = true;
+				});
 			
 			
 		}
