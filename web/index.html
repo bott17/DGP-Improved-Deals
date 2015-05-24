@@ -50,10 +50,14 @@
 		var pregunta5;
 		var opcionesValidas5;
 		
+		/**** Variables Finales ****/
 		var respuestaFinal1;
 		var respuestaFinal2;
 		var respuestaFinal3;
-		var respyestaFinal4;
+		var respuestaFinal4;
+		
+		/**** Variable controladora fin asistente *****/
+		var finAsistente;
 		
 		
 		
@@ -164,9 +168,10 @@
 			mySpark.hablar("Prefieres la zona:" +  respuestaFinal1);
 			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
 			mySpark.hablar("Reserva desde " + respuestaFinal3);
-			mySpark.hablar("hasta " + respyestaFinal4);
+			mySpark.hablar("hasta " + respuestaFinal4);
 			
-			// TODO lanzar siguiente asistente
+			setInterval(function () {finAsistente = true;}, 3000);
+			
 		}
 		
 		function rellenarPregunta(pregunta){
@@ -214,6 +219,7 @@
 			mySpark =  new Sparkv2("start_img");
 			
 			numPregunta = 0;
+			finAsistente = false;
 			
 			pregunta1 = '¿En que zona buscas el hotel?';
 			opcionesValidas1 = new Array('centro', 'caidin', 'cahana', 'estación de autobuses', 'clbaicin');
