@@ -139,8 +139,7 @@ class DBAccess {
 				$filtersql);
 
 		if($this->local==1)$sql=iconv('UTF-8', 'ISO-8859-1', $sql);
-		//print_r($sql);
-		//exit;
+
 		$result = $this->dbObject->query($sql);
 
 		
