@@ -124,7 +124,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
           console.log($scope.objSearch);
           
         	console.log("LOCATION: ",$location.$$absUrl);
-          $location.path('explore.html', false);
+          //$location.path('explore.html', false);
           $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
           
           console.log($window.location.href);
