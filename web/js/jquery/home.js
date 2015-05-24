@@ -219,7 +219,7 @@
                                     '<div class="propImg">' +
                                         '<img src="images/prop/' + prop.image + '">' +
                                         '<div class="propBg">' +
-                                            '<div class="propPrice">' + prop.price + '</div>' +
+                                            
                                             '<div class="propType">' + prop.type + '</div>' +
                                         '</div>' +
                                     '</div>' +
@@ -237,12 +237,12 @@
                                     '<ul class="propFeat">' +
                                         '<li><span class="fa fa-moon-o"></span> ' + prop.bedrooms + '</li>' +
                                         '<li><span class="icon-drop"></span> ' + prop.bathrooms + '</li>' +
-                                        '<li><span class="icon-frame"></span> ' + prop.area + '</li>' +
+                                        '<li><span class="glyphicon glyphicon-euro"></span> ' + prop.price + '</li>' +
                                     '</ul>' +
                                     '<div class="clearfix"></div>' +
                                     '<div class="infoButtons">' +
-                                        '<a class="btn btn-sm btn-round btn-gray btn-o closeInfo">Close</a>' +
-                                        '<a href="single.html" class="btn btn-sm btn-round btn-green viewInfo">View</a>' +
+                                        '<a class="btn btn-sm btn-round btn-gray btn-o closeInfo">Cerrar</a>' +
+                                        '<a href="single.html" class="btn btn-sm btn-round btn-green viewInfo">Ver</a>' +
                                     '</div>' +
                                  '</div>';
 
