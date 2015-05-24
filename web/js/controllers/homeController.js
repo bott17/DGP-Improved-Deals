@@ -1,5 +1,5 @@
 
-angular.module('aloha').controller('homeController', function ($scope, $log, HomeService) {
+angular.module('aloha').controller('homeController', function ($scope, $log, HomeService,$location,$window) {
 
   $scope.service = HomeService;
   $scope.objUser = {
@@ -122,9 +122,14 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
           //$scope.serviceAction('searchHome',$scope.objSearch);
           alertify.success('Busqueda lanzada');
           console.log($scope.objSearch);
-      
+          
+        	console.log("LOCATION: ",$location.$$absUrl);
+          $location.path('explore.html', false);
+          $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
+          
+          console.log($window.location.href);
+         
     }
-    
   }
 
 
@@ -169,7 +174,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
             
             $scope.service.post('searchHome', {
               
-                action:'searchhome',
+                action:'search',
                 zone: obj.zone,
                 rooms: obj.room,
                 dateini: obj.dateini,
