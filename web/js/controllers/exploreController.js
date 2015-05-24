@@ -1,23 +1,114 @@
-angular.module('aloha').controller('exploreController', function ($scope, $log, $window, ExploreService) {
-
-  $scope.service = ExploreService;
-  
+angular.module('aloha').controller('exploreController', function ($scope, $log, $window, ExploreService){
   console.log($window);
+  
+  $scope.service = ExploreService;
+  $scope.hostelero = false;
+  $scope.identifiedUser = false;
+  $scope.objUser = {
+    name:'',
+    surname:'',
+    password: '',
+    email: '',
+    hostelero: false,
+    companyName: '',
+    nif: ''  
+  }
+
+  $scope.objSearch = {
+    zone: '',
+    rooms: 'Habitaciones',
+    dateini: 0,
+    dateend: 0,
+    rooms: 0,
+    type: '',
+    pension: false,
+    garage: false,
+    security: false,
+    airconditioner: false,
+    balcony: false,
+    swimmingpool: false,
+    internet: false,
+    heating: false,
+    tv: false
+  }
+
+  $scope.objRent = {
+    dateini: 0,
+    dateend: 0,
+    idproperty: 0,
+    email: ''
+  }
+  
+  $scope.objSimilarProperties ={
+    zone:'',
+    idproperty: 0
+  }
+  
+  $scope.objListUserProperties ={
+    email:''
+  }
+
+  $scope.rooms =['Habitaciones',1,2,3,4,5];
+  $scope.zones = ["Zona","Centro","Albaicin","Chana","Estacion de autobuses","Realejo","Ronda","Norte","Genil"];
+  $scope.objSearch.zone = $scope.zones[0];
+  $scope.objSearch.rooms = $scope.rooms[0];
+  $scope.confirmPass = '';
+
+  /**
+   * Función que controla si un usuario es hostelero o no a la hora de registrarse
+   */
+  $scope.hosteleroToggle = function() {
+     $scope.hostelero = !$scope.hostelero;
+  } 
+  $scope.registradoToggle = function(){
+    $scope.identifiedUser = !$scope.identifiedUser;
+  }
+  /**
+   * Funcion que registra al usuario
+   */
+   $scope.register = function(){
+     console.log(" Pulsado boton register");
+     if( !$scope.objUser.hostelero && $scope.objUser.name != '' && $scope.objUser.surname != '' 
+        && $scope.objUser.password != '' && $scope.objUser.email != ''
+        && $scope.objUser.email != '' && $scope.confirmPass != '' && ($scope.objUser.password == $scope.confirmPass)){
+       
+       $scope.serviceAction('registerUser',$scope.objUser);
+     
+     }else if($scope.objUser.hostelero && $scope.objUser.companyName != '' && $scope.objUser.nif != ''){
+         
+        $scope.serviceAction('registerUser',$scope.objUser);  
+
+    }
+  }
+  /**
+  * Funcion que inicia la sesión del usuario
+  */ 
+  $scope.signup = function(){
+      
+      if($scope.objUser !='' && $scope.objUser.password){
+         $scope.serviceAction('login',$scope.objUser);
+      } 
+    
+  console.log("objUser: ", $scope.objUser);
+  }
 
   $scope.today = function() {
     $scope.dt = new Date();
   };
   $scope.today();
-  $scope.dtstart;
-  $scope.dtend;
+  $scope.dtstart = null;
+  $scope.dtend = null;
 
   $scope.clear = function () {
     $scope.dt = null;
   };
 
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    /**
+   * Función y variables que controlan las fechas de busqueda de un alojamiento
+   */
+
+  $scope.clear = function () {
+    $scope.dt = null;
   };
 
   $scope.toggleMin = function() {
@@ -37,5 +128,126 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
 
     console.log(obj);
   };
+ /**
+   * Funcion que realiza la acción de buscar
+   */
+  $scope.search = function(){
+    
+    if($scope.dtstart != null && $scope.dtend != null){
+          
+          $scope.objSearch.dateini = $scope.dtstart;
+          $scope.objSearch.dateend = $scope.dtend;
+          
+          $scope.serviceAction('search',$scope.objSearch);
+          alertify.success('Busqueda lanzada');
+          console.log($scope.objSearch); 
+    }
+  }
+  $scope.serviceAction = function(action,obj){
+    
+      switch (action) {
+        case 'registerUser':  
+          $scope.service.post('registerUser', {
+              action:'registeruser',
+              name: obj.name,
+              surname: obj.surname,
+              email: obj.email,
+              password: obj.password,
+              hostelero: obj.hostelero 
+            }).then(function(response){
+              var response = angular.fromJson(response.data);
+              $scope.registerUserR = response.data;
+              console.log($response);
+          });
+         break;
+      
+        case 'logIn':
+            $scope.service.post('logIn', {
+              
+                action:'login',
+                email: obj.email,
+                password: obj.password
+              }).then(function(response){
+                var result = angular.fromJson(response.data);
+                $scope.logIn = result.data;
+                console.log("La información tras identificarse es: ", $scope.logIn);
+            });
+           break;
+           
+         case 'search':
+            $scope.service.post('search', {
+                action:'search',
+                dateini: obj.dateini,
+                dateend: obj.dateend
+              }).then(function(response){
+                var result = angular.fromJson(response.data);
+                $scope.searchR = result.data;
+                console.log("El resultado de la búsqueda es: ", $scope.searchR);
+            });
+           break;
+          
+         case 'lastFourComments':
+          $scope.service.post('lastFourComments', {
+            action:'lastfourcomments'
+          }).then(function(response){
+            var result = angular.fromJson(response.data);
+            $scope.lastFourCommentsR = result.data;
+            console.log("Los últimos 4 comentarios son: ", $scope.lastFourCommentsR);
+          });
+          break;
 
+          case 'lastSixProperties':
+          $scope.service.post('lastSixProperties',{
+            
+            action:'lastsixproperties'
+
+          }).then(function(response){
+            var result = angular.fromJson(response.data);
+            $scope.lastSixPropertiesR = result.data;
+            console.log("Las últimas 6 propiedades son: ", $scope.lastSixPropertiesR);
+          });
+          break;
+          case 'rent':
+          $scope.service.post('rent',{
+            
+            action:'rent',
+            dateini: obj.dateini,
+            dateend: obj.dateend,
+            idproperty: obj.idproperty,
+            email: obj.email
+
+          }).then(function(response){
+            var result = angular.fromJson(response.data);
+            $scope.rentR = result.data;
+            console.log("Alojamiento alquilado: ", $scope.rentR);
+          });
+          break;
+          case 'listUserProperties':
+          $scope.service.post('listUserProperties',{
+            
+            action:'listuserproperties',
+            email:obj.email
+          
+          }).then(function(response){
+             var result = angular.fromJson(response.data);
+             $scope.userListR = result.data;
+            console.log("Propiedades del usuario: ",$scope.userListR);
+          });
+        break;
+        case 'similarProperties':
+          $scope.service.post('similarProperties',{
+            
+            action:'similarproperties',
+
+          }).then(function(response){
+            var result = angular.fromJson(response.data);
+            $scope.similarPropertiesR = result.data;
+            console.log("Propiedades similares: ",$scope.similarPropertiesR);
+          });
+          break;
+        
+        default:
+          break;
+      }
+    }
 });

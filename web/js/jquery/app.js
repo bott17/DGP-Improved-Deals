@@ -45,8 +45,8 @@
     var props = [{
         title : 'Pedro Antonio Alarcon',
         image : '1-1-thmb.png',
-        type : 'Alquiler',
-        price : '$1,550,000',
+        type : 'Hotel',
+        price : '1,550,000',
         address : '39 Remsen St, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
@@ -60,7 +60,7 @@
         title : 'Hauntingly Beautiful Estate',
         image : '2-1-thmb.png',
         type : 'Alquiler',
-        price : '$1,750,000',
+        price : '750,000',
         address : '169 Warren St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '2',
@@ -74,7 +74,7 @@
         title : 'Sophisticated Residence',
         image : '3-1-thmb.png',
         type : 'Alquiler',
-        price : '$1,340,000',
+        price : '1,340,000',
         address : '38-62 Water St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '3',
@@ -88,7 +88,7 @@
         title : 'House With a Lovely Glass-Roofed Pergola',
         image : '4-1-thmb.png',
         type : 'Alquiler',
-        price : '$1,930,000',
+        price : '1,930,000',
         address : 'Wunsch Bldg, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
@@ -101,8 +101,8 @@
     }, {
         title : 'Luxury Mansion',
         image : '5-1-thmb.png',
-        type : 'Alquiler',
-        price : '$2,350,000',
+        type : 'Casa',
+        price : '2,350,000',
         address : '95 Butler St, Brooklyn, NY 11231, USA',
         bedrooms : '2',
         bathrooms : '2',
@@ -115,8 +115,8 @@
     }, {
         title : 'Modern Residence in New York',
         image : '1-1-thmb.png',
-        type : 'Alquiler',
-        price : '$1,550,000',
+        type : 'Piso',
+        price : '1,550,000',
         address : '39 Remsen St, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
@@ -129,8 +129,8 @@
     }, {
         title : 'Hauntingly Beautiful Estate',
         image : '2-1-thmb.png',
-        type : 'Alquiler',
-        price : '$1,750,000',
+        type : 'Hotel',
+        price : '1,750,000',
         address : '169 Warren St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '2',
@@ -143,8 +143,8 @@
     }, {
         title : 'Sophisticated Residence',
         image : '3-1-thmb.png',
-        type : 'Alquiler',
-        price : '$1,340,000',
+        type : 'Piso',
+        price : '1,340,000',
         address : '38-62 Water St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '3',
@@ -157,8 +157,8 @@
     }, {
         title : 'House With a Lovely Glass-Roofed Pergola',
         image : '4-1-thmb.png',
-        type : 'Alquiler',
-        price : '$1,930,000',
+        type : 'Piso',
+        price : '1,930,000',
         address : 'Wunsch Bldg, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
@@ -171,8 +171,8 @@
     }, {
         title : 'Luxury Mansion',
         image : '5-1-thmb.png',
-        type : 'Alquiler',
-        price : '$2,350,000',
+        type : 'Hotel',
+        price : '2,350,000',
         address : '95 Butler St, Brooklyn, NY 11231, USA',
         bedrooms : '2',
         bathrooms : '2',
@@ -224,7 +224,6 @@
                                     '<div class="propImg">' +
                                         '<img src="images/prop/' + prop.image + '">' +
                                         '<div class="propBg">' +
-                                            '<div class="propPrice">' + prop.price + '</div>' +
                                             '<div class="propType">' + prop.type + '</div>' +
                                         '</div>' +
                                     '</div>' +
@@ -240,14 +239,13 @@
                                         '<span class="fa fa-star-o"></span>' +
                                     '</div>' +
                                     '<ul class="propFeat">' +
-                                        '<li><span class="fa fa-moon-o"></span> ' + prop.bedrooms + '</li>' +
-                                        '<li><span class="icon-drop"></span> ' + prop.bathrooms + '</li>' +
-                                        '<li><span class="icon-frame"></span> ' + prop.area + '</li>' +
+                                        '<li><span class="glyphicon glyphicon-comment"></span> ' + prop.bathrooms + '</li>' +
+                                        '<li><span class="glyphicon glyphicon-euro"></span> ' + prop.price + '</li>' +
                                     '</ul>' +
                                     '<div class="clearfix"></div>' +
                                     '<div class="infoButtons">' +
-                                        '<a class="btn btn-sm btn-round btn-gray btn-o closeInfo">Close</a>' +
-                                        '<a href="single.html" class="btn btn-sm btn-round btn-green viewInfo">View</a>' +
+                                        '<a class="btn btn-sm btn-round btn-gray btn-o closeInfo">Cerrar</a>' +
+                                        '<a href="single.html" class="btn btn-sm btn-round btn-green viewInfo">Ver</a>' +
                                     '</div>' +
                                  '</div>';
 

@@ -1,8 +1,29 @@
-    .modal-sm2 {
-    width: 1000px  !important;
-  }
+.modal-sm2 {
+width: 1000px  !important;
+}
   
   .modal-body2 {
   position: relative;
   padding: 70px !important;
+}
+
+#nonRegistered{
+	color:#fff;
+	background:#0eaaa6;
+}
+#nonRegistered ul{
+	line-height:3;
+}
+#nonRegistered ul li{
+	margin-right:15px;
+}
+.dateForm .row div{
+	float:left;
+	margin-left:2.2%;
+}
+.dateForm .row .rightDate{
+	margin-left:6%;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
