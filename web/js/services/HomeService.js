@@ -1,20 +1,60 @@
 angular.module('aloha').service('HomeService', function($http, $window) {
 	
 	this.urlObj = {
-		helloWorld: {
+		registerUser: {
 			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
 				[
-					{
-						name: 'hello',
-						filter: 'same'
-					}
+					{name: 'action',filter: 'same'},
+					{name: 'name',filter: 'same'},
+					{name: 'surname',filter: 'same'},
+					{name: 'email',filter: 'same'},
+					{name: 'password',filter: 'base64'},
+					{name: 'hostelero',filter: 'same'}
+									
+				], 
+				nonrequired:[
+					{name: 'companyName',filter: 'same'},
+					{name: 'nif',filter: 'same'}
+				]
+			}
+		},
+		
+		logIn: {
+			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			//url: 'http://aloha2.tk/backend/DBController.php',
+			parameters:{
+				required: 
+				[
+					{name: 'action',filter: 'same'},
+					{name: 'email',filter: 'same'},
+					{name: 'password',filter: 'base64'},
+									
 				], 
 				nonrequired:[]
 			}
+		},
+		
+		searchHome: {
+			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			//url: 'http://aloha2.tk/backend/DBController.php',
+			parameters:{
+				required: 
+				[
+					{name: 'action',filter: 'same'},
+					{name: 'dateini',filter: 'same'},
+					{name: 'dateend',filter: 'same'}
+									
+				], 
+				nonrequired:[
+					{name: 'zone',filter: 'same'},
+					{name: 'rooms',filter: 'same'},
+				]
+			}
 		}
+		
 	}
 	
 	this._checkParameters = function(actionName, parameters){
@@ -61,9 +101,17 @@ angular.module('aloha').service('HomeService', function($http, $window) {
 		var params = {};
 		switch(action){
 
+			case 'registerUser':
+				params = this._transformParameters(obj, this.urlObj[action].parameters);
+			break;
+			case 'logIn':
+				params = this._transformParameters(obj, this.urlObj[action].parameters);
+			break;
+			case 'searchHome':
+				params = this._transformParameters(obj, this.urlObj[action].parameters);
+			break;
 			case 'helloWorld':
-				params = this._transformParameters(obj, this.urlObj.helloWorld.parameters);
-				params.action = 'helloworld';
+				params = this._transformParameters(obj, this.urlObj[action].parameters);
 			break;
 			
 		}
