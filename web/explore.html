@@ -14,17 +14,22 @@
         <link href="css/app.css" rel="stylesheet">
         
         
-        <script src="spark/spark.js" type="text/javascript"></script>
+        <script src="spark/sparkv2.js" type="text/javascript"></script>
         <script type="text/javascript">
         	
         var mySparkExplorer;
         var todosHoteles;
         var indexHotel;
+        
+        var opcionUser1;
+        var opcionUser2;
+        var opcionUser3;
+        var opcionUser4;
         	
         function startSpark(){
 			
-		mySparkExplorer =  new Spark();
-		indexHotel = 0;
+		mySparkExplorer =  new Sparkv2("start_img");
+		indexHotel = -1;
 		}
 		
 		function Hotel(_direccion_, _titulo_, _precio_, _srcImg_){
@@ -32,10 +37,10 @@
 			//document.getElementById("popupTitulo").innerHTML = titulo;
 			//document.getElementById("popupSrcImg").src = srcimg;
 			//document.getElementById("popupPrecio").innerHTML = precio;
-			direccion = _direccion_;
-			titulo = _titulo_;
-			precio= _precio_;
-			srcImg = _srcImg_;
+			this.direccion = _direccion_;
+			this.titulo = _titulo_;
+			this.precio= _precio_;
+			this.srcImg = _srcImg_;
 			
 		}
 		
@@ -43,37 +48,125 @@
 			
 			startSpark();
 			
-			//rellernarOpciones();
-			todosHoteles = recuperarTodosHoteles(true);
-			recuperarHotel();
+			todosHoteles = new Array();
+			
+		}
+		
+		function iniciarAsistenteFase2(){
+			
+			recuperarOpciones();
+			recuperarTodosHoteles(true);
+			
+			ciclarHotel();
+		}
+		
+		function recuperarOpciones(){
+			
+			// TODO FAKE
+			opcionUser1 = "Centro";
+			opcionUser2 = "2";
+			opcionUser3 = "19 de Mayo de 2015";
+			opcionUser4 = "21 de Mayo de 2015";
+			
 		}
 		
 		function recuperarHotel(){
 			
 			var hotel = todosHoteles[indexHotel];
 			
-			//leerDatosHotel(hotel);
 			//rellenarDatosHotel(hotel);
+			leerDatosHotel(hotel);
 			
-			escuchar();
+		}
+		
+		function recuperarOpcionUsuario(){
 			
-			indexHotel++;
+			mySparkExplorer.pregunta("¿Deseas descartar esta oferta, contratarla o cancelar el proceso?", function (err, result){
+				
+				console.log(result.final_transcript);
+				if (err) {
+					mySparkExplorer.hablar("Ninguna respuesta");
+					recuperarOpcionUsuario();
+				 } else {
+					if(result.final_transcript.indexOf("Descartar")!= -1){
+						mySparkExplorer.hablar("Has elegido descartar");
+						
+						ciclarHotel();
+					}
+					else if(result.final_transcript.indexOf("Contratar")!= -1 || result.final_transcript.indexOf("Contratarla")!=0){
+						mySparkExplorer.hablar("Has elegido contratar");
+					}
+					else if(result.final_transcript.indexOf("cancelar")!= -1){
+						mySparkExplorer.hablar("Has elegido cancelar");
+					}
+				}
+			});
+		}
+		
+		function leerDatosHotel(hotel){
+			
+			mySparkExplorer.hablar("Contemplemos el siguiente hotel");
+			
+			mySparkExplorer.hablar("Situado en " + hotel.direccion);
+			mySparkExplorer.hablar("El dueño lo describe como: " + hotel.titulo);
+			mySparkExplorer.hablar("El precio por noche es de " + hotel.precio);
+			
+			if(hotel.srcImg != null){
+				mySparkExplorer.hablar("El hostelero proporciona una imagen de la habitación");
+			}
+			else{
+				mySparkExplorer.hablar("El hostelero no proporciona ninguna imagen de la habitación");
+			}
 		}
 		
 		function recuperarTodosHoteles(){
 			
 			// TODO FAKE
-			var tempHoteles = new Array();
 			var tempHotel = new Hotel('direccion hotel 1', 'Hotel con vistas al mar', '1000 pavos', 'images/prop/2-1.png');
-			tempHoteles.push(tempHotel);
-			hotel = new Hotel('direccion hotel 2', 'Hotel con vistas a la montaña', '100 €', 'images/prop/4-1.png');
-			tempHoteles.push(tempHotel);
+			todosHoteles.push(tempHotel);
+			tempHotel = new Hotel('direccion hotel 2', 'Hotel con vistas a la montaña', '100 €', 'images/prop/4-1.png');
+			todosHoteles.push(tempHotel);
 			
-			return tempHoteles;
+		}
+		
+		function ciclarHotel(){
+			indexHotel++;
+			
+			if(indexHotel < todosHoteles.length){
+				recuperarHotel();
+				recuperarOpcionUsuario();
+			}
+			else{
+				var pedir = false;
+				do{
+					mySparkExplorer.hablar("No quedan más ofertas que consultar");
+					mySparkExplorer.pregunta("¿Deseas repetir las ofertas o cancelar el proceso?", function (err, result){
+					
+						console.log(result.final_transcript);
+						if (err) {
+							mySparkExplorer.hablar("Ninguna respuesta");
+							pedir = true;
+						 } else {
+						 	pedir = false;
+							if(result.final_transcript.indexOf("Repetir")!= -1 || result.final_transcript.indexOf("Sí")!= -1 || result.final_transcript.indexOf("Si")!= -1){
+								mySparkExplorer.hablar("Volviendo a mostrar tas las ofertas");
+								indexHotel = -1;
+								ciclarHotel();
+							}
+							else if(result.final_transcript.indexOf("Cancelar")!= -1){
+								// TODO
+							}
+						}
+				
+					});
+				}while(pedir);
+				
+			}
+			
 		}
 		
 		function escuchar(){
-			mySparkExplorer.escuchar();
+			//mySparkExplorer.escuchar();
 		}
 		
 		function resultadosSpark(palabras){
@@ -85,7 +178,7 @@
         </script>
 		
     </head>
-    <body class="notransition">	
+    <body class="notransition" onload="iniciarAsistenteFase1()">	
 		
 		<!-- Header -->
 		
@@ -100,7 +193,7 @@
             <div class="search">
                 <span class="searchIcon icon-magnifier"></span>
                 <input type="text" placeholder="Buscar hoteles...">			
-					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase1()">Integracion Alvaro</a>			
+					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase2()">Integracion Alvaro</a>			
 		    </div>
             <div class="headerUserWraper">
                 <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>

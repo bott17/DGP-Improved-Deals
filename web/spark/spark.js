@@ -144,3 +144,53 @@ Spark.prototype.hablar = function(text, callback){
  
     speechSynthesis.speak(u);
 };
+
+
+// ask a question and get an answer
+Spark.prototype.pregunta = function (text, callback) {
+    // ask question
+    this.hablar(text, function () {
+        // get answer
+        var recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'es';
+        
+        recognition.onstart = function() {
+		    console.log("start");
+		};
+		 
+        recognition.onend = function (e) {
+            if (callback) {
+                callback('no results');
+            }
+        };
+ 
+        recognition.onresult = function (e) {
+            // cancel onend handler
+            console.log("hola 1" + final_transcript);
+            recognition.onend = null;
+            if (callback) {
+            	console.log("holaaaa " + final_transcript + "asddas " + e.results[0][0].transcript);
+                callback(null, {
+                    final_transcript: e.results[0][0].transcript,
+                    confidence: e.results[0][0].confidence
+                });
+                
+                final_transcript = capitalize(final_transcript);
+			   console.log("hola 3" + final_transcript);
+			   //console.log(interim_transcript);
+			    
+			    //resultadosTemporalesSpark(interim_transcript);
+			    resultadosSpark(final_transcript);
+			    final_transcript="";
+			    //interim_transcript="";
+                
+            }
+        };
+ 
+ console.log("temp");
+        // start listening
+        recognition.start();
+    });
+};
