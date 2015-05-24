@@ -7,7 +7,9 @@ include ('DB/DBAccess.php');
 
 $allowedActions = array(
 	'helloworld',
-	'registeruser'
+	'registeruser',
+	'search',
+	'rentroom'
 );
 
 $response = array('status' => 0, 'error_code' => 0, 'description' => 'Success', 'data' => array());
@@ -105,10 +107,82 @@ if($continue){
 				$filters['nif'] = $REQUEST['nif'];
 			
 				$response['data']= $db->registerUser($filters);
-				if($response!=1){
+				if($response['data']!=1){
 					$response['status'] = 1;
 					$response['error_code'] = 4;
 					$response['description'] = 'Fail:Could not insert given user possibly because email already exists in database';	
+				}
+			}
+
+		break;		
+		case 'search':
+					
+			
+			if(!isset($REQUEST['dateini']) || !isset($REQUEST['dateend'])){
+				$continue = False;
+				$response['status'] = 1;
+				$response['error_code'] = 5;
+				$response['description'] = 'Invalid params(4): Missing dateini or dateend';
+			}
+
+
+
+			if($continue){
+				
+				$filters['dateini'] = $REQUEST['dateini'];
+				$filters['dateend'] = $REQUEST['dateend'];
+				if(isset($REQUEST['zone']))$filters['zone'] = $REQUEST['zone'];
+				if(isset($REQUEST['rooms']))$filters['rooms'] = $REQUEST['rooms'];
+				if(isset($REQUEST['type']))$filters['type'] = $REQUEST['type'];
+				if(isset($REQUEST['pension']))$filters['pension'] = $REQUEST['pension'];
+				if(isset($REQUEST['garage']))$filters['garage'] = $REQUEST['garage'];
+				if(isset($REQUEST['security']))$filters['security'] = $REQUEST['security'];
+				if(isset($REQUEST['airconditioner']))$filters['airconditioner'] = $REQUEST['airconditioner'];
+				if(isset($REQUEST['balcony']))$filters['balcony'] = $REQUEST['balcony'];
+				if(isset($REQUEST['swimmingpool']))$filters['swimmingpool'] = $REQUEST['swimmingpool'];
+				if(isset($REQUEST['internet']))$filters['internet'] = $REQUEST['internet'];
+				if(isset($REQUEST['heating']))$filters['heating'] = $REQUEST['heating'];
+				if(isset($REQUEST['tv']))$filters['tv'] = $REQUEST['tv'];
+				if(isset($REQUEST['garden']))$filters['garden'] = $REQUEST['garden'];
+				if(isset($REQUEST['phone']))$filters['phone'] = $REQUEST['phone'];
+
+				$response['data']= $db->search($filters);
+
+				if($response['data']==-1){
+					$response['status'] = 1;
+					$response['error_code'] = 6;
+					$response['description'] = 'Fail: Could not retrieve information possibly due to an undetected error in parameters';	
+				}
+			}
+
+		break;		
+		case 'rentroom':
+					
+			
+			if(!isset($REQUEST['dateini']) || !isset($REQUEST['dateend'])){
+				$continue = False;
+				$response['status'] = 1;
+				$response['error_code'] = 5;
+				$response['description'] = 'Invalid params(4): Missing dateini or dateend';
+			}
+
+
+
+			if($continue){
+				
+				$filters['dateini'] = $REQUEST['dateini'];
+				$filters['dateend'] = $REQUEST['dateend'];
+				$filters['idproperty'] = $REQUEST['idproperty'];
+				$filters['email'] = $REQUEST['email'];
+
+
+				$response['data']= $db->rentRoom($filters);
+				print_r($response['data']);
+				exit;
+				if($response['data']==-1){
+					$response['status'] = 1;
+					$response['error_code'] = 6;
+					$response['description'] = 'Fail: Could not retrieve information possibly due to an undetected error in parameters';	
 				}
 			}
 
