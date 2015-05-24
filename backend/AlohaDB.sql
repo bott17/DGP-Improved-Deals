@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-05-2015 a las 17:22:56
+-- Tiempo de generación: 24-05-2015 a las 21:38:23
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `Propiedad` (
   `Direccion` varchar(150) NOT NULL,
   `Tipo` enum('Casa','Hotel','Piso') NOT NULL,
   `Pension` enum('Ninguna','Media','Completa') NOT NULL,
-  `Zona` enum('Centro','Zaidín','Chana','Estación de autobuses') NOT NULL,
+  `Zona` enum('Centro','Zaidin','Chana','Estación de autobuses') NOT NULL,
   `Precio` int(11) NOT NULL,
   `Habitaciones` int(11) NOT NULL,
   `Garaje` int(11) NOT NULL,
@@ -102,15 +102,17 @@ CREATE TABLE IF NOT EXISTS `Propiedad` (
   `Jardin` int(11) NOT NULL,
   `Telefono` int(11) NOT NULL,
   `Email` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Propiedad`
 --
 
 INSERT INTO `Propiedad` (`Id_P`, `Nombre`, `Descripcion`, `Estrellas`, `Direccion`, `Tipo`, `Pension`, `Zona`, `Precio`, `Habitaciones`, `Garaje`, `Seguridad`, `AireAcondicionado`, `Balcon`, `Piscina`, `Internet`, `Calefaccion`, `TV`, `Jardin`, `Telefono`, `Email`) VALUES
-(2, 'Salón de JC', 'Tiene sofá', 0, 'Calle sol 25 1ºB', 'Piso', 'Ninguna', 'Centro', 120, 3, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 'hostelero@demicorason.com'),
-(3, 'El salón de troy', 'Recién limpico y tal', 0, 'Calle Sor Cristina mesa 1 2ºA', 'Piso', 'Ninguna', 'Zaidín', 400, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 'hostelero@demicorason.com');
+(2, 'Salon de JC', 'Tiene sofa', 0, 'Calle sol 25 1B', 'Piso', 'Ninguna', 'Centro', 120, 3, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 'hostelero@demicorason.com'),
+(3, 'El salon de troy', 'Recien limpico y tal', 0, 'Calle Sor Cristina mesa 1 2A', 'Piso', 'Ninguna', 'Zaidin', 400, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 'hostelero@demicorason.com'),
+(4, 'Salon de Guille', 'El peaso de salon de Guille', 0, 'Casa Guille', 'Piso', 'Ninguna', 'Centro', 120, 3, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 'hostelero@demicorason.com'),
+(5, 'Salon de alvaro', 'Salon de alvaro ahi to maqueao', 0, 'casa alvaro obviously', 'Casa', 'Media', 'Centro', 130, 3, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 'hostelero@demicorason.com');
 
 -- --------------------------------------------------------
 
@@ -136,7 +138,8 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
 
 INSERT INTO `Usuario` (`Email`, `Password`, `Nombre`, `Apellidos`, `Telefono`, `Foto`, `Hostelero`, `Empresa`, `NIF`) VALUES
 ('hostelero@demicorason.com', 'hostelero', 'Hostelero', 'Hostelerín Hostelerete', 662015816, 'invitado.jpg', 1, 'Hosteleros SA', 'A1234567A'),
-('huesped@demicorason', 'huesped', 'Huésped', 'Huespedcito Huespencio', 646882512, 'invitado.jpg', 0, NULL, NULL);
+('huesped@demicorason', 'huesped', 'Huesped', 'Huespedcito Huespencio', 646882512, 'invitado.jpg', 0, NULL, NULL),
+('troiti60@gmail.com', 'asdf', 'Antonio', 'Troitiño', 662015816, 'invitado.jpg', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -227,7 +230,7 @@ ALTER TABLE `Habitaciones`
 -- AUTO_INCREMENT de la tabla `Propiedad`
 --
 ALTER TABLE `Propiedad`
-  MODIFY `Id_P` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `Id_P` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `Valorar`
 --
