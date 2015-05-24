@@ -33,7 +33,7 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         
-        <script src="spark/spark.js" type="text/javascript"></script>
+        <script src="spark/sparkv2.js" type="text/javascript"></script>
         <script type="text/javascript">
 		
 		var mySpark;
@@ -61,44 +61,106 @@
 			lanzarPregunta(true);
 		}
 		
+		
+		
 		function lanzarPregunta(noRepetir){
 			
 			if(noRepetir){
 				numPregunta++;
 			}
-			else{
-				mySpark.hablar("No te entendi, repite por favor");
-			}
-			console.log("lanzar pregunta  " + numPregunta);
 			
 			// No quedan mas preguntas
 			if(numPregunta >= 5){
 				finalizarPreguntas();
 				return;
 			}else{
+				
 				switch(numPregunta) {
 				    case 1:
 				        rellenarPregunta(pregunta1);
-				        mySpark.hablar(pregunta1);
+						mySpark.pregunta(pregunta1, function (err, palabras){
+							
+						//console.log(palabras.final_transcript);
+						if (err) {
+							mySpark.hablar("No te entendi, repite por favor");
+							lanzarPregunta(false);
+						 } 
+						 else {
+						 	console.log("uno");
+						 	if(palabras.final_transcript.indexOf(opcionesValidas1[0]) != -1 || palabras.final_transcript.indexOf(opcionesValidas1[1]) != -1 ||
+						 		palabras.final_transcript.indexOf(opcionesValidas1[2]) != -1  ||
+						    	palabras.final_transcript.indexOf(opcionesValidas1[3]) != -1  || palabras.final_transcript.indexOf(opcionesValidas1[4]) != -1){
+						    		console.log("dos");
+									document.getElementById("respuesta").value = palabras.final_transcript;
+									almacenarDatos(palabras.final_transcript);
+									lanzarPregunta(true);
+							}
+							else{
+								console.log("tres");
+								mySpark.hablar("No te entendi, repite por favor");
+								lanzarPregunta(false);
+							}
+						 }
+						});
 				        break;
 				    case 2:
 				        rellenarPregunta(pregunta2);
-				        mySpark.hablar(pregunta2);
+						mySpark.pregunta(pregunta2, function (err, palabras){
+							
+						//console.log(result.final_transcript);
+						if (err) {
+							mySpark.hablar("No te entendi, repite por favor");
+							lanzarPregunta(false);
+						 } else {
+						 	if(palabras.final_transcript.indexOf(opcionesValidas2[0]) != -1 || palabras.final_transcript.indexOf(opcionesValidas2[1]) != -1 || 
+						 	palabras.final_transcript.indexOf(opcionesValidas2[2]) != -1  ||
+						    	palabras.final_transcript.indexOf(opcionesValidas2[3]) != -1  || palabras.final_transcript.indexOf(opcionesValidas2[4]) != -1){
+									document.getElementById("respuesta").value = palabras.final_transcript;
+									almacenarDatos(palabras.final_transcript);
+									lanzarPregunta(true);
+							}
+							else{
+								mySpark.hablar("No te entendi, repite por favor");
+								lanzarPregunta(false);
+							}
+						 }
+						 });
 				        break;
 				    case 3:
 				        rellenarPregunta(pregunta3);
-				        mySpark.hablar(pregunta3);
+						mySpark.pregunta(pregunta3, function (err, palabras){
+							
+						//console.log(result.final_transcript);
+						if (err) {
+							mySpark.hablar("No te entendi, repite por favor");
+							lanzarPregunta(false);
+						 } else {
+						 	document.getElementById("respuesta").value = palabras.final_transcript;
+						 	almacenarDatos(palabras.final_transcript);
+						 	lanzarPregunta(true);
+						 }
+						 });
 				        break;
 				    case 4:
 				        rellenarPregunta(pregunta4);
-				        mySpark.hablar(pregunta4);
+						mySpark.pregunta(pregunta4, function (err, palabras){
+							
+						//console.log(result.final_transcript);
+						if (err) {
+							mySpark.hablar("No te entendi, repite por favor");
+							lanzarPregunta(false);
+						 } else {
+						 	document.getElementById("respuesta").value = palabras.final_transcript;
+						 	almacenarDatos(palabras.final_transcript);
+						 	lanzarPregunta(true);
+						 }
+						 });
 				        break;
 				    //default:
 			       
 				}
 				
 			}
-			escuchar();
 		}
 		
 		function finalizarPreguntas(){
@@ -107,6 +169,8 @@
 			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
 			mySpark.hablar("Reserva desde " + respuestaFinal3);
 			mySpark.hablar("hasta " + respyestaFinal4);
+			
+			// TODO lanzar siguiente asistente
 		}
 		
 		function rellenarPregunta(pregunta){
@@ -135,13 +199,13 @@
 			        document.getElementById("userOption4").style.visibility= "visible";
 			        document.getElementById("fechaini").innerHTML = resultado;
 			        zonaFinal = resultado;
-			        respuestaFinal3 = "19 de Mayo del 2015";
+			        respuestaFinal3 = resultado;
 			        break;
 			    case 4:
 			        document.getElementById("userOption5").style.visibility= "visible";
 			        document.getElementById("fechafin").innerHTML = resultado;
 			        zonaFinal = resultado;
-			        respyestaFinal4 = "20 de Mayo del 2015";
+			        respyestaFinal4 = resultado;
 			        break;
 			    //default:
 			}
@@ -151,75 +215,19 @@
 		
 		function startSpark(){
 			
-			mySpark =  new Spark();
+			mySpark =  new Sparkv2("start_img");
 			
 			numPregunta = 0;
 			
 			pregunta1 = '¿En que zona buscas el hotel?';
-			opcionesValidas1 = new Array('Centro', 'Zaidin', 'Cahana', 'Estación de autobuses', 'Albaicin');
-			pregunta2 = '¿Cuantas habitaciones quieres reservar?';
-			opcionesValidas2 = new Array('1','2','3','Cuatro');
+			opcionesValidas1 = new Array('centro', 'caidin', 'cahana', 'estación de autobuses', 'clbaicin');
+			pregunta2 = '¿Cuántas habitaciones quieres reservar?';
+			opcionesValidas2 = new Array('1','2','3','cuatro');
 			pregunta3= 'Dime la fecha de entrada';
 			pregunta4= 'Dime la fecha de salida';
 		}
 		
-		function escuchar(){
-			mySpark.escuchar();
-		}
 		
-		// Spark utiliza esta funcion para devolver los resultados
-		function resultadosSpark(palabras){
-			
-			if (palabras.length >0){
-				
-				var respuestaCorrecta = false;
-				
-				console.log("Resultado spark: " + palabras);
-				document.getElementById("respuesta").value = "";
-				
-				switch(numPregunta) {
-				    case 1:
-				    	
-				    	if(palabras.indexOf(opcionesValidas1[0]) != -1 || palabras.indexOf(opcionesValidas1[1]) != -1 || palabras.indexOf(opcionesValidas1[2]) != -1  ||
-				    	palabras.indexOf(opcionesValidas1[3]) != -1  || palabras.indexOf(opcionesValidas1[4]) != -1){
-							document.getElementById("respuesta").value = palabras;
-							respuestaCorrecta = true;
-						}
-				    
-				        break;
-				    case 2:
-				    	
-				    	if(palabras.indexOf(opcionesValidas2[0]) != -1 || palabras.indexOf(opcionesValidas2[1]) != -1 || palabras.indexOf(opcionesValidas2[2]) != -1  ||
-				    	palabras.indexOf(opcionesValidas2[3]) != -1 ){
-							document.getElementById("respuesta").value = palabras;
-							respuestaCorrecta = true;
-						}
-				    	
-				        break;
-				    case 3:
-				    		respuestaCorrecta = true;
-				        break;
-				    case 4:
-				    		respuestaCorrecta = true;
-				        break;
-			       
-				}
-				
-				
-					setTimeout(function(){
-						if(respuestaCorrecta){
-							console.log("correcta");
-							almacenarDatos(palabras);
-							lanzarPregunta(true);
-						}
-						else{
-							console.log("falsa");
-							lanzarPregunta(false);
-						}
-					}, 1000);
-			}
-			
-		}	
 	</script>
 	
     </head>
