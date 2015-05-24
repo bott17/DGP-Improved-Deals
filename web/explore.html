@@ -12,6 +12,77 @@
         <link href="css/datepicker.css" rel="stylesheet">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
+        
+        
+        <script src="spark/spark.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        	
+        var mySparkExplorer;
+        var todosHoteles;
+        var indexHotel;
+        	
+        function startSpark(){
+			
+		mySparkExplorer =  new Spark();
+		indexHotel = 0;
+		}
+		
+		function Hotel(_direccion_, _titulo_, _precio_, _srcImg_){
+			//document.getElementById("popupDireccion").innerHTML = direccion;
+			//document.getElementById("popupTitulo").innerHTML = titulo;
+			//document.getElementById("popupSrcImg").src = srcimg;
+			//document.getElementById("popupPrecio").innerHTML = precio;
+			direccion = _direccion_;
+			titulo = _titulo_;
+			precio= _precio_;
+			srcImg = _srcImg_;
+			
+		}
+		
+		function iniciarAsistenteFase1(){
+			
+			startSpark();
+			
+			//rellernarOpciones();
+			todosHoteles = recuperarTodosHoteles(true);
+			recuperarHotel();
+		}
+		
+		function recuperarHotel(){
+			
+			var hotel = todosHoteles[indexHotel];
+			
+			//leerDatosHotel(hotel);
+			//rellenarDatosHotel(hotel);
+			
+			escuchar();
+			
+			indexHotel++;
+		}
+		
+		function recuperarTodosHoteles(){
+			
+			// TODO FAKE
+			var tempHoteles = new Array();
+			var tempHotel = new Hotel('direccion hotel 1', 'Hotel con vistas al mar', '1000 pavos', 'images/prop/2-1.png');
+			tempHoteles.push(tempHotel);
+			hotel = new Hotel('direccion hotel 2', 'Hotel con vistas a la montaña', '100 €', 'images/prop/4-1.png');
+			tempHoteles.push(tempHotel);
+			
+			return tempHoteles;
+		}
+		
+		function escuchar(){
+			mySparkExplorer.escuchar();
+		}
+		
+		function resultadosSpark(palabras){
+			console.log("resultado Spark: " + palabras);
+			
+			
+		}
+        	
+        </script>
 		
     </head>
     <body class="notransition" ng-controller="exploreController">	
@@ -29,9 +100,9 @@
             <div class="search">
                 <span class="searchIcon icon-magnifier"></span>
                 <input type="text" placeholder="Buscar hoteles...">			
-					<a href="#" data-toggle="modal" data-target="#signup3">Integracion Alvaro</a>			
+					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase1()">Integracion Alvaro</a>			
 		    </div>
-            <div class="headerUserWraper">
+            <div class="headerUserWraper" ng-show="registered">
                 <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
                 <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
                     <img class="avatar headerAvatar pull-left" src="images/avatar-1.png" alt="avatar">
@@ -51,6 +122,12 @@
                         <li><a href="#"><span class="icon-power"></span>Logout</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="headerUserWraper home-nav" ng-hide="registered">
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
+                </ul>
             </div>
             <a href="#" class="mapHandler"><span class="icon-map"></span></a>
             <div class="clearfix"></div>
@@ -517,57 +594,103 @@
             <div class="clearfix"></div>
         </div>
 		
-		<div class="modal fade" id="signup3" role="dialog" aria-labelledby="signinLabel" aria-hidden="true" >
+		<div class="modal fade" id="sparkfinal" role="dialog" aria-labelledby="signinLabel" aria-hidden="true" >
 						<div class="modal-dialog modal-sm2" >
-							<div class="modal-content" style="height:600px; background:white; wid">
+							<div class="modal-content" style=" background:white; wid">
 								<div class="modal-header">
 									<h4 class="modal-title" id="signinLabel">Asistente de reconocimiento de voz en ejecucion</h4>
 								</div>
-								<div><h2 style="padding-left:20px; width:100%"><span id="pregunta">Pregunta de Spark</span></h2></div>
-								<div><h2 style="padding-left:20px; width:100%"><span id="respuesta">Respuesta del usuario</span></h2></div>
-								<div style="width:30%; height:200px; background:white; float:left; padding-left:20px; margin-top:20px">
-									<h3>Opciones elegidas</h3>
-									<h3><span id="opcion1">Opcion 1</span></h3></br>
-									<h3><span id="opcion1">Opcion 2</span></h3></br>
-									<h3><span id="opcion1">Opcion 3</span></h3></br>
-									<h3><span id="opcion1">Opcion 4</span></h3></br>
-									<h3><span id="opcion1">Opcion 5</span></h3>
-								</div>
-								<div class="modal-body" style="width:35%; background:white; float:left; margin-top:20px">
-									<img src="images/prop/1-1.png" width="300px"; style="padding-left:0px">
-								</div>
-								<div class="row" style="width:18%; background:white; float:left;">
-									<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-										<div class="form-group" style="padding-left:20px">
-											<label>Comodidades</label>
-											<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id="garaje"><h5> Garaje</h5></span></label></div>
-											<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="seguridad"><h5> Sistema de seguridad</h5></span></label></div>
-											<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id ="aire"><h5> Aire acondicionado</h5></span></label></div>
-											<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="balcon"><h5> Balcon</h5></span ></label></div>
-											<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="piscina"><h5> Piscina descubierta</h5></span ></label></div>
+								<div class="modal-body" style="background:white;">
+									<div class="row">
+										<div><h2 style="padding-left:20px; width:100%"><span id="pregunta">Pregunta de Spark</span></h2></div>
+									</div>
+									<div class="row">
+										<div><h2 style="padding-left:20px; width:100%"><span id="respuesta">Respuesta del usuario</span></h2></div>
+									</div>
+									<div class="row">
+										<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="width:30%; background:white; float:left; padding-left:20px; margin-top:20px">
+											<h3>Opciones elegidas</h3>
+											<h3><span id="opcion1">Opcion 1</span></h3></br>
+											<h3><span id="opcion1">Opcion 2</span></h3></br>
+											<h3><span id="opcion1">Opcion 3</span></h3></br>
+											<h3><span id="opcion1">Opcion 4</span></h3></br>
+											<h3><span id="opcion1">Opcion 5</span></h3>
 										</div>
-									</div>    
-								</div>
-								<div class="row" style="width:17%; background:white; float:left;">
-										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-											<div class="form-group">
-												<label>&nbsp;</label>
-												<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="internet"><h5> Internet</h5></span ></label></div>
-												<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="calefaccion"><h5> Calefacción</h5></span ></label></div>
-												<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="tv"><h5> TV por Cable</h5></span ></label></div>
-												<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id ="jardin"><h5> Jardín</h5></span></label></div>
-												<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="telefono"><h5> Teléfono</h5></span ></label></div>
+										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="width:35%; background:white; float:left; margin-top:20px">
+											<div class="row">
+												<a href="single.html" class="card">
+					                                <div class="figure">
+					                                    <img id="popupSrcImg" src="images/prop/1-1.png" alt="image">
+					                                    
+					                                    <div class="figView"><span class="icon-eye"></span></div>
+					                                    <div class="figType">Piso</div>
+					                                </div>
+					                                <h2><span id="popupTitulo"> Residence in New York</span></h2>
+					                                <div class="cardAddress"><span class="icon-pointer"></span><span id="popupDireccion">39 Remsen St, Brooklyn, NY 11201, USA</span></div>
+					                                <div class="cardRating">
+					                                    <span class="fa fa-star"></span>
+					                                    <span class="fa fa-star"></span>
+					                                    <span class="fa fa-star"></span>
+					                                    <span class="fa fa-star"></span>
+					                                    <span class="fa fa-star-o"></span>
+					                                    (146)
+					                                </div>
+					                                <div>
+					                                    <h2><span id="popupPrecio">$1,550,000</span></h2>
+					                                    <span class="icon-eye"> 200</span>
+					                                    <span class="icon-heart"> 54</span>
+					                                    <span class="icon-bubble"> 13</span>
+					                                </div>
+					                                <div class="clearfix"></div>
+					                            </a>
+					                        </div>
+											<div class="row">
+												<!-- Esta imagen es para poner el microfono que se llamara micro.gif-->
+												
+												<div class="col-lg-12 col-md-12">
+													<table align="center">
+														<tbody>
+															<tr>
+																<td><img id="start_img" src="images/imgspark/micro.gif" onclick="escuchar()"></img></td>
+															</tr>
+															
+														</tbody>
+													</table>
+												</div>
 											</div>
 										</div>
-								</div>
-								<div style="float:left; clear:both; margin-top:-100px; margin-left:425px">
-									<!-- Esta imagen es para poner el microfono que se llamara micro.gif-->
-									<img src="images/prop/1-1.png" width="100px";/>
-								</div>
+										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="width:18%; background:white; float:left;">
+											<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+												<div class="form-group" style="padding-left:20px">
+													<label>Comodidades</label>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id="garaje"><h5> Garaje</h5></span></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="seguridad"><h5> Sistema de seguridad</h5></span></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id ="aire"><h5> Aire acondicionado</h5></span></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="balcon"><h5> Balcon</h5></span ></label></div>
+													<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="piscina"><h5> Piscina descubierta</h5></span ></label></div>
+												</div>
+											</div>    
+										</div>
+										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="width:17%; background:white; float:left;">
+												<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+													<div class="form-group">
+														<label>&nbsp;</label>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="internet"><h5> Internet</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="calefaccion"><h5> Calefacción</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="tv"><h5> TV por Cable</h5></span ></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox" checked><span class="fa fa-check" id ="jardin"><h5> Jardín</h5></span></label></div>
+														<div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check" id ="telefono"><h5> Teléfono</h5></span ></label></div>
+													</div>
+												</div>
+										</div>
+										
+									</div>
+								</div
 							</div>
 						</div>
 					</div>
-			
+</div>
+	
 
         <script src="js/jquery/jquery-2.1.1.min.js"></script>
         <script src="js/jquery/jquery-ui.min.js"></script>
@@ -576,13 +699,13 @@
         <script src="js/jquery/bootstrap.js"></script>
         <script src="js/jquery/jquery.touchSwipe.min.js"></script>
         <script src="js/jquery/jquery.slimscroll.min.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=geometry&amp;libraries=places" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=geometry&amp;libraries=places" type="text/javascript"></script>
         <script src="js/jquery/infobox.js"></script>
         <script src="js/jquery/jquery.tagsinput.min.js"></script>
         <script src="js/jquery/bootstrap-datepicker.js"></script>
         <script src="js/jquery/app.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js" type="text/javascript"></script>
-        <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
+        <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
         <script src="//code.angularjs.org/1.3.9/angular-aria.js"></script>
         <script src="js/app/app.js"></script>
         <script src="js/services/ExploreService.js"></script>

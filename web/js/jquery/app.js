@@ -3,7 +3,7 @@
 
     // Custom options for map
     var options = {
-            zoom : 14,
+            zoom : 12,
             mapTypeId : 'Styled',
             disableDefaultUI: true,
             mapTypeControlOptions : {
@@ -40,145 +40,146 @@
     var newMarker = null;
     var markers = [];
 
+    
     // json for properties markers on map
     var props = [{
-        title : 'Modern Residence in New York',
+        title : 'Pedro Antonio Alarcon',
         image : '1-1-thmb.png',
-        type : 'For Sale',
+        type : 'Alquiler',
         price : '$1,550,000',
         address : '39 Remsen St, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
         area : '3430 Sq Ft',
         position : {
-            lat : 37.1691906,
-            lng : -3.5895311			
+            lat : 37.1431376,
+            lng : -3.6378223			
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Hauntingly Beautiful Estate',
         image : '2-1-thmb.png',
-        type : 'For Rent',
+        type : 'Alquiler',
         price : '$1,750,000',
         address : '169 Warren St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '2',
         area : '4430 Sq Ft',
         position : {
-            lat : 40.688042,
-            lng : -73.996472
+            lat : 37.2433376,
+            lng : -3.6358223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Sophisticated Residence',
         image : '3-1-thmb.png',
-        type : 'For Sale',
+        type : 'Alquiler',
         price : '$1,340,000',
         address : '38-62 Water St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '3',
         area : '2640 Sq Ft',
         position : {
-            lat : 40.702620,
-            lng : -73.989682
+            lat : 37.1437376,
+            lng : -3.63498223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'House With a Lovely Glass-Roofed Pergola',
         image : '4-1-thmb.png',
-        type : 'For Sale',
+        type : 'Alquiler',
         price : '$1,930,000',
         address : 'Wunsch Bldg, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
         area : '2800 Sq Ft',
         position : {
-            lat : 40.694355,
-            lng : -73.985229
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Luxury Mansion',
         image : '5-1-thmb.png',
-        type : 'For Rent',
+        type : 'Alquiler',
         price : '$2,350,000',
         address : '95 Butler St, Brooklyn, NY 11231, USA',
         bedrooms : '2',
         bathrooms : '2',
         area : '2750 Sq Ft',
         position : {
-            lat : 40.686838,
-            lng : -73.990078
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Modern Residence in New York',
         image : '1-1-thmb.png',
-        type : 'For Sale',
+        type : 'Alquiler',
         price : '$1,550,000',
         address : '39 Remsen St, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
         area : '3430 Sq Ft',
         position : {
-            lat : 40.703686,
-            lng : -73.982910
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Hauntingly Beautiful Estate',
         image : '2-1-thmb.png',
-        type : 'For Rent',
+        type : 'Alquiler',
         price : '$1,750,000',
         address : '169 Warren St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '2',
         area : '4430 Sq Ft',
         position : {
-            lat : 40.702189,
-            lng : -73.995098
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Sophisticated Residence',
         image : '3-1-thmb.png',
-        type : 'For Sale',
+        type : 'Alquiler',
         price : '$1,340,000',
         address : '38-62 Water St, Brooklyn, NY 11201, USA',
         bedrooms : '2',
         bathrooms : '3',
         area : '2640 Sq Ft',
         position : {
-            lat : 40.687417,
-            lng : -73.982653
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'House With a Lovely Glass-Roofed Pergola',
         image : '4-1-thmb.png',
-        type : 'For Sale',
+        type : 'Alquiler',
         price : '$1,930,000',
         address : 'Wunsch Bldg, Brooklyn, NY 11201, USA',
         bedrooms : '3',
         bathrooms : '2',
         area : '2800 Sq Ft',
         position : {
-            lat : 40.694120,
-            lng : -73.974413
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }, {
         title : 'Luxury Mansion',
         image : '5-1-thmb.png',
-        type : 'For Rent',
+        type : 'Alquiler',
         price : '$2,350,000',
         address : '95 Butler St, Brooklyn, NY 11231, USA',
         bedrooms : '2',
         bathrooms : '2',
         area : '2750 Sq Ft',
         position : {
-            lat : 40.682665,
-            lng : -74.000934
+            lat : 37.1433376,
+            lng : -3.6348223
         },
         markerIcon : "marker-green.png"
     }];
@@ -355,7 +356,7 @@
         });
 
         map.mapTypes.set('Styled', styledMapType);
-        map.setCenter(new google.maps.LatLng(40.6984237,-73.9890044));
+        map.setCenter(new google.maps.LatLng(37.1433376,-3.6348223));
         map.setZoom(14);
 
         if ($('#address').length > 0) {
@@ -363,7 +364,7 @@
                 position: new google.maps.LatLng(40.6984237,-73.9890044),
                 map: map,
                 icon: new google.maps.MarkerImage( 
-                    'images/marker-new.png',
+                    'images/marker-red.png',
                     null,
                     null,
                     // new google.maps.Point(0,0),

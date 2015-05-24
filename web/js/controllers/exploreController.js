@@ -1,6 +1,8 @@
-angular.module('aloha').controller('exploreController', function ($scope, $log, ExploreService) {
+angular.module('aloha').controller('exploreController', function ($scope, $log, $window, ExploreService) {
 
   $scope.service = ExploreService;
+  
+  console.log($window);
 
   $scope.today = function() {
     $scope.dt = new Date();

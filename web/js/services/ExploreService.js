@@ -1,4 +1,4 @@
-angular.module('explore').service('ExploreService', function($http, $window) {
+angular.module('aloha').service('ExploreService', function($http, $window) {
 	
 	this.urlObj = {
 		helloWorld: {
@@ -7,14 +7,37 @@ angular.module('explore').service('ExploreService', function($http, $window) {
 			parameters:{
 				required: 
 				[
-					{
-						name: 'hello',
-						filter: 'same'
-					}
+					{name: 'action',filter: 'same'},
+					{name: 'name',filter: 'same'},
+					{name: 'surname',filter: 'same'},
+					{name: 'email',filter: 'same'},
+					{name: 'password',filter: 'base64'},
+					{name: 'hostelero',filter: 'same'},
+					{name: '',filter: 'same'},
+					{name: '',filter: 'same'},
+					{name: '',filter: 'same'},
+					{name: '',filter: 'same'}
 				], 
 				nonrequired:[]
 			}
-		}
+		},
+
+		logIn: {
+			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			//url: 'http://aloha2.tk/backend/DBController.php',
+			parameters:{
+				required: 
+				[
+					{name: 'action',filter: 'same'},
+					{name: 'email',filter: 'same'},
+					{name: 'password',filter: 'base64'},
+									
+				], 
+				nonrequired:[]
+			}
+		},
+		
+
 	}
 	
 	this._checkParameters = function(actionName, parameters){
