@@ -167,9 +167,8 @@
 			mySpark.hablar("Prefieres la zona:" +  respuestaFinal1);
 			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
 			mySpark.hablar("Reserva desde " + respuestaFinal3);
-			mySpark.hablar("hasta " + respuestaFinal4);
+			mySpark.hablar("hasta " + respuestaFinal4, function () {finAsistente = true;});
 			
-			setInterval(function () {finAsistente = true;}, 3000);
 			
 		}
 		
@@ -205,7 +204,7 @@
 			        document.getElementById("userOption5").style.visibility= "visible";
 			        document.getElementById("fechafin").innerHTML = resultado;
 			        zonaFinal = resultado;
-			        respyestaFinal4 = resultado;
+			        respuestaFinal4 = resultado;
 			        break;
 			    //default:
 			}
