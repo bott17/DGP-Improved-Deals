@@ -5603,11 +5603,11 @@ button.close {
 .modal-title {
   margin: 0;
   line-height: 1.42857143;
-  font-size: 16px;
+  font-size: 20px;
 }
 .modal-body {
   position: relative;
-  padding: 15px;
+  padding: 70px;
 }
 .modal-footer {
   padding: 15px;
@@ -5645,6 +5645,9 @@ button.close {
   }
   .modal-sm {
     width: 300px;
+  }
+    .modal-sm2 {
+    width: 1000px;
   }
 }
 @media (min-width: 992px) {
