@@ -132,6 +132,16 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
     }
   }
 
+  $scope.$watch('$window.finAsistente', function() {
+       
+       if($window.finAsistente)
+          
+       
+       
+       
+   });
+  
+
 
 
   $scope.serviceAction = function(action,obj){
