@@ -14,7 +14,7 @@
         <link href="css/app.css" rel="stylesheet">
         
         
-        <script src="spark/spark.js" type="text/javascript"></script>
+        <script src="spark/sparkv2.js" type="text/javascript"></script>
         <script type="text/javascript">
         	
         var mySparkExplorer;
@@ -28,8 +28,8 @@
         	
         function startSpark(){
 			
-		mySparkExplorer =  new Spark();
-		indexHotel = 0;
+		mySparkExplorer =  new Sparkv2("start_img");
+		indexHotel = -1;
 		}
 		
 		function Hotel(_direccion_, _titulo_, _precio_, _srcImg_){
@@ -53,10 +53,11 @@
 		}
 		
 		function iniciarAsistenteFase2(){
+			
 			recuperarOpciones();
 			recuperarTodosHoteles(true);
 			
-			recuperarHotel();
+			ciclarHotel();
 		}
 		
 		function recuperarOpciones(){
@@ -76,9 +77,30 @@
 			//rellenarDatosHotel(hotel);
 			leerDatosHotel(hotel);
 			
-			escuchar();
+		}
+		
+		function recuperarOpcionUsuario(){
 			
-			indexHotel++;
+			mySparkExplorer.pregunta("¿Deseas descartar esta oferta, contratarla o cancelar el proceso?", function (err, result){
+				
+				console.log(result.final_transcript);
+				if (err) {
+					mySparkExplorer.hablar("Ninguna respuesta");
+					recuperarOpcionUsuario();
+				 } else {
+					if(result.final_transcript.indexOf("Descartar")!= -1){
+						mySparkExplorer.hablar("Has elegido descartar");
+						
+						ciclarHotel();
+					}
+					else if(result.final_transcript.indexOf("Contratar")!= -1 || result.final_transcript.indexOf("Contratarla")!=0){
+						mySparkExplorer.hablar("Has elegido contratar");
+					}
+					else if(result.final_transcript.indexOf("cancelar")!= -1){
+						mySparkExplorer.hablar("Has elegido cancelar");
+					}
+				}
+			});
 		}
 		
 		function leerDatosHotel(hotel){
@@ -107,8 +129,44 @@
 			
 		}
 		
+		function ciclarHotel(){
+			indexHotel++;
+			
+			if(indexHotel < todosHoteles.length){
+				recuperarHotel();
+				recuperarOpcionUsuario();
+			}
+			else{
+				var pedir = false;
+				do{
+					mySparkExplorer.hablar("No quedan más ofertas que consultar");
+					mySparkExplorer.pregunta("¿Deseas repetir las ofertas o cancelar el proceso?", function (err, result){
+					
+						console.log(result.final_transcript);
+						if (err) {
+							mySparkExplorer.hablar("Ninguna respuesta");
+							pedir = true;
+						 } else {
+						 	pedir = false;
+							if(result.final_transcript.indexOf("Repetir")!= -1 || result.final_transcript.indexOf("Sí")!= -1 || result.final_transcript.indexOf("Si")!= -1){
+								mySparkExplorer.hablar("Volviendo a mostrar tas las ofertas");
+								indexHotel = -1;
+								ciclarHotel();
+							}
+							else if(result.final_transcript.indexOf("Cancelar")!= -1){
+								// TODO
+							}
+						}
+				
+					});
+				}while(pedir);
+				
+			}
+			
+		}
+		
 		function escuchar(){
-			mySparkExplorer.escuchar();
+			//mySparkExplorer.escuchar();
 		}
 		
 		function resultadosSpark(palabras){
