@@ -4,7 +4,7 @@ Class MySqliUtils {
 
 	private $con;
 
-	public static function getConnection($host, $dbname = 'alohaDB'){
+	public static function getConnection($host, $dbname = 'AlohaDB'){
 
 
 		if($host == 'localhost')
