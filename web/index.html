@@ -86,17 +86,14 @@
 							lanzarPregunta(false);
 						 } 
 						 else {
-						 	console.log("uno");
 						 	if(palabras.final_transcript.indexOf(opcionesValidas1[0]) != -1 || palabras.final_transcript.indexOf(opcionesValidas1[1]) != -1 ||
 						 		palabras.final_transcript.indexOf(opcionesValidas1[2]) != -1  ||
 						    	palabras.final_transcript.indexOf(opcionesValidas1[3]) != -1  || palabras.final_transcript.indexOf(opcionesValidas1[4]) != -1){
-						    		console.log("dos");
 									document.getElementById("respuesta").value = palabras.final_transcript;
 									almacenarDatos(palabras.final_transcript);
 									lanzarPregunta(true);
 							}
 							else{
-								console.log("tres");
 								mySpark.hablar("No te entendi, repite por favor");
 								lanzarPregunta(false);
 							}
@@ -107,7 +104,6 @@
 				        rellenarPregunta(pregunta2);
 						mySpark.pregunta(pregunta2, function (err, palabras){
 							
-						//console.log(result.final_transcript);
 						if (err) {
 							mySpark.hablar("No te entendi, repite por favor");
 							lanzarPregunta(false);
@@ -179,7 +175,7 @@
 		
 		function almacenarDatos(resultado){
 			
-			console.log("cambiar datos");
+			//console.log("cambiar datos");
 			mySpark.hablar("Has elegido la opcion: " + resultado);
 			
 			switch(numPregunta) {
