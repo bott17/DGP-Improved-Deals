@@ -53,21 +53,22 @@
 			recuperarOpciones();
 			recuperarTodosHoteles(true);
 				
-			seleccionarSubFiltros();
-			
-			//ciclarHotel();
+			seleccionarSubFiltros(ciclarHotel);
 			
 		}
 
-	function seleccionarSubFiltros(){
+	function seleccionarSubFiltros(callback){
 			
 			mySparkExplorer.hablar("Refina tu busqueda indicandome algunas comodidades extras. Dime si te interesan algunas de ellas");
 			mySparkExplorer.pregunta("De entre las siguientes comodidades, ¿cuales te gustaría tener en tu reserva? \n " +
 				"Seguridad extra, aire acondicionado, piscina, internet + Wifi, calefacción, televisión, jardín o telefono", function (err, result){
 					
-				console.log(result.final_transcript);
+				//console.log(result.final_transcript);
 				if (err) {
-					mySparkExplorer.hablar("No tendre encuenta ninguna comididad para la busquedad");
+					mySparkExplorer.hablar("No tendre encuenta ninguna comodidad nueva para la busquedad");
+					document.getElementById("popupImgPensando").style.display= "none";
+					document.getElementById("popupDetallesHotel").style.display= "inherit";
+					callback();
 				 } else {
 				 	if(result.final_transcript.indexOf("aire")!= -1 || result.final_transcript.indexOf("Aire")!= -1 ){
 				 		document.getElementById("aire").checked= true;
@@ -83,7 +84,7 @@
 				 		result.final_transcript.indexOf("wifi")!= -1 || result.final_transcript.indexOf("Wifi")!= -1 ){
 				 		document.getElementById("internet").checked= true;
 				 	}
-				 	if(result.final_transcript.indexOf("calefaccion")!= -1 || result.final_transcript.indexOf("Calefaccion")!= -1 ){
+				 	if(result.final_transcript.indexOf("calefacción")!= -1 || result.final_transcript.indexOf("Calefacción")!= -1 ){
 				 		document.getElementById("calefaccion").checked= true;
 				 	}
 				 	if(result.final_transcript.indexOf("tv")!= -1 || result.final_transcript.indexOf("Tv")!= -1 || 
@@ -93,11 +94,16 @@
 				 	if(result.final_transcript.indexOf("jardín")!= -1 || result.final_transcript.indexOf("Jardín")!= -1 ){
 				 		document.getElementById("jardin").checked= true;
 				 	}
-				 	if(result.final_transcript.indexOf("telefono")!= -1 || result.final_transcript.indexOf("Telefono")!= -1 ){
+				 	if(result.final_transcript.indexOf("teléfono")!= -1 || result.final_transcript.indexOf("Teléfono")!= -1 ){
 				 		document.getElementById("telefono").checked= true;
 				 	}
 				 	if(result.final_transcript.indexOf("repetir")!= -1 || result.final_transcript.indexOf("Repetir")!= -1 ){
-				 		seleccionarSubFiltros();
+				 		seleccionarSubFiltros(callback);
+				 	}
+				 	else{
+				 		document.getElementById("popupImgPensando").style.display= "none";
+						document.getElementById("popupDetallesHotel").style.display= "inherit";
+				 		callback();
 				 	}
 				 }
 			});
@@ -156,7 +162,6 @@
 		}
 		
 		function contratar(){
-			// TODO
 			mySparkExplorer.hablar("Necesito confirmación de compra para el hotel:");
 			leerDatosHotel(todosHoteles[indexHotel]);
 			
@@ -799,7 +804,10 @@
 											</div>
 										</div>
 										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="width:35%; background:white; float:left; margin-top:20px">
-											<div class="row">
+											<div id="popupImgPensando" class="row">
+												<a ><img src="images/pensando.gif" /></a>
+											</div>
+											<div id="popupDetallesHotel" class="row"  style="display: none;">
 												<a href="single.html" class="card">
 					                                <div class="figure">
 					                                    <img id="popupSrcImg" src="images/prop/1-1.png" alt="image">
