@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_WARNING | E_ERROR | E_PARSE);
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 include ('utils/utils.php');
 include ('DB/DBAccess.php');
 
@@ -9,7 +9,12 @@ $allowedActions = array(
 	'helloworld',
 	'registeruser',
 	'search',
-	'rentroom'
+	'rentroom',
+	'login',
+	'listsimilar',
+	'listpropuser',
+	'lastproperties',
+	'lastcomments'
 );
 
 $response = array('status' => 0, 'error_code' => 0, 'description' => 'Success', 'data' => array());
@@ -38,7 +43,7 @@ if($continue){
 	}
 
 }
-
+//print json_encode($response);exit;
 if($continue){
 	$db = DBAccess::getInstance();
 
@@ -147,7 +152,6 @@ if($continue){
 				if(isset($REQUEST['phone']))$filters['phone'] = $REQUEST['phone'];
 
 				$response['data']= $db->search($filters);
-
 				if($response['data']==-1){
 					$response['status'] = 1;
 					$response['error_code'] = 6;
@@ -159,11 +163,11 @@ if($continue){
 		case 'rentroom':
 					
 			
-			if(!isset($REQUEST['dateini']) || !isset($REQUEST['dateend'])){
+			if(!isset($REQUEST['dateini']) || !isset($REQUEST['dateend']) || !isset($REQUEST['idproperty']) || !isset($REQUEST['email'])){
 				$continue = False;
 				$response['status'] = 1;
-				$response['error_code'] = 5;
-				$response['description'] = 'Invalid params(4): Missing dateini or dateend';
+				$response['error_code'] = 7;
+				$response['description'] = 'Invalid params(5): Missing dateini, dateend, idproperty or email';
 			}
 
 
@@ -177,12 +181,173 @@ if($continue){
 
 
 				$response['data']= $db->rentRoom($filters);
-				print_r($response['data']);
-				exit;
+
 				if($response['data']==-1){
 					$response['status'] = 1;
-					$response['error_code'] = 6;
+					$response['error_code'] = 8;
 					$response['description'] = 'Fail: Could not retrieve information possibly due to an undetected error in parameters';	
+				}
+				if($response['data']==0){
+					$response['status'] = 1;
+					$response['error_code'] = 9;
+					$response['description'] = 'Fail:Could not insert given rent possibly because it already exists in database';	
+				}
+			}
+
+		break;
+		case 'login':		
+			
+			if(!isset($REQUEST['password']) || !isset($REQUEST['email'])){
+				$continue = False;
+				$response['status'] = 1;
+				$response['error_code'] = 10;
+				$response['description'] = 'Invalid params(6): Missing email or password';
+			}
+
+
+
+			if($continue){
+				
+				$filters['password'] = $REQUEST['password'];
+				$filters['email'] = $REQUEST['email'];
+
+
+				$response['data']= $db->logIn($filters);
+				//print_r($response['data']);
+				//exit;
+				//print_r($response);exit;
+				if($response['data']==-1){
+					$response['status'] = 1;
+					$response['error_code'] = 11;
+					$response['description'] = 'Fail: Could not retrieve information possibly due to an undetected error in parameters';	
+				}
+				if($response['data']==0){
+					$response['status'] = 1;
+					$response['error_code'] = 12;
+					$response['description'] = 'Fail:Could not retrieve user possibly due to a connection problem with DataBase';	
+				}
+				if($response['data']==-2){
+					$response['status'] = 1;
+					$response['error_code'] = 13;
+					$response['description'] = 'Fail:Wrong user email or password';	
+				}
+			}
+
+		break;
+		case 'listsimilar':		
+			
+			if(!isset($REQUEST['zone']) || !isset($REQUEST['idproperty'])){
+				$continue = False;
+				$response['status'] = 1;
+				$response['error_code'] = 14;
+				$response['description'] = 'Invalid params(6): Missing zone or idproperty';
+			}
+
+
+
+			if($continue){
+				
+				$filters['zone'] = $REQUEST['zone'];
+				$filters['idproperty'] = $REQUEST['idproperty'];
+
+
+				$response['data']= $db->listSimilar($filters);
+				//print_r($response['data']);
+				//exit;
+				//print_r($response);exit;
+				if($response['data']==-1){
+					$response['status'] = 1;
+					$response['error_code'] = 15;
+					$response['description'] = 'Fail: Could not retrieve information possibly due to an undetected error in parameters';	
+				}
+				if($response['data']==0){
+					$response['status'] = 1;
+					$response['error_code'] = 16;
+					$response['description'] = 'Fail:Could not retrieve user possibly due to a connection problem with DataBase';	
+				}
+				if($response['data']==-2){
+					$response['status'] = 1;
+					$response['error_code'] = 17;
+					$response['description'] = 'Warning: no properties found';	
+				}
+			}
+
+		break;
+		case 'listpropuser':		
+			
+			if(!isset($REQUEST['email']) ){
+				$continue = False;
+				$response['status'] = 1;
+				$response['error_code'] = 18;
+				$response['description'] = 'Invalid params(6): Missing user email';
+			}
+
+
+
+			if($continue){
+				
+				$filters['email'] = $REQUEST['email'];
+
+				$response['data']= $db->listPropUser($filters);
+				//print_r($response['data']);
+				//exit;
+				//print_r($response);exit;
+				if($response['data']==-1){
+					$response['status'] = 1;
+					$response['error_code'] = 19;
+					$response['description'] = 'Fail: Could not retrieve information possibly due to an undetected error in parameters';	
+				}
+				if($response['data']==0){
+					$response['status'] = 1;
+					$response['error_code'] = 20;
+					$response['description'] = 'Fail:Could not retrieve user possibly due to a connection problem with DataBase';	
+				}
+				if($response['data']==-2){
+					$response['status'] = 1;
+					$response['error_code'] = 21;
+					$response['description'] = 'Warning: no properties found';	
+				}
+			}
+
+		break;
+		case 'lastproperties':		
+			
+			if($continue){
+				$response['data']= $db->lastProperties();
+				//print_r($response['data']);
+				//exit;
+				//print_r($response);exit;
+
+				if($response['data']==0){
+					$response['status'] = 1;
+					$response['error_code'] = 22;
+					$response['description'] = 'Fail:Could not retrieve user possibly due to a connection problem with DataBase';	
+				}
+				if($response['data']==-2){
+					$response['status'] = 1;
+					$response['error_code'] = 23;
+					$response['description'] = 'Warning: no properties found';	
+				}
+			}
+
+		break;
+		case 'lastcomments':		
+			
+			if($continue){
+				$response['data']= $db->lastComments();
+				//print_r($response['data']);
+				//exit;
+				//print_r($response);exit;
+
+				if($response['data']==0){
+					$response['status'] = 1;
+					$response['error_code'] = 24;
+					$response['description'] = 'Fail:Could not retrieve user possibly due to a connection problem with DataBase';	
+				}
+				if($response['data']==-2){
+					$response['status'] = 1;
+					$response['error_code'] = 25;
+					$response['description'] = 'Warning: no comments found';	
 				}
 			}
 
@@ -191,5 +356,7 @@ if($continue){
 }
 
 print json_encode($response);
+//print_r($response);
+
 
 ?>

@@ -21,7 +21,7 @@ class DBAccess {
 	private function __construct(){
 		// Posibles valores para getConnection 1er parametro: 'localhost o remote ' y 2º parametro: nombre de la base de datos
 		$this->dbObject = MySqliUtils::getConnection('localhost'); 
-		$this->local = 1;
+		$this->local = 0;
 	}
 	
 	public function __destruct(){
@@ -145,28 +145,29 @@ class DBAccess {
 
 		
 		if($result){
-			while($row = $result->fetch_assoc()){
-				$response['idproperty'][] = $row['Id_P'];
-				$response['name'][] = $row['Nombre'];
-				$response['description'][] = $row['Descripcion'];
-				$response['stars'][] = $row['Estrellas'];
-				$response['address'][] = $row['Direccion'];
-				$response['type'][] = $row['Tipo'];
-				$response['pension'][] = $row['Pension'];
-				$response['zone'][] = $row['Zona'];
-				$response['cost'][] = $row['Precio'];
-				$response['rooms'][] = $row['Habitaciones'];
-				$response['garage'][] = $row['Garaje'];
-				$response['security'][] = $row['Seguridad'];
-				$response['airconditioner'][] = $row['AireAcondicionado'];
-				$response['balcony'][] = $row['Balcon'];
-				$response['swimmingpool'][] = $row['Piscina'];
-				$response['internet'][] = $row['Internet'];
-				$response['heating'][] = $row['Calefaccion'];
-				$response['tv'][] = $row['TV'];
-				$response['garden'][] = $row['Jardin'];
-				$response['phone'][] = $row['Telefono'];
-				$response['email'][] = $row['Email'];
+		while($row = $result->fetch_assoc()){
+				//$row=array_map(‘utf8_encode’, $rowi);
+				$response['idproperty'][] 		= $row['Id_P'];
+				$response['name'][] 			= $row['Nombre'];
+				$response['description'][] 		= $row['Descripcion'];
+				$response['stars'][] 			= $row['Estrellas'];
+				$response['address'][] 			= $row['Direccion'];
+				$response['type'][] 			= $row['Tipo'];
+				$response['pension'][] 			= $row['Pension'];
+				$response['zone'][] 			= $row['Zona'];
+				$response['cost'][] 			= $row['Precio'];
+				$response['rooms'][] 			= $row['Habitaciones'];
+				$response['garage'][] 			= $row['Garaje'];
+				$response['security'][] 		= $row['Seguridad'];
+				$response['airconditioner'][] 	= $row['AireAcondicionado'];
+				$response['balcony'][] 			= $row['Balcon'];
+				$response['swimmingpool'][] 	= $row['Piscina'];
+				$response['internet'][] 		= $row['Internet'];
+				$response['heating'][] 			= $row['Calefaccion'];
+				$response['tv'][] 				= $row['TV'];
+				$response['garden'][] 			= $row['Jardin'];
+				$response['phone'][] 			= $row['Telefono'];
+				$response['email'][] 			= $row['Email'];
 			}
 
 		}else $response=0;
@@ -230,7 +231,216 @@ class DBAccess {
 		return $response;
 
 	}
+	public function logIn($filter = array()){
+		$response = array();
 
+		$email			= isset($filter['email'])?$filter['email']:-1;
+		$password 		= isset($filter['password'])?$filter['password']:-1;
+		$filtersql 		= "";
+				
+		if($email!=-1 && $password!=-1){
+			$filtersql .= sprintf("Email = '%s' AND Password='%s'",
+				$this->dbObject->real_escape_string($email),
+				$this->dbObject->real_escape_string($password));
+		$sql = sprintf("SELECT * FROM `Usuario` WHERE %s;",	$filtersql);
+
+		if($this->local==1)$sql=iconv('UTF-8', 'ISO-8859-1', $sql);
+
+		$result = $this->dbObject->query($sql);
+
+		
+		if($result){
+			$row = $result->fetch_assoc();
+			if($password==$row['Password']){
+				$response['user']['email']	 		= $row['Email'];
+				$response['user']['name']	 		= $row['Nombre'];
+				$response['user']['surname'] 		= $row['Apellidos'];
+				$response['user']['phone']	 		= $row['Telefono'];
+				$response['user']['picture'] 		= $row['Foto'];
+				$response['user']['hostelero']	 	= $row['Hostelero'];
+				$response['user']['company-name']	= $row['Empresa'];
+				$response['user']['nif'] 			= $row['NIF'];
+			}else $response=-2;
+
+		}else $response=0;
+	}else $response = -1;
+		return $response;
+
+	}
+	public function listSimilar($filter = array()){
+		$response = array();
+
+		$zone			= isset($filter['zone'])?$filter['zone']:-1;
+		$idp 		= isset($filter['idproperty'])?$filter['idproperty']:-1;
+		$filtersql 		= "";
+				
+		if($zone!=-1 && $idp!=-1){
+			$filtersql .= sprintf("Zona = '%s' AND Id_P <> '%d' LIMIT 20",
+				$this->dbObject->real_escape_string($zone),
+				intval($idp));
+		$sql = sprintf("SELECT * FROM `Propiedad` WHERE %s;",	$filtersql);
+		if($this->local==1)$sql=iconv('UTF-8', 'ISO-8859-1', $sql);
+
+		$result = $this->dbObject->query($sql);
+
+		
+		if($result){
+		while($row = $result->fetch_assoc()){
+
+				$response['idproperty'][] 		= $row['Id_P'];
+				$response['name'][] 			= $row['Nombre'];
+				$response['description'][] 		= $row['Descripcion'];
+				$response['stars'][] 			= $row['Estrellas'];
+				$response['address'][] 			= $row['Direccion'];
+				$response['type'][] 			= $row['Tipo'];
+				$response['pension'][] 			= $row['Pension'];
+				$response['zone'][] 			= $row['Zona'];
+				$response['cost'][] 			= $row['Precio'];
+				$response['rooms'][] 			= $row['Habitaciones'];
+				$response['garage'][] 			= $row['Garaje'];
+				$response['security'][] 		= $row['Seguridad'];
+				$response['airconditioner'][] 	= $row['AireAcondicionado'];
+				$response['balcony'][] 			= $row['Balcon'];
+				$response['swimmingpool'][] 	= $row['Piscina'];
+				$response['internet'][] 		= $row['Internet'];
+				$response['heating'][] 			= $row['Calefaccion'];
+				$response['tv'][] 				= $row['TV'];
+				$response['garden'][] 			= $row['Jardin'];
+				$response['phone'][] 			= $row['Telefono'];
+				$response['email'][] 			= $row['Email'];
+			}
+		
+
+		}else $response=0;
+	}else $response = -1;
+		return $response;
+
+	}	
+
+	public function listPropUser($filter = array()){
+		$response = array();
+
+		$email			= isset($filter['email'])?$filter['email']:-1;
+		$filtersql 		= "";
+				
+		if($email!=-1){
+			$filtersql .= sprintf("Email = '%s'",
+				$this->dbObject->real_escape_string($email));
+		$sql = sprintf("SELECT * FROM `Propiedad` WHERE %s;",	$filtersql);
+		if($this->local==1)$sql=iconv('UTF-8', 'ISO-8859-1', $sql);
+
+		$result = $this->dbObject->query($sql);
+
+		
+		if($result){
+		while($row = $result->fetch_assoc()){
+
+				$response['idproperty'][] 		= $row['Id_P'];
+				$response['name'][] 			= $row['Nombre'];
+				$response['description'][] 		= $row['Descripcion'];
+				$response['stars'][] 			= $row['Estrellas'];
+				$response['address'][] 			= $row['Direccion'];
+				$response['type'][] 			= $row['Tipo'];
+				$response['pension'][] 			= $row['Pension'];
+				$response['zone'][] 			= $row['Zona'];
+				$response['cost'][] 			= $row['Precio'];
+				$response['rooms'][] 			= $row['Habitaciones'];
+				$response['garage'][] 			= $row['Garaje'];
+				$response['security'][] 		= $row['Seguridad'];
+				$response['airconditioner'][] 	= $row['AireAcondicionado'];
+				$response['balcony'][] 			= $row['Balcon'];
+				$response['swimmingpool'][] 	= $row['Piscina'];
+				$response['internet'][] 		= $row['Internet'];
+				$response['heating'][] 			= $row['Calefaccion'];
+				$response['tv'][] 				= $row['TV'];
+				$response['garden'][] 			= $row['Jardin'];
+				$response['phone'][] 			= $row['Telefono'];
+				$response['email'][] 			= $row['Email'];
+			}
+		
+
+		}else $response=0;
+	}else $response = -1;
+		return $response;
+
+	}	
+
+	public function lastProperties(){
+		$response = array();
+
+		$ok = True;
+		if($ok){
+		$sql = sprintf("SELECT * FROM `Propiedad` ORDER BY Propiedad.Id_P DESC LIMIT 6;");
+		if($this->local==1)$sql=iconv('UTF-8', 'ISO-8859-1', $sql);
+
+		$result = $this->dbObject->query($sql);
+
+		
+		if($result){
+		while($row = $result->fetch_assoc()){
+
+				$response['idproperty'][] 		= $row['Id_P'];
+				$response['name'][] 			= $row['Nombre'];
+				$response['description'][] 		= $row['Descripcion'];
+				$response['stars'][] 			= $row['Estrellas'];
+				$response['address'][] 			= $row['Direccion'];
+				$response['type'][] 			= $row['Tipo'];
+				$response['pension'][] 			= $row['Pension'];
+				$response['zone'][] 			= $row['Zona'];
+				$response['cost'][] 			= $row['Precio'];
+				$response['rooms'][] 			= $row['Habitaciones'];
+				$response['garage'][] 			= $row['Garaje'];
+				$response['security'][] 		= $row['Seguridad'];
+				$response['airconditioner'][] 	= $row['AireAcondicionado'];
+				$response['balcony'][] 			= $row['Balcon'];
+				$response['swimmingpool'][] 	= $row['Piscina'];
+				$response['internet'][] 		= $row['Internet'];
+				$response['heating'][] 			= $row['Calefaccion'];
+				$response['tv'][] 				= $row['TV'];
+				$response['garden'][] 			= $row['Jardin'];
+				$response['phone'][] 			= $row['Telefono'];
+				$response['email'][] 			= $row['Email'];
+			}
+		
+
+		}else $response=0;
+	}else $response = -1;
+		return $response;
+
+	}
+
+	public function lastComments(){
+		$response = array();
+
+		$ok = True;
+		if($ok){
+		$sql = sprintf("SELECT Usuario.Email,Usuario.Nombre,Usuario.Apellidos,Usuario.Foto, Valorar.Id_C,Valorar.Id_P,Valorar.Estrellas,
+			Valorar.Fecha,Valorar.Comentario FROM Usuario,Valorar WHERE Usuario.Email=Valorar.Email ORDER BY Valorar.Id_C DESC LIMIT 4");
+		if($this->local==1)$sql=iconv('UTF-8', 'ISO-8859-1', $sql);
+
+		$result = $this->dbObject->query($sql);
+
+		
+		if($result){
+		while($row = $result->fetch_assoc()){
+
+				$response['surname'][] 		= $row['Apellidos'];
+				$response['name'][] 			= $row['Nombre'];
+				$response['picture'][] 		= $row['Foto'];
+				$response['idcomment'][] 			= $row['Id_C'];
+				$response['idproperty'][] 			= $row['Id_P'];
+				$response['stars'][] 			= $row['Estrellas'];
+				$response['date'][] 			= $row['Fecha'];
+				$response['comment'][] 			= $row['Comentario'];
+				$response['email'][] 			= $row['Email'];
+			}
+		
+
+		}else $response=0;
+	}else $response = -1;
+		return $response;
+
+	}
 }
 
 ?>
