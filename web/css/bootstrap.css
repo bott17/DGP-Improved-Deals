@@ -5607,7 +5607,7 @@ button.close {
 }
 .modal-body {
   position: relative;
-  padding: 70px;
+  padding: 15px;
 }
 .modal-footer {
   padding: 15px;
@@ -5645,9 +5645,6 @@ button.close {
   }
   .modal-sm {
     width: 300px;
-  }
-    .modal-sm2 {
-    width: 1000px;
   }
 }
 @media (min-width: 992px) {
