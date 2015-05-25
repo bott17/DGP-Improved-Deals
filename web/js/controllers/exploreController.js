@@ -5,13 +5,14 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
    console.log("SCOPE: ",$scope);
   $scope.service = ExploreService;
   $scope.hostelero = false;
-  $scope.identifiedUser = false;
+  $scope.identifiedUser = true;
+  
   $scope.objUser = {
     name:'',
-    surname:'',
+    surname:'Aloha user',
     password: '',
     email: '',
-    hostelero: false,
+    hostelero: true,
     companyName: '',
     nif: ''  
   }
@@ -88,7 +89,9 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
   $scope.signup = function(){
       
       if($scope.objUser !='' && $scope.objUser.password){
-         $scope.serviceAction('login',$scope.objUser);
+        console.log("LOGIN: ", $scope.objUser);
+         //$scope.serviceAction('logIn',$scope.objUser);
+         $scope.identifiedUser = true;
       } 
     
   console.log("objUser: ", $scope.objUser);
@@ -179,8 +182,18 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
                 email: obj.email,
                 password: obj.password
               }).then(function(response){
+                console.log("response.data")
                 var result = angular.fromJson(response.data);
-                $scope.logIn = result.data;
+                
+                //$scope.logIn = result.data;
+                console.log("LOGIN: ", result);
+                if(result.status == 0){
+                    $scope.objUser.name = result.data.name;
+                    $scope.objUser.surname = result.data.surname;
+                     $scope.objUser.email = result.data.email;
+                     $scope.identifiedUser = true;
+                     
+                }
                 console.log("La información tras identificarse es: ", $scope.logIn);
             });
            break;

@@ -7,10 +7,10 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
   $scope.service = HomeService;
   $scope.objUser = {
     
-    name:'',
+    name:'Aloha user',
     surname:'',
-    password: '',
-    email: '',
+    password: 'aloha',
+    email: 'aloha@aloha.com',
     hostelero: false,
     companyName: '',
     nif: ''
@@ -39,13 +39,13 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
      if( !$scope.objUser.hostelero && $scope.objUser.name != '' && $scope.objUser.surname != '' 
         && $scope.objUser.password != '' && $scope.objUser.email != ''
         && $scope.objUser.email != '' && $scope.confirmPass != '' && ($scope.objUser.password == $scope.confirmPass)){
-       
+      
        $scope.serviceAction('registerUser',$scope.objUser);
        
        
      }else if($scope.objUser.hostelero && $scope.objUser.companyName != '' && $scope.objUser.nif != ''){
          
-         $scope.serviceAction('registerUser',$scope.objUser);
+         $scope.serviceAction('logIn',$scope.objUser);
                
     }
     /**
@@ -158,8 +158,8 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
               
             }).then(function(response){
         
-              $response = angular.fromJson(response.data);
-              console.log($response);
+              var response = angular.fromJson(response.data);
+              console.log(response);
           });
          break;
       
@@ -173,8 +173,11 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
                 
               }).then(function(response){
           
-                $response = angular.fromJson(response.data);
-                console.log($response);
+                var response = angular.fromJson(response.data);
+                console.log(response)
+                if(response.status == 0){
+                    $window.location.href = "http://localhost/DGP-Improved-Deals/web/explore.html";
+                }
             });
            break;
            
@@ -190,8 +193,8 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
                 
               }).then(function(response){
           
-                $response = angular.fromJson(response.data);
-                console.log($response);
+                var response = angular.fromJson(response.data);
+                console.log(response);
                 
                
             });

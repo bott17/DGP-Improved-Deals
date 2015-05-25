@@ -344,14 +344,14 @@
                 <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
                     <img class="avatar headerAvatar pull-left" src="images/avatar-1.png" alt="avatar">
                     <div class="userTop pull-left">
-                        <span class="headerUserName">John Smith</span> <span class="fa fa-angle-down"></span>
+                        <span class="headerUserName">Aloha User</span> <span class="fa fa-angle-down"></span>
                     </div>
                     <div class="clearfix"></div>
                 </a>
                 <div class="dropdown-menu pull-right userMenu" role="menu">
                     <div class="mobAvatar">
                         <img class="avatar mobAvatarImg" src="images/avatar-1.png" alt="avatar">
-                        <div class="mobAvatarName">John Smith</div>
+                        <div class="mobAvatarName">Aloha User</div>
                     </div>
                     <ul>
                         <li><a href="profile.html"><span class="icon-user"></span>Profile</a></li>
@@ -362,11 +362,11 @@
             </div>
             <div id="nonRegistered" class="headerUserWraper home-nav" ng-hide="identifiedUser">
                 <ul>
-                    <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
+                   <li><a href=""  data-toggle="modal" data-target="#signup">Registro</a></li>
+                   <li><a href="" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
                 </ul>
             </div>
-            <a href="#" class="mapHandler"><span class="icon-map"></span></a>
+            <button class="mapHandler"><span class="icon-map"></span></button>
             <div class="clearfix"></div>
         </div>
         <div class="modal fade" id="signin" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
@@ -389,10 +389,10 @@
                             </div>
                             <div class="signOr">o</div>
                             <div class="form-group">
-                                <input type="email" placeholder="Email Address" class="form-control">
+                                <input type="email" ng-model="objUser.email" placeholder="Email Address" class="form-control">
                             </div>
                             <div class="form-group">
-                                <input type="password" placeholder="Password" class="form-control">
+                                <input type="password" ng-model="objUser.password" placeholder="Password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -408,7 +408,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="btn-group-justified">
-                                    <a href="explore.html" class="btn btn-lg btn-green">Entra</a>
+                                    <a href=""  ng-click="signup()" data-toggle="modal" class="btn btn-lg btn-green">Entra</a>
                                 </div>
                             </div>
                             <p class="help-block">¿Todavía sin cuenta? <a href="#" class="modal-su text-green">Regístrate!</a></p>
