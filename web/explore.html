@@ -50,6 +50,10 @@
 			
 			todosHoteles = new Array();
 			
+			if(localStorage.getItem("asistenteON")){
+				document.getElementById("iniciarAsistenteButton").click();
+			}
+			
 		}
 		
 		function iniciarAsistenteFase2(){
@@ -126,10 +130,14 @@
 		function recuperarOpciones(){
 			
 			// TODO FAKE
-			opcionUser1 = "Centro";
-			opcionUser2 = "2";
-			opcionUser3 = "19 de Mayo de 2015";
-			opcionUser4 = "21 de Mayo de 2015";
+			//opcionUser1 = "Centro";
+			//opcionUser2 = "2";
+			//opcionUser3 = "19 de Mayo de 2015";
+			//opcionUser4 = "21 de Mayo de 2015";
+			opcionUser1 =  localStorage.getItem("opcionUser1");
+			opcionUser2 =  localStorage.getItem("opcionUser2");
+			opcionUser3 =  localStorage.getItem("opcionUser3");
+			opcionUser4 =  localStorage.getItem("opcionUser4");
 			
 			document.getElementById("popUpOpcion1").innerHTML = opcionUser1;
 			document.getElementById("popUpOpcion2").innerHTML = opcionUser2;
@@ -312,7 +320,7 @@
         <div id="header">
             <div class="logo">
                 <a href="index.html">
-                    <span class="fa fa-home marker"></span>
+                    <span id="homeExplorer" class="fa fa-home marker"></span>
                     <span class="logoText">Inicio</span>
                 </a>
             </div>
@@ -320,7 +328,7 @@
             <div class="search">
                 <span class="searchIcon icon-magnifier"></span>
                 <input type="text" placeholder="Buscar hoteles...">			
-					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase2()">Integracion Alvaro</a>			
+					<a id="iniciarAsistenteButton" href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase2()">Spark</a>			
 		    </div>
             <div class="headerUserWraper">
                 <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
@@ -350,7 +358,7 @@
         <!-- Left Side Navigation -->
 
         <div id="leftSide">
-            <nav class="leftNav scrollable">
+            <nav id="escape" class="leftNav scrollable">
                 <div class="search">
                     <span class="searchIcon icon-magnifier"></span>
                     <input type="text" placeholder="Buscar hoteles...">
