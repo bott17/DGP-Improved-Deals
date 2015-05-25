@@ -1,15 +1,16 @@
 
-angular.module('aloha').controller('homeController', function ($scope, $log, HomeService,$location,$window) {
+angular.module('aloha').controller('homeController', function ($scope, $log, HomeService,$location,$window,$rootScope) {
 
 
   console.log($window);
+
   $scope.service = HomeService;
   $scope.objUser = {
     
-    name:'',
+    name:'Aloha user',
     surname:'',
-    password: '',
-    email: '',
+    password: 'aloha',
+    email: 'aloha@aloha.com',
     hostelero: false,
     companyName: '',
     nif: ''
@@ -34,17 +35,17 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
    */
    $scope.register = function(){
      
-     console.log(" Pulsado boton register");
+   
      if( !$scope.objUser.hostelero && $scope.objUser.name != '' && $scope.objUser.surname != '' 
         && $scope.objUser.password != '' && $scope.objUser.email != ''
         && $scope.objUser.email != '' && $scope.confirmPass != '' && ($scope.objUser.password == $scope.confirmPass)){
-       
+      
        $scope.serviceAction('registerUser',$scope.objUser);
        
        
      }else if($scope.objUser.hostelero && $scope.objUser.companyName != '' && $scope.objUser.nif != ''){
          
-         $scope.serviceAction('registerUser',$scope.objUser);
+         $scope.serviceAction('logIn',$scope.objUser);
                
     }
     /**
@@ -58,7 +59,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
         
       }
     
-    console.log("objUser: ", $scope.objUser);
+  
    }
   
   /**
@@ -83,6 +84,13 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
   $scope.today = function() {
     $scope.dt = new Date();
   };
+  
+  $scope.asistente = function() {
+    
+    $window.location.href = "https://localhost/DGP-Improved-Deals/web/explore.html";
+    
+  };
+  
   $scope.today();
   $scope.dtstart = null;
   $scope.dtend = null;
@@ -116,47 +124,23 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
    */
   $scope.search = function(){
     
-
-    
     if($scope.dtstart != null && $scope.dtend != null){
         	
           $window.prueba = true;
-          console.log("prueba: ",$window.prueba);
+          
           
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
+
+          $rootScope.$emit('hometoexplore', $scope.objSearch);
+                
+          $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
           
-          //$scope.serviceAction('searchHome',$scope.objSearch);
-          alertify.success('Busqueda lanzada');
-          console.log($scope.objSearch);
-          
-        	console.log("LOCATION: ",$location.$$absUrl);
-          //$location.path('explore.html', false);
-         // $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
-          
-          console.log($window.location.href);
+         
          
     }
-    
-    
-  }
 
-
-  $scope.$watch(function(){
-       return $window.finAsistente;
-    }, function(value) {
-      
-       console.log("Se acciono el watch");
-       if($window.finAsistente){
-          console.log("Prueba ha cambiado");
-         console.log("Asistente finalizado");
-        alertify.success("Asistente finalizado, buscando...");
-        $window.finAsistente = false;
-       }
-       
-   });
-
-
+  };
 
   $scope.serviceAction = function(action,obj){
     
@@ -174,8 +158,8 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
               
             }).then(function(response){
         
-              $response = angular.fromJson(response.data);
-              console.log($response);
+              var response = angular.fromJson(response.data);
+              console.log(response);
           });
          break;
       
@@ -189,8 +173,11 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
                 
               }).then(function(response){
           
-                $response = angular.fromJson(response.data);
-                console.log($response);
+                var response = angular.fromJson(response.data);
+               
+                if(response.status == 0){
+                    $window.location.href = "http://localhost/DGP-Improved-Deals/web/explore.html";
+                }
             });
            break;
            
@@ -206,20 +193,21 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
                 
               }).then(function(response){
           
-                $response = angular.fromJson(response.data);
-                console.log($response);
+                var response = angular.fromJson(response.data);
+               
+                
+               
             });
            break;
            
         default:
           break;
-      }
+       }
     
     
-  }
+      };
     
-    console.log(obj);
-  };
+    };
 
 
 });

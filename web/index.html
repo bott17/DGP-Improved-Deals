@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="aloha" lang="es">
+<html ng-app="aloha"  lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
         <script src="//cdn.jsdelivr.net/alertifyjs/1.4.1/alertify.min.js"></script>
         <link href="css/app.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.4.1/css/alertify.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/alertifyjs/1.4.1/css/alertify.min.css"/>
         <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
         
@@ -61,6 +61,7 @@
 		
 		
 		function iniciarAsistenteFase1(){
+
 			lanzarPregunta(true);
 			
 		}
@@ -170,6 +171,7 @@
 			mySpark.hablar("Reserva desde " + respuestaFinal3);
 			mySpark.hablar("hasta " + respuestaFinal4, function () {
 				
+
 				localStorage.setItem("opcionUser1", respuestaFinal1);
 				localStorage.setItem("opcionUser2", respuestaFinal2);
 				localStorage.setItem("opcionUser3", respuestaFinal3);
@@ -177,6 +179,7 @@
 				localStorage.setItem("asistenteON", true);
 				var myWindow = window.open('https://localhost/dgp/explore.html', '_self');
 				});
+
 			
 			
 		}
@@ -240,7 +243,7 @@
 	</script>
 	
     </head>
-    <body ng-controller="homeController" class="notransition no-hidden" onload="startSpark()">
+    <body  class="notransition no-hidden" onload="startSpark()" id="angularhome" ng-controller="homeController">
     	
         <!-- Hero -->
 
@@ -259,9 +262,9 @@
                 <div class="home-nav">
 
                     <ul>
-						<li><a href="#" data-toggle="modal" data-target="#sparkInicio" onclick="iniciarAsistenteFase1()">Spark</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
+						<li><a href="" data-toggle="modal" data-target="#sparkInicio" onclick="iniciarAsistenteFase1()">Spark</a></li>
+                        <li><a href="" ng-click="register()" data-toggle="modal" data-target="#signup">Registro</a></li>
+                        <li><a href="" ng-click="signup()" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
                     </ul>
                 </div>
             </div>

@@ -19,7 +19,7 @@ $allowedActions = array(
 
 $response = array('status' => 0, 'error_code' => 0, 'description' => 'Success', 'data' => array());
 $continue = True;
-$REQUEST = $_GET;
+$REQUEST = $_POST;
 $ACTION = '';
 //Si el parametro action está o no
 if(!isset($REQUEST['action'])){
@@ -134,8 +134,8 @@ if($continue){
 
 			if($continue){
 				
-				$filters['dateini'] = DateTime::createFromFormat('D M d Y H:i:s eO', base64_decode($REQUEST['dateini']))->format('Y-m-d');
-				$filters['dateend'] = DateTime::createFromFormat('D M d Y H:i:s eO', base64_decode($REQUEST['dateend']))->format('Y-m-d');
+				$filters['dateini'] = DateTime::createFromFormat('D M d Y H:i:s eO', $REQUEST['dateini'])->format('Y-m-d');
+				$filters['dateend'] = DateTime::createFromFormat('D M d Y H:i:s eO', $REQUEST['dateend'])->format('Y-m-d');
 
 				if(isset($REQUEST['zone']))$filters['zone'] = $REQUEST['zone'];
 				if(isset($REQUEST['rooms']))$filters['rooms'] = $REQUEST['rooms'];

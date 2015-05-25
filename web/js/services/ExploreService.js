@@ -28,7 +28,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 				[
 					{name: 'action',filter: 'same'},
 					{name: 'email',filter: 'same'},
-					{name: 'password',filter: 'base64'}				
+					{name: 'password',filter: 'same'}				
 				], 
 				nonrequired:[]
 			}
@@ -42,6 +42,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 					{name: 'action',filter: 'same'},
 					{name: 'dateini',filter: 'same'},
 					{name: 'dateend',filter: 'same'},
+					
 				],
 				nonrequired:[
 					{name: 'zone',filter: 'same'},
