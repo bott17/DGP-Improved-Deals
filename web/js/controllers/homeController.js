@@ -1,5 +1,5 @@
 
-angular.module('aloha').controller('homeController', function ($scope, $log, HomeService,$location,$window) {
+angular.module('aloha').controller('homeController', function ($scope, $log, HomeService,$location,$window,$rootScope) {
 
 
   console.log($window);
@@ -83,6 +83,13 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
   $scope.today = function() {
     $scope.dt = new Date();
   };
+  
+  $scope.asistente = function() {
+    
+    $window.location.href = "https://localhost/DGP-Improved-Deals/web/explore.html";
+    
+  };
+  
   $scope.today();
   $scope.dtstart = null;
   $scope.dtend = null;
@@ -116,8 +123,6 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
    */
   $scope.search = function(){
     
-
-    
     if($scope.dtstart != null && $scope.dtend != null){
         	
           $window.prueba = true;
@@ -125,38 +130,16 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
           
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
-          
-          //$scope.serviceAction('searchHome',$scope.objSearch);
-          alertify.success('Busqueda lanzada');
-          console.log($scope.objSearch);
-          
-        	console.log("LOCATION: ",$location.$$absUrl);
-          //$location.path('explore.html', false);
-         // $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
+
+          $rootScope.$broadcast('broadcasting', $scope.objSearch);
+                
+          $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
           
           console.log($window.location.href);
          
     }
-    
-    
-  }
 
-
-  $scope.$watch(function(){
-       return $window.finAsistente;
-    }, function(value) {
-      
-       console.log("Se acciono el watch");
-       if($window.finAsistente){
-          console.log("Prueba ha cambiado");
-         console.log("Asistente finalizado");
-        alertify.success("Asistente finalizado, buscando...");
-        $window.finAsistente = false;
-       }
-       
-   });
-
-
+  };
 
   $scope.serviceAction = function(action,obj){
     
@@ -208,18 +191,19 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
           
                 $response = angular.fromJson(response.data);
                 console.log($response);
+                
+               
             });
            break;
            
         default:
           break;
-      }
+       }
     
     
-  }
+      };
     
-    console.log(obj);
-  };
+    };
 
 
 });

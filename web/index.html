@@ -61,7 +61,7 @@
 		
 		
 		function iniciarAsistenteFase1(){
-			lanzarPregunta(true);
+			lanzarPregunta(true); 
 		}
 		
 		
@@ -170,8 +170,8 @@
 			mySpark.hablar("hasta " + respuestaFinal4, function () {
 				
 				document.getElementById("home").click();
-				finAsistente = true;
-				});
+				var finAsistente = true;     
+			});
 			
 			
 		}
@@ -235,7 +235,7 @@
 	</script>
 	
     </head>
-    <body  class="notransition no-hidden" onload="startSpark()">
+    <body  class="notransition no-hidden" onload="startSpark()" id="angularhome" ng-controller="homeController">
     	
         <!-- Hero -->
 
