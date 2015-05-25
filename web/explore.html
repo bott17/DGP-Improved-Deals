@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" ng-app="aloha">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,8 @@
         <link href="css/datepicker.css" rel="stylesheet">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/app.css" rel="stylesheet">
+        <link href="css/aloha.css" rel="stylesheet">
+
         
         
         <script src="spark/sparkv2.js" type="text/javascript"></script>
@@ -49,6 +51,13 @@
 			startSpark();
 			
 			todosHoteles = new Array();
+			
+			var click = localStorage.getItem("asistenteON");
+			if(click == true){
+				console.log("spark start");
+				localStorage.setItem("asistenteON", false);
+				document.getElementById("iniciarAsistenteButton").click();
+			}
 			
 		}
 		
@@ -126,10 +135,14 @@
 		function recuperarOpciones(){
 			
 			// TODO FAKE
-			opcionUser1 = "Centro";
-			opcionUser2 = "2";
-			opcionUser3 = "19 de Mayo de 2015";
-			opcionUser4 = "21 de Mayo de 2015";
+			//opcionUser1 = "Centro";
+			//opcionUser2 = "2";
+			//opcionUser3 = "19 de Mayo de 2015";
+			//opcionUser4 = "21 de Mayo de 2015";
+			opcionUser1 =  localStorage.getItem("opcionUser1");
+			opcionUser2 =  localStorage.getItem("opcionUser2");
+			opcionUser3 =  localStorage.getItem("opcionUser3");
+			opcionUser4 =  localStorage.getItem("opcionUser4");
 			
 			document.getElementById("popUpOpcion1").innerHTML = opcionUser1;
 			document.getElementById("popUpOpcion2").innerHTML = opcionUser2;
@@ -305,14 +318,15 @@
         </script>
 		
     </head>
-    <body class="notransition" onload="iniciarAsistenteFase1()">	
+
+    <body class="notransition ng-cloak" ng-controller="exploreController" onload="iniciarAsistenteFase1()">	
 		
 		<!-- Header -->
 		
         <div id="header">
             <div class="logo">
                 <a href="index.html">
-                    <span class="fa fa-home marker"></span>
+                    <span id="homeExplorer" class="fa fa-home marker"></span>
                     <span class="logoText">Inicio</span>
                 </a>
             </div>
@@ -320,9 +334,9 @@
             <div class="search">
                 <span class="searchIcon icon-magnifier"></span>
                 <input type="text" placeholder="Buscar hoteles...">			
-					<a href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase2()">Integracion Alvaro</a>			
+					<a id="iniciarAsistenteButton" href="#" data-toggle="modal" data-target="#sparkfinal" onclick="iniciarAsistenteFase2()">Spark</a>			
 		    </div>
-            <div class="headerUserWraper">
+            <div class="headerUserWraper" ng-show="identifiedUser">
                 <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span><span class="counter">5</span></a>
                 <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
                     <img class="avatar headerAvatar pull-left" src="images/avatar-1.png" alt="avatar">
@@ -343,25 +357,134 @@
                     </ul>
                 </div>
             </div>
+            <div id="nonRegistered" class="headerUserWraper home-nav" ng-hide="identifiedUser">
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
+                </ul>
+            </div>
             <a href="#" class="mapHandler"><span class="icon-map"></span></a>
             <div class="clearfix"></div>
         </div>
+        <div class="modal fade" id="signin" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signinLabel">Inicia sesión</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="btn-group-justified">
+                                    <a href="explore.html" class="btn btn-lg btn-facebook"><span class="fa fa-facebook pull-left"></span>Entra con Facebook</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group-justified">
+                                    <a href="explore.html" class="btn btn-lg btn-google"><span class="fa fa-google-plus pull-left"></span>Entra con tu cuenta de Google</a>
+                                </div>
+                            </div>
+                            <div class="signOr">o</div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Email Address" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="checkbox custom-checkbox"><label><input type="checkbox"><span class="fa fa-check"></span> Recordar</label></div>
+                                    </div>
+                                    <!-- 
+                                    <div class="col-xs-6 align-right">
+                                        <p class="help-block"><a href="#" class="text-green">¿Contraseña olvidada?</a></p>
+                                    </div> 
+                                    -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group-justified">
+                                    <a href="explore.html" class="btn btn-lg btn-green">Entra</a>
+                                </div>
+                            </div>
+                            <p class="help-block">¿Todavía sin cuenta? <a href="#" class="modal-su text-green">Regístrate!</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="modal fade" id="signup" role="dialog" aria-labelledby="signupLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signupLabel">Registro</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" name="formulario de registro">
+                            <div class="form-group">
+                                <div class="btn-group-justified">
+                                    <a href="explore.html" class="btn btn-lg btn-facebook"><span class="fa fa-facebook pull-left"></span>Entra con Facebook</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group-justified">
+                                    <a href="explore.html" class="btn btn-lg btn-google"><span class="fa fa-google-plus pull-left"></span>Entra con Google</a>
+                                </div>
+                            </div>
+                            <div class="signOr">o</div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Nombre" ng-required="true" class="form-control" ng-model="objUser.name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Apellidos" ng-required="true" class="form-control" ng-model="objUser.surname">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="E-mail"  ng-required="true" class="form-control" ng-model="objUser.email">
+                            </div>
+                            <div class="form-group">
+
+                                <input type="text" ng-show="objUser.hostelero"  ng-required="true" placeholder="Nombre de la compañia" class="form-control" ng-model="objUser.companyName">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" ng-show="objUser.hostelero"   ng-required="true" placeholder="NIF" class="form-control" ng-model="objUser.nif">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Contraseña" class="form-control" ng-required="true" ng-model="objUser.password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Confirma tu contraseña" ng-required="true" class="form-control" ng-model="confirmPass">
+                            </div>
+                           <div class="checkbox custom-checkbox">
+                               <label><input type="checkbox" ng-model="objUser.hostelero"><span class="fa fa-check"></span> HEY! Soy hostelero</label>               
+                           </div>
+                            
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <button class="btn btn-lg btn-green" ng-click="register()">Registrame!</button>
+                                </div>
+                            </div>
+                            <p class="help-block">Ya tienes cuenta? <a href="#" class="modal-si text-green">Inicia sesión</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Left Side Navigation -->
 
         <div id="leftSide">
-            <nav class="leftNav scrollable">
+            <nav id="escape" class="leftNav scrollable">
                 <div class="search">
                     <span class="searchIcon icon-magnifier"></span>
                     <input type="text" placeholder="Buscar hoteles...">
                     <div class="clearfix"></div>
                 </div>
                 <ul>
-                    <li><a href="explore.html"><span class="navIcon icon-compass"></span><span class="navLabel">Buscar</span></a></li>
-                    <li><a href="add.html"><span class="navIcon icon-plus"></span><span class="navLabel">Nuevo</span></a></li>
+                    <li><a href="add.html" ng-show="hostelero"><span class="navIcon icon-plus"></span><span class="navLabel">Nuevo</span></a></li>
                 </ul>
             </nav>
-            <div class="leftUserWraper dropup">
+            <div class="leftUserWraper dropup" ng-show="identifiedUser">
                 <a href="#" class="avatarAction dropdown-toggle" data-toggle="dropdown">
 					<img class="avatar" src="images/avatar-1.png" alt="avatar">
                     <div class="userBottom pull-left">
@@ -390,6 +513,23 @@
                     <a href="#" class="handleFilter"><span class="icon-equalizer"></span></a>
                     <div class="clearfix"></div>
                     <form class="filterForm">
+                        <div class="dateForm">
+                            <div class="row form-group" style="color: #333;">
+                        <div class='input-group col-xs-12 col-sm-12 col-md-5 col-lg-5' >
+                            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dtstart" is-open="openeddt1"  max-date="dtend" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event,'dp1')"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                        </div>
+                        <div class='input-group rightDate col-xs-12 col-sm-12 col-md-5 col-lg-5'>
+                            <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dtend" is-open="openeddt2" min-date="dtstart" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event,'dp2')"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                        </div>
+
+                    </div>
+                        </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 formItem">
                                 <div class="formField">
@@ -406,23 +546,9 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 formItem">
+                             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 formItem roomsField">
                                 <div class="formField">
                                     <label>Habitaciones</label>
-                                    <div class="volume">
-                                        <a href="#" class="btn btn-gray btn-round-left"><span class="fa fa-angle-left"></span></a>
-                                        <input type="text" class="form-control" readonly value="1">
-                                        <a href="#" class="btn btn-gray btn-round-right"><span class="fa fa-angle-right"></span></a>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 formItem">
-                                <div class="formField">
-                                    <label>Baños</label>
                                     <div class="volume">
                                         <a href="#" class="btn btn-gray btn-round-left"><span class="fa fa-angle-left"></span></a>
                                         <input type="text" class="form-control" readonly value="1">
@@ -924,5 +1050,10 @@
         <script src="js/jquery/jquery.tagsinput.min.js"></script>
         <script src="js/jquery/bootstrap-datepicker.js"></script>
         <script src="js/jquery/app.js" type="text/javascript"></script>
-    </body>
-</html>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js" type="text/javascript"></script>
+        <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
+        <script src="//code.angularjs.org/1.3.9/angular-aria.js"></script>
+        <script src="https://code.angularjs.org/1.3.5/angular-route.js"></script>
+        <script src="js/app/app.js"></script>
+        <script src="js/services/ExploreService.js"></script>
+        <script src="js/controllers/exploreController.js"></script>

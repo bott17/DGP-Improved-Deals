@@ -136,6 +136,7 @@ if($continue){
 				
 				$filters['dateini'] = DateTime::createFromFormat('D M d Y H:i:s eO', base64_decode($REQUEST['dateini']))->format('Y-m-d');
 				$filters['dateend'] = DateTime::createFromFormat('D M d Y H:i:s eO', base64_decode($REQUEST['dateend']))->format('Y-m-d');
+
 				if(isset($REQUEST['zone']))$filters['zone'] = $REQUEST['zone'];
 				if(isset($REQUEST['rooms']))$filters['rooms'] = $REQUEST['rooms'];
 				if(isset($REQUEST['type']))$filters['type'] = $REQUEST['type'];
