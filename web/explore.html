@@ -53,10 +53,13 @@
 			todosHoteles = new Array();
 			
 			var click = localStorage.getItem("asistenteON");
-			if(click == true){
+			if(click != null &&click.indexOf("true") != -1){
 				console.log("spark start");
 				localStorage.setItem("asistenteON", false);
 				document.getElementById("iniciarAsistenteButton").click();
+			}
+			else{
+				console.log("spark no iniciado");
 			}
 			
 		}
@@ -597,7 +600,7 @@
                                 <div class="figure">
                                     <img src="images/prop/1-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,550,000</div>
+                                        <div>€155</div>
                                         <span class="icon-eye"> 200</span>
                                         <span class="icon-heart"> 54</span>
                                         <span class="icon-bubble"> 13</span>
@@ -605,8 +608,8 @@
                                     <div class="figView"><span class="icon-eye"></span></div>
                                     <div class="figType">Piso</div>
                                 </div>
-                                <h2>Modern Residence in New York</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 39 Remsen St, Brooklyn, NY 11201, USA</div>
+                                <h2>Smart suite Albaicin</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Albaicin, cuesta del chapiz, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -617,8 +620,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 3</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 3430 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -628,7 +629,7 @@
                                 <div class="figure">
                                     <img src="images/prop/2-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,750,000</div>
+                                        <div>€175</div>
                                         <span class="icon-eye"> 175</span>
                                         <span class="icon-heart"> 67</span>
                                         <span class="icon-bubble"> 9</span>
@@ -636,8 +637,8 @@
                                     <div class="figView"><span class="icon-eye"></span></div>
                                     <div class="figType">Casa</div>
                                 </div>
-                                <h2>Hauntingly Beautiful Estate</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 169 Warren St, Brooklyn, NY 11201, USA</div>
+                                <h2>Hotel Nazaríes</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Calle neptuno 1, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -648,8 +649,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 2</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 4430 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -659,7 +658,7 @@
                                 <div class="figure">
                                     <img src="images/prop/3-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,340,000</div>
+                                        <div>€134</div>
                                         <span class="icon-eye"> 180</span>
                                         <span class="icon-heart"> 87</span>
                                         <span class="icon-bubble"> 12</span>
@@ -667,8 +666,8 @@
                                     <div class="figView"><span class="icon-eye"></span></div>
                                     <div class="figType">Hotel</div>
                                 </div>
-                                <h2>Sophisticated Residence</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 38-62 Water St, Brooklyn, NY 11201, USA</div>
+                                <h2>Hotel Santa Paula</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Calle Gran Vía de Colón 36, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -679,8 +678,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 2</li>
-                                    <li><span class="icon-drop"></span> 3</li>
-                                    <li><span class="icon-frame"></span> 2640 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -690,16 +687,16 @@
                                 <div class="figure">
                                     <img src="images/prop/4-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,930,000</div>
+                                        <div>€193</div>
                                         <span class="icon-eye"> 145</span>
                                         <span class="icon-heart"> 99</span>
                                         <span class="icon-bubble"> 25</span>
                                     </div>
                                     <div class="figView"><span class="icon-eye"></span></div>
-                                    <div class="figType">Piso</div>
+                                    <div class="figType">Casa rural</div>
                                 </div>
-                                <h2>House With a Lovely Glass-Roofed Pergola</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> Wunsch Bldg, Brooklyn, NY 11201, USA</div>
+                                <h2>Casería de las delicias</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span>Calle ogijares 33, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -710,8 +707,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 3</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 2800 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -721,7 +716,7 @@
                                 <div class="figure">
                                     <img src="images/prop/5-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$2,350,000</div>
+                                        <div>€235</div>
                                         <span class="icon-eye"> 184</span>
                                         <span class="icon-heart"> 120</span>
                                         <span class="icon-bubble"> 18</span>
@@ -729,8 +724,8 @@
                                     <div class="figView"><span class="icon-eye"></span></div>
                                     <div class="figType">Piso</div>
                                 </div>
-                                <h2>Luxury Mansion</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 95 Butler St, Brooklyn, NY 11231, USA</div>
+                                <h2>Hotel Vincci</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Avenida de la Constitucion 16, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -741,8 +736,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 2</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 2750 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -752,16 +745,16 @@
                                 <div class="figure">
                                     <img src="images/prop/1-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,550,000</div>
+                                        <div>€155</div>
                                         <span class="icon-eye"> 200</span>
                                         <span class="icon-heart"> 54</span>
                                         <span class="icon-bubble"> 13</span>
                                     </div>
                                     <div class="figView"><span class="icon-eye"></span></div>
-                                    <div class="figType">Piso</div>
+                                    <div class="figType">Hotel</div>
                                 </div>
-                                <h2>Modern Residence in New York</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 39 Remsen St, Brooklyn, NY 11201, USA</div>
+                                <h2>Hotel Alhambra Palace</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Avenida de la alhambra 1, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -772,8 +765,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 3</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 3430 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -783,16 +774,16 @@
                                 <div class="figure">
                                     <img src="images/prop/2-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,750,000</div>
+                                        <div>€175</div>
                                         <span class="icon-eye"> 175</span>
                                         <span class="icon-heart"> 67</span>
                                         <span class="icon-bubble"> 9</span>
                                     </div>
                                     <div class="figView"><span class="icon-eye"></span></div>
-                                    <div class="figType">Casa</div>
+                                    <div class="figType">Hotel</div>
                                 </div>
-                                <h2>Hauntingly Beautiful Estate</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 169 Warren St, Brooklyn, NY 11201, USA</div>
+                                <h2>Hotel Los Angeles</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Cuesta Escoriaza 7, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -803,8 +794,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 2</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 4430 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -814,7 +803,7 @@
                                 <div class="figure">
                                     <img src="images/prop/3-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,340,000</div>
+                                        <div>€134</div>
                                         <span class="icon-eye"> 180</span>
                                         <span class="icon-heart"> 87</span>
                                         <span class="icon-bubble"> 12</span>
@@ -822,8 +811,8 @@
                                     <div class="figView"><span class="icon-eye"></span></div>
                                     <div class="figType">Hotel</div>
                                 </div>
-                                <h2>Sophisticated Residence</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 38-62 Water St, Brooklyn, NY 11201, USA</div>
+                                <h2>Hotel Realejo</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Calle Molinas 26, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -834,8 +823,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 2</li>
-                                    <li><span class="icon-drop"></span> 3</li>
-                                    <li><span class="icon-frame"></span> 2640 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -845,16 +832,16 @@
                                 <div class="figure">
                                     <img src="images/prop/4-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$1,930,000</div>
+                                        <div>€193</div>
                                         <span class="icon-eye"> 145</span>
                                         <span class="icon-heart"> 99</span>
                                         <span class="icon-bubble"> 25</span>
                                     </div>
                                     <div class="figView"><span class="icon-eye"></span></div>
-                                    <div class="figType">Piso</div>
+                                    <div class="figType">Hostal</div>
                                 </div>
-                                <h2>House With a Lovely Glass-Roofed Pergola</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> Wunsch Bldg, Brooklyn, NY 11201, USA</div>
+                                <h2>Hostal Nevot</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Camino de Ronda 23, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -865,8 +852,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 3</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 2800 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
@@ -876,16 +861,16 @@
                                 <div class="figure">
                                     <img src="images/prop/5-1.png" alt="image">
                                     <div class="figCaption">
-                                        <div>$2,350,000</div>
+                                        <div>€59</div>
                                         <span class="icon-eye"> 184</span>
                                         <span class="icon-heart"> 120</span>
                                         <span class="icon-bubble"> 18</span>
                                     </div>
                                     <div class="figView"><span class="icon-eye"></span></div>
-                                    <div class="figType">Piso</div>
+                                    <div class="figType">Hotel</div>
                                 </div>
-                                <h2>Luxury Mansion</h2>
-                                <div class="cardAddress"><span class="icon-pointer"></span> 95 Butler St, Brooklyn, NY 11231, USA</div>
+                                <h2>Hotel Carmen</h2>
+                                <div class="cardAddress"><span class="icon-pointer"></span> Camino de Ronda 55, España</div>
                                 <div class="cardRating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
@@ -896,8 +881,6 @@
                                 </div>
                                 <ul class="cardFeat">
                                     <li><span class="fa fa-moon-o"></span> 2</li>
-                                    <li><span class="icon-drop"></span> 2</li>
-                                    <li><span class="icon-frame"></span> 2750 Sq Ft</li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </a>
