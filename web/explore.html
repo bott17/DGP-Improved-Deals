@@ -50,7 +50,10 @@
 			
 			todosHoteles = new Array();
 			
-			if(localStorage.getItem("asistenteON")){
+			var click = localStorage.getItem("asistenteON");
+			if(click == true){
+				console.log("spark start");
+				localStorage.setItem("asistenteON", false);
 				document.getElementById("iniciarAsistenteButton").click();
 			}
 			
