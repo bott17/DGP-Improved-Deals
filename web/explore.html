@@ -319,7 +319,7 @@
 		
     </head>
 
-    <body class="notransition ng-cloak" ng-controller="exploreController" onload="iniciarAsistenteFase1()">	
+    <body class="notransition ng-cloak" ng-controller="exploreController"  onload="iniciarAsistenteFase1()">	
 		
 		<!-- Header -->
 		
@@ -586,7 +586,7 @@
                             </div>
                         </div>
 						<div class="form-group">
-                            <a href="#" class="btn btn-green btn-lg">Buscar</a>
+                            <button ng-click="search()" class="btn btn-green btn-lg">Buscar</button>
                         </div>
                     </form>
                 </div>
@@ -1037,7 +1037,7 @@
 					</div>
 </div>
 	
-
+    	<script src="https://cdn.jsdelivr.net/alertifyjs/1.4.1/alertify.min.js"></script>
         <script src="js/jquery/jquery-2.1.1.min.js"></script>
         <script src="js/jquery/jquery-ui.min.js"></script>
         <script src="js/jquery/jquery-ui-touch-punch.js"></script>

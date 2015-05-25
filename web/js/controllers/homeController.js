@@ -3,6 +3,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
 
 
   console.log($window);
+
   $scope.service = HomeService;
   $scope.objUser = {
     
@@ -131,7 +132,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
 
-          $rootScope.$broadcast('broadcasting', $scope.objSearch);
+          $rootScope.$emit('hometoexplore', $scope.objSearch);
                 
           $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
           

@@ -42,6 +42,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 					{name: 'action',filter: 'same'},
 					{name: 'dateini',filter: 'same'},
 					{name: 'dateend',filter: 'same'},
+					
 				],
 				nonrequired:[
 					{name: 'zone',filter: 'same'},

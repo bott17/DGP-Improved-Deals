@@ -1,6 +1,8 @@
-angular.module('aloha').controller('exploreController', function ($scope, $log, $window, ExploreService){
+angular.module('aloha').controller('exploreController', function ($scope, $log, $window, ExploreService,$rootScope){
   console.log($window);
   
+  
+   console.log("SCOPE: ",$scope);
   $scope.service = ExploreService;
   $scope.hostelero = false;
   $scope.identifiedUser = false;
@@ -138,11 +140,20 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
           
-          $scope.serviceAction('search',$scope.objSearch);
-          alertify.success('Busqueda lanzada');
           console.log($scope.objSearch); 
+          alertify.success('Busqueda lanzada');
+          $scope.serviceAction('search',$scope.objSearch);
+          
+          
     }
   }
+  $scope.broadcast;
+  $scope.$on('hometoexplore', function(event, args) {
+
+     $scope.broadcast = args;
+      
+  });
+  console.log("Broadcast: ",$scope.broadcast);
   $scope.serviceAction = function(action,obj){
     
       switch (action) {
