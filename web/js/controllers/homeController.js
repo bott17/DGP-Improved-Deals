@@ -35,7 +35,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
    */
    $scope.register = function(){
      
-     console.log(" Pulsado boton register");
+   
      if( !$scope.objUser.hostelero && $scope.objUser.name != '' && $scope.objUser.surname != '' 
         && $scope.objUser.password != '' && $scope.objUser.email != ''
         && $scope.objUser.email != '' && $scope.confirmPass != '' && ($scope.objUser.password == $scope.confirmPass)){
@@ -59,7 +59,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
         
       }
     
-    console.log("objUser: ", $scope.objUser);
+  
    }
   
   /**
@@ -127,7 +127,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
     if($scope.dtstart != null && $scope.dtend != null){
         	
           $window.prueba = true;
-          console.log("prueba: ",$window.prueba);
+          
           
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
@@ -136,7 +136,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
                 
           $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
           
-          console.log($window.location.href);
+         
          
     }
 
@@ -174,7 +174,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
               }).then(function(response){
           
                 var response = angular.fromJson(response.data);
-                console.log(response)
+               
                 if(response.status == 0){
                     $window.location.href = "http://localhost/DGP-Improved-Deals/web/explore.html";
                 }
@@ -194,7 +194,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
               }).then(function(response){
           
                 var response = angular.fromJson(response.data);
-                console.log(response);
+               
                 
                
             });

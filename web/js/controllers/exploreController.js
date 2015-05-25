@@ -1,8 +1,5 @@
 angular.module('aloha').controller('exploreController', function ($scope, $log, $window, ExploreService,$rootScope){
-  console.log($window);
   
-  
-   console.log("SCOPE: ",$scope);
   $scope.service = ExploreService;
   $scope.hostelero = false;
   $scope.identifiedUser = true;
@@ -70,7 +67,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
    * Funcion que registra al usuario
    */
    $scope.register = function(){
-     console.log(" Pulsado boton register");
+  
      if( !$scope.objUser.hostelero && $scope.objUser.name != '' && $scope.objUser.surname != '' 
         && $scope.objUser.password != '' && $scope.objUser.email != ''
         && $scope.objUser.email != '' && $scope.confirmPass != '' && ($scope.objUser.password == $scope.confirmPass)){
@@ -89,12 +86,12 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
   $scope.signup = function(){
       
       if($scope.objUser !='' && $scope.objUser.password){
-        console.log("LOGIN: ", $scope.objUser);
+       
          //$scope.serviceAction('logIn',$scope.objUser);
          $scope.identifiedUser = true;
       } 
     
-  console.log("objUser: ", $scope.objUser);
+
   }
 
   $scope.today = function() {
@@ -131,7 +128,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
     	$scope.openeddt2 = true;
     }
 
-    console.log(obj);
+
   };
  /**
    * Funcion que realiza la acción de buscar
@@ -143,7 +140,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           $scope.objSearch.dateini = $scope.dtstart;
           $scope.objSearch.dateend = $scope.dtend;
           
-          console.log($scope.objSearch); 
+         
           alertify.success('Busqueda lanzada');
           $scope.serviceAction('search',$scope.objSearch);
           
@@ -156,7 +153,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
      $scope.broadcast = args;
       
   });
-  console.log("Broadcast: ",$scope.broadcast);
+ 
   $scope.serviceAction = function(action,obj){
     
       switch (action) {
@@ -171,7 +168,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
             }).then(function(response){
               var response = angular.fromJson(response.data);
               $scope.registerUserR = response.data;
-              console.log($response);
+           
           });
          break;
       
@@ -182,11 +179,11 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
                 email: obj.email,
                 password: obj.password
               }).then(function(response){
-                console.log("response.data")
+                
                 var result = angular.fromJson(response.data);
                 
                 //$scope.logIn = result.data;
-                console.log("LOGIN: ", result);
+               
                 if(result.status == 0){
                     $scope.objUser.name = result.data.name;
                     $scope.objUser.surname = result.data.surname;
@@ -194,7 +191,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
                      $scope.identifiedUser = true;
                      
                 }
-                console.log("La información tras identificarse es: ", $scope.logIn);
+          
             });
            break;
            
@@ -206,7 +203,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
               }).then(function(response){
                 var result = angular.fromJson(response.data);
                 $scope.searchR = result.data;
-                console.log("El resultado de la búsqueda es: ", $scope.searchR);
+                
             });
            break;
           
@@ -216,7 +213,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           }).then(function(response){
             var result = angular.fromJson(response.data);
             $scope.lastFourCommentsR = result.data;
-            console.log("Los últimos 4 comentarios son: ", $scope.lastFourCommentsR);
+            
           });
           break;
 
@@ -228,7 +225,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           }).then(function(response){
             var result = angular.fromJson(response.data);
             $scope.lastSixPropertiesR = result.data;
-            console.log("Las últimas 6 propiedades son: ", $scope.lastSixPropertiesR);
+           
           });
           break;
           case 'rent':
@@ -243,7 +240,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           }).then(function(response){
             var result = angular.fromJson(response.data);
             $scope.rentR = result.data;
-            console.log("Alojamiento alquilado: ", $scope.rentR);
+       
           });
           break;
           case 'listUserProperties':
@@ -255,7 +252,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           }).then(function(response){
              var result = angular.fromJson(response.data);
              $scope.userListR = result.data;
-            console.log("Propiedades del usuario: ",$scope.userListR);
+            
           });
         break;
         case 'similarProperties':
@@ -266,7 +263,7 @@ angular.module('aloha').controller('exploreController', function ($scope, $log, 
           }).then(function(response){
             var result = angular.fromJson(response.data);
             $scope.similarPropertiesR = result.data;
-            console.log("Propiedades similares: ",$scope.similarPropertiesR);
+      
           });
           break;
         
