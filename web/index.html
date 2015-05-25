@@ -62,6 +62,7 @@
 		
 		function iniciarAsistenteFase1(){
 			lanzarPregunta(true);
+			
 		}
 		
 		
@@ -169,8 +170,12 @@
 			mySpark.hablar("Reserva desde " + respuestaFinal3);
 			mySpark.hablar("hasta " + respuestaFinal4, function () {
 				
-				document.getElementById("home").click();
-				finAsistente = true;
+				localStorage.setItem("opcionUser1", respuestaFinal1);
+				localStorage.setItem("opcionUser2", respuestaFinal2);
+				localStorage.setItem("opcionUser3", respuestaFinal3);
+				localStorage.setItem("opcionUser4", respuestaFinal4);
+				localStorage.setItem("asistenteON", true);
+				var myWindow = window.open('https://localhost/dgp/explore.html', '_self');
 				});
 			
 			
@@ -254,7 +259,7 @@
                 <div class="home-nav">
 
                     <ul>
-						<li><a href="#" data-toggle="modal" data-target="#sparkInicio" onclick="iniciarAsistenteFase1()">Integración</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#sparkInicio" onclick="iniciarAsistenteFase1()">Spark</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#signup">Registro</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#signin">Inicia Sesion</a></li>
                     </ul>
