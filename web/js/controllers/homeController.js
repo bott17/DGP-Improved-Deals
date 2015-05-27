@@ -87,7 +87,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
   
   $scope.asistente = function() {
     
-    $window.location.href = "https://localhost/DGP-Improved-Deals/web/explore.html";
+    $window.location.href = "https://localhost/dgp/explore.html";
     
   };
   
@@ -134,7 +134,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
 
           $rootScope.$emit('hometoexplore', $scope.objSearch);
                 
-          $window.location.href = 'http://localhost/DGP-Improved-Deals/web/explore.html';
+          $window.location.href = 'https://localhost/dgp/explore.html';
           
          
          
@@ -176,7 +176,7 @@ angular.module('aloha').controller('homeController', function ($scope, $log, Hom
                 var response = angular.fromJson(response.data);
                
                 if(response.status == 0){
-                    $window.location.href = "http://localhost/DGP-Improved-Deals/web/explore.html";
+                    $window.location.href = "https://localhost/dgp/explore.html";
                 }
             });
            break;

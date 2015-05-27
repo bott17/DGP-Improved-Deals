@@ -2,7 +2,7 @@ angular.module('aloha').service('HomeService', function($http, $window) {
 	
 	this.urlObj = {
 		registerUser: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.php',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -23,7 +23,8 @@ angular.module('aloha').service('HomeService', function($http, $window) {
 		},
 		
 		logIn: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.php',
+			//url: 'http://aloha2.tk/backend',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -38,7 +39,8 @@ angular.module('aloha').service('HomeService', function($http, $window) {
 		},
 		
 		searchHome: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.php',
+			//url: 'http://aloha2.tk/backend',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 

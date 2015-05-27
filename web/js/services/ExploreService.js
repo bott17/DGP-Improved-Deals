@@ -2,7 +2,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 	
 	this.urlObj = {
 		registerUser: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -21,7 +21,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		logIn: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -34,7 +34,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		search:{
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -61,7 +61,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		lastFourComments: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -72,7 +72,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		lastSixProperties: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.phh',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -83,7 +83,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		rent: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -98,7 +98,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		listUserProperties: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
@@ -110,7 +110,7 @@ angular.module('aloha').service('ExploreService', function($http, $window) {
 			}
 		},
 		similarProperties: {
-			url: 'http://localhost/DGP-Improved-Deals/backend/DBController.php',
+			url: './backend/DBController.ph',
 			//url: 'http://aloha2.tk/backend/DBController.php',
 			parameters:{
 				required: 
