@@ -62,7 +62,7 @@
 				console.log("spark no iniciado");
 			}
 			
-			localStorage.clear();
+			//localStorage.clear();
 			
 		}
 		
@@ -85,13 +85,12 @@
 
 		function seleccionarSubFiltros(callback){
 			
-			mySparkExplorer.hablar("Refina tu busqueda indicandome algunas comodidades extras. Dime si te interesan algunas de ellas");
+			//mySparkExplorer.hablar("Refina tu busqueda indicandome algunas comodidades extras. Dime si te interesan algunas de ellas");
 			
 			rellenarPregunta("¿Que comodidades te gustaría tener?");
 			mySparkExplorer.pregunta("De entre las siguientes comodidades, ¿cuales te gustaría tener en tu reserva? \n " +
-				"Seguridad extra, aire acondicionado, piscina, internet + Wifi, calefacción, televisión, jardín o telefono", function (err, result){
+				"Seguridad , aire acondicionado, piscina e internet + Wifi", function (err, result){
 					
-				//console.log(result.final_transcript);
 				if (err) {
 					mySparkExplorer.hablar("No tendre encuenta ninguna comodidad nueva para la busquedad");
 					rellenarPregunta("No tendre encuenta ninguna comodidad nueva para la busquedad");

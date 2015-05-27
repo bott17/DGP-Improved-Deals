@@ -165,11 +165,8 @@
 		}
 		
 		function finalizarPreguntas(){
-			mySpark.hablar("Veamos tu eleccion...");
-			mySpark.hablar("Prefieres la zona:" +  respuestaFinal1);
-			mySpark.hablar("Buscas " +  respuestaFinal2 + " habitaciones");
-			mySpark.hablar("Reserva desde " + respuestaFinal3);
-			mySpark.hablar("hasta " + respuestaFinal4, function () {
+			
+			mySpark.hablar("Has elegido la zona:  " + respuestaFinal1 + ", con las siguientes habitaciones: " + respuestaFinal2 + " , desde: " + respuestaFinal3 + " hasta: " + respuestaFinal4, function () {
 				
 
 				localStorage.setItem("opcionUser1", respuestaFinal1);

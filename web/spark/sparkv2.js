@@ -41,6 +41,8 @@ Sparkv2.prototype.pregunta = function (text, callback) {
     // ask question
     this.hablar(text, function () {
         // get answer
+        
+        
         var recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
@@ -49,11 +51,11 @@ Sparkv2.prototype.pregunta = function (text, callback) {
         
         recognition.onerror = function(event) {
 		    if (event.error == 'no-speech') {
-		       tempSpark.cambiarImgagenRecurso('images/imgspark/mic.gif');
+		       tempSpark.cambiarImgagenRecurso('images/imgspark/micro.gif');
 		      ignore_onend = true;
 		    }
 		    if (event.error == 'audio-capture') {
-		       tempSpark.cambiarImgagenRecurso('images/imgspark/mic.gif');
+		       tempSpark.cambiarImgagenRecurso('images/imgspark/micro.gif');
 		      ignore_onend = true;
 		    }
 		    if (event.error == 'not-allowed') {
