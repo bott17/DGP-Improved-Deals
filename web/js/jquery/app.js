@@ -43,11 +43,11 @@
     
     // json for properties markers on map
     var props = [{
-        title : 'Pedro Antonio Alarcon',
+        title : 'Residencia Rice',
         image : '1-1-thmb.png',
-        type : 'Hotel',
-        price : '1,550,000',
-        address : '39 Remsen St, Brooklyn, NY 11201, USA',
+        type : 'Alquiler',
+        price : '250 €',
+        address : 'Calle Sta Lucía, 11, 18194',
         bedrooms : '3',
         bathrooms : '2',
         area : '3430 Sq Ft',
@@ -57,11 +57,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Hauntingly Beautiful Estate',
+        title : 'Hotel DB',
         image : '2-1-thmb.png',
-        type : 'Alquiler',
-        price : '750,000',
-        address : '169 Warren St, Brooklyn, NY 11201, USA',
+        type : 'Hotel',
+        price : '150',
+        address : 'Calle Vicente Aleixandre, 13, 18194',
         bedrooms : '2',
         bathrooms : '2',
         area : '4430 Sq Ft',
@@ -71,11 +71,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Sophisticated Residence',
+        title : 'Residencia Privada',
         image : '3-1-thmb.png',
         type : 'Alquiler',
-        price : '1,340,000',
-        address : '38-62 Water St, Brooklyn, NY 11201, USA',
+        price : '134',
+        address : 'Calle Vicente Aleixandre, 5, 18194',
         bedrooms : '2',
         bathrooms : '3',
         area : '2640 Sq Ft',
@@ -85,11 +85,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'House With a Lovely Glass-Roofed Pergola',
+        title : 'Casa Vistas',
         image : '4-1-thmb.png',
         type : 'Alquiler',
-        price : '1,930,000',
-        address : 'Wunsch Bldg, Brooklyn, NY 11201, USA',
+        price : '89',
+        address : 'Calle Luís de Gongora, 2, 18194',
         bedrooms : '3',
         bathrooms : '2',
         area : '2800 Sq Ft',
@@ -99,11 +99,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Luxury Mansion',
+        title : 'Residencia Privada',
         image : '5-1-thmb.png',
         type : 'Casa',
-        price : '2,350,000',
-        address : '95 Butler St, Brooklyn, NY 11231, USA',
+        price : '77',
+        address : 'Calle Antonio Gala, 5, 18194',
         bedrooms : '2',
         bathrooms : '2',
         area : '2750 Sq Ft',
@@ -113,11 +113,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Modern Residence in New York',
+        title : 'Residencia De Lujo',
         image : '1-1-thmb.png',
         type : 'Piso',
-        price : '1,550,000',
-        address : '39 Remsen St, Brooklyn, NY 11201, USA',
+        price : '155',
+        address : 'Calle Antonio Gala, 5, 18194',
         bedrooms : '3',
         bathrooms : '2',
         area : '3430 Sq Ft',
@@ -127,11 +127,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Hauntingly Beautiful Estate',
+        title : 'Apartamento Doble',
         image : '2-1-thmb.png',
         type : 'Hotel',
-        price : '1,750,000',
-        address : '169 Warren St, Brooklyn, NY 11201, USA',
+        price : '89',
+        address : 'Calle Antonio Gala, 5, 18194',
         bedrooms : '2',
         bathrooms : '2',
         area : '4430 Sq Ft',
@@ -141,11 +141,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Sophisticated Residence',
+        title : 'Chalet Privado',
         image : '3-1-thmb.png',
         type : 'Piso',
-        price : '1,340,000',
-        address : '38-62 Water St, Brooklyn, NY 11201, USA',
+        price : '110',
+        address : 'Calle Antonio Gala, 7, 18194',
         bedrooms : '2',
         bathrooms : '3',
         area : '2640 Sq Ft',
@@ -158,8 +158,8 @@
         title : 'House With a Lovely Glass-Roofed Pergola',
         image : '4-1-thmb.png',
         type : 'Piso',
-        price : '1,930,000',
-        address : 'Wunsch Bldg, Brooklyn, NY 11201, USA',
+        price : '93',
+        address : 'Calle Antonio Gala, 5, 18194',
         bedrooms : '3',
         bathrooms : '2',
         area : '2800 Sq Ft',
@@ -169,11 +169,11 @@
         },
         markerIcon : "marker-green.png"
     }, {
-        title : 'Luxury Mansion',
+        title : 'Hotel Mcrn',
         image : '5-1-thmb.png',
         type : 'Hotel',
-        price : '2,350,000',
-        address : '95 Butler St, Brooklyn, NY 11231, USA',
+        price : '111',
+        address : 'Calle Rafael Alberti, 2, 18194',
         bedrooms : '2',
         bathrooms : '2',
         area : '2750 Sq Ft',
